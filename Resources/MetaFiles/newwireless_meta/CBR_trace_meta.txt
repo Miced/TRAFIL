@@ -1,0 +1,7 @@
+NumberOfFields 4
+NumberOfColumns 6
+UniqueCounter 1
+-name CBR_Unique -type varchar(3) -index 1 -unique -Pi
+-name CBR_SequenceNumber -type int -index 2
+-name CBR_TimesForwarded -type int -index 4
+-name CBR_OptimalForwards -type int -index 6

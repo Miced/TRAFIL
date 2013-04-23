@@ -1,0 +1,12 @@
+NumberOfFields 9
+NumberOfColumns 16
+UniqueCounter 1
+-name TORA_Type -type int -index 2
+-name TORA_Unique -type varchar(3) -index 3 -unique -Pt
+-name TORA_Destination -type int -index 4
+-name TORA_Time -type double -index 6
+-name TORA_CreatorID -type int -index 8
+-name TORA_R -type int -index 10
+-name TORA_Delta -type int -index 12
+-name TORA_ID -type int -index 14
+-name TORA_Operation -type int -index 16

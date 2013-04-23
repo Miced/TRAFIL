@@ -1,0 +1,7 @@
+NumberOfFields 4
+NumberOfColumns 4
+UniqueCounter 4
+-name SourceLatitude -type double -index 1 -unique .
+-name SourceLongitude -type double -index 2 -unique .
+-name DestinationLatitude -type double -index 3 -unique .
+-name DestinationLongtitude -type double -index 4 -unique .

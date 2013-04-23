@@ -1,0 +1,11 @@
+NumberOfFields 8
+NumberOfColumns 8
+UniqueCounter 6
+-name AODVReuest_Type -type varchar(20) -index 1 -startsWith [ -unique 0x
+-name AODVRequest_HopCount -type int -index 2
+-name AODVRequest_BroadcastID -type int -index 3
+-name AODVRequest_Destination -type int -index 4 -unique [ -startsWith [
+-name AODVRequest_DestinationSeenceNumber -type int -index 5 -unique ] -endsWith ]
+-name AODVRequest_Source -type int -index 6 -startsWith [ -unique [
+-name AODVRequest_SourceSequenceNumber -type int -index 7 -endsWith ]] -unique ]]
+-name AODVRequest_Request -type varchar(20) -index 8 -startsWith ( -endsWith ) -unique )

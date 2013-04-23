@@ -1,0 +1,13 @@
+NumberOfFields 10
+NumberOfColumns 18
+UniqueCounter 1
+-name AODV_Type -type varchar(20) -index 2
+-name AODV_HopCount -type int -index 4
+-name AODV_BroadcastID -type int -index 6
+-name AODV_Destination -type int -index 8
+-name AODV_DestinationSequenceNumber -type int -index 10
+-name AODV_Source -type int -index 12
+-name AODV_SourceSequencenumber -type int -index 14
+-name AODV_Lifetime -type double -index 16
+-name AODV_Unique -type varchar(3) -index 17 -unique -Pc
+-name AODV_Operation -type varchar(20) -index 18

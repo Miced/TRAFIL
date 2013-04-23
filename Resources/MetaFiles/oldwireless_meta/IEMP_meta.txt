@@ -1,0 +1,7 @@
+NumberOfFields 4
+NumberOfColumns 4
+UniqueCounter 2
+-name AcknowledgmentFlag -type char(1) -index 1 -startsWith [ -unique [
+-name HelloFlag -type char(1) -index 2
+-name ObjectFlag -type char(1) -index 3
+-name Lenghth -type hexadecimal -index 4 -endsWith ] -unique 0x

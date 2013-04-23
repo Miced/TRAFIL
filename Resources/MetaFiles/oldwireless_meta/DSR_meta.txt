@@ -1,0 +1,16 @@
+NumberOfFields 13
+NumberOfColumns 11
+UniqueCounter 6
+-name NumberOfNodes -type int -index 1
+-name RoutingRequestFlag -type int -index 2 -startsWith [ -unique [
+-name RouteRequestSequenceNumber -type int -index 3 -endsWith ] -unique ]
+-name RoutingReplyFlag -type int -index 4 -startsWith [ -unique [
+-name RouteReplySequenceNumber -type int -index 5
+-name ReplyLength -type int -index 6
+-name SourceOfSourceRouting -type int -index 7 -delimiter -> -unique -> -endsWith ]
+-name DestinationOfSourceRouting -type int -index 7
+-name ErrorReportFlag -type int -index 8 -startsWith [ -unique [
+-name NumberOfErrors -type int -index 9
+-name ReportToWhom -type int -index 10
+-name LinkErrorFrom -type int -index 11 -endsWith ] -unique ] -delimiter ->
+-name LinkErrorTo -type int -index 11

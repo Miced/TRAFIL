@@ -1,0 +1,11 @@
+NumberOfFields 8
+NumberOfColumns 16
+UniqueCounter 1
+-name Type -type varchar(20) -index 3 -startsWith 0x
+-name HopCount -type int -index 5
+-name BroadcastID -type int -index 7
+-name Destination -type int -index 9
+-name DestinationSeqNumber -type int -index 11
+-name Source -type int -index 13
+-name SourceSeqnumber -type int -index 15
+-name Operation -type varchar(20) -index 17 -unique REQUEST 

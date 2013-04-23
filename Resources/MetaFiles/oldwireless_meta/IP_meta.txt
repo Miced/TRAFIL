@@ -1,0 +1,9 @@
+NumberOfFields 6
+NumberOfColumns 5
+UniqueCounter 3
+-name SourceIpAddress -type int -index 2 -startsWith [ -unique [ -delimiter :
+-name SourcePortNumber -type int -index 2
+-name DestinationIpAddress -type int -index 3 -delimiter : -unique :
+-name DestinationPortNumber -type int -index 3
+-name TTLValue -type int -index 4
+-name NextHopAddress -type int -index 5 -endsWith ] -unique ]

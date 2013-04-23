@@ -1,0 +1,6 @@
+NumberOfFields 3
+NumberOfColumns 3
+UniqueCounter 1
+-name CBRSequenceNumber -type int -index 1 -startsWith [ -endsWith ] -unique ]
+-name CBRNumberOfTimesPktForwarded -type int -index 2
+-name CBROptimalNumberOfForwards -type int -index 3

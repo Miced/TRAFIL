@@ -1,0 +1,8 @@
+NumberOfFields 5
+NumberOfColumns 8
+UniqueCounter 1
+-name IEMP_AcknowledgmentFlag -type varchar(4) -index 2
+-name IEMP_HelloFlag -type varchar(4) -index 4
+-name IEMP_ObjectFlag -type varchar(4) -index 6
+-name IEMP_Unique -type varchar(3) -index 7 -unique -Pl
+-name IEMP_Length -type int -index 8

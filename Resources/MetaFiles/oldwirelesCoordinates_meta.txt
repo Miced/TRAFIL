@@ -1,0 +1,17 @@
+NumberOfFields 14
+NumberOfColumns 15
+UniqueCounter 4
+-name event -type char(1) -index 0 
+-name time -type double -index 1
+-name NodeID -type integer -index 2 -startsWith _ -endsWith _
+-name XCoordinate -type double -index 3 -startsWith ( -unique (
+-name YCoordinate -type double -index 4 -endsWith ) -unique )
+-name TraceName -type varchar(10) -index 5
+-name Reason -type varchar(10) -index 7
+-name EventIdentifier -type int -index 8
+-name PacketType -type varchar(7) -index 9
+-name PacketSize -type int -index 10
+-name TimeToSendData -type int -index 11 -startsWith [ -unique [
+-name DestinationMACAddress -type int -index 12
+-name SourceMACAddress -type int -index 13 
+-name TypeArpIp -type int -index 14 -endsWith ] -unique ] 

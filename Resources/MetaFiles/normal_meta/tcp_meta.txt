@@ -1,0 +1,7 @@
+NumberOfFields 4
+NumberOfColumns 4
+UniqueCounter 1
+-name AckNumber -type int -index 1
+-name FlagsTCP -type varchar(7) -index 2 -unique 0x
+-name HeaderLength -type int -index 3
+-name SocketAddressLength -type int -index 4

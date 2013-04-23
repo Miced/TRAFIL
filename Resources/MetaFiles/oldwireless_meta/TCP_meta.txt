@@ -1,0 +1,7 @@
+NumberOfFields 4
+NumberOfColumns 4
+UniqueCounter 2
+-name TCPSequenceNumber -type int -index 1 -startsWith [ -unique [
+-name TCPAcknowledgmentNumber -type int -index 2 -endsWith ] -unique ]
+-name TCPNumberOfTimesPacketWasForwarded -type int -index 3 
+-name TCPOptimalNumberOfForwards -type int -index 4

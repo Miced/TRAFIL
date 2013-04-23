@@ -1,0 +1,35 @@
+NumberOfFields 25
+NumberOfColumns 45
+UniqueCounter 0
+-name event -type char(1) -index 0
+-name time -type double -index 2
+-name HopSourceNodeID -type int -index 4
+-name HopDestNodeID -type int -index 6
+-name NodeID -type int -index 8
+-name XCoordinate -type double -index 10
+-name YCoordinate -type double -index 12
+-name ZCoordinate -type double -index 14
+-name NodeEnergyLevel -type double -index 16
+-name NetworkTraceLevel -type varchar(6) -index 18
+-name DropReason -type varchar(8) -index 20
+-name Duration -type varchar(20) -index 22
+-name DestinationEthernetAdress -type varchar(20) -index 24
+-name SourceEthernetAddress -type varchar(20) -index 26
+-name EthernetType -type varchar(20) -index 28 -startsWith 0x
+-name SourceAddress -type int -index 30 -delimiter .
+-name SourcePort -type int -index 30 
+-name DestinationAddress -type int -index 32 -delimiter .
+-name DestinationPort -type int -index 32
+-name PacketTypeIP -type varchar(20) -index 34
+-name PacketSize -type int -index 36
+-name FlowID -type int -index 38
+-name UniqueID -type int -index 40
+-name TTLValue -type int -index 42
+-name PacketType -type varchar(20) -index 44
+-TimeRelated -column time
+-NodeRelated -column NodeID -column NetworkTraceLevel
+-PacketSize -column PacketSize
+-SendingNodes -column UniqueID -column NodeID -column SourceAddress
+-GeneratedPackets -column UniqueID -column NodeID -column SourceAddress
+-ReceivedPackets -column UniqueID -column DestinationAddress -column NodeID
+-ForwardedPackets -column UniqueID -column DestinationAddress -column NodeID

@@ -1,0 +1,5 @@
+NumberOfFields 2
+NumberOfColumns 3
+UniqueCounter 2
+-name TORAQuery_Type -type varchar(20) -index 1 -startsWith [ -unique 0x
+-name TORAQuery_Destination -type int -index 2 -endsWith ]

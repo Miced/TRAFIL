@@ -1,0 +1,8 @@
+NumberOfFields 5
+NumberOfColumns 8
+UniqueCounter 1
+-name TCP_UniqueIdentifier -type varchar(3) -index 1 -unique -Ps
+-name TCP_SequenceNumber -type int -index 2
+-name TCP_AcknowledgmentNumber -type int -index 4
+-name TCP_NumberOfTimesPacketWasForwarded -type int -index 6
+-name TCP_OptimalNumberOfForwards -type int -index 8

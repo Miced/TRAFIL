@@ -1,0 +1,14 @@
+NumberOfFields 11
+NumberOfColumns 22
+UniqueCounter 2
+-name DSR_NumberOfNodesTraversed -type int -index 2
+-name DSR_RoutingRequestFlag -type int -index 4
+-name DSR_RouteRequestSequenceNumber -type int -index 6
+-name DSR_RoutingReplyFlag -type int -index 8
+-name DSR_RoutingReplySequenceNumber -type int -index 10
+-name DSR_ReplyLength -type int -index 12
+-name DSR_SourceDestinationOfSourceRouting -type varchar(8) -index 14 -unique ->
+-name DSR_ErrorReportFlag -type int -index 16
+-name DSR_NumberOfErrors -type int -index 18
+-name DSR_ReportToWhom -type int -index 20
+-name DSR_LinkErrorFromLinkAtoLinkB -type varchar(8) -index 22 -unique ->

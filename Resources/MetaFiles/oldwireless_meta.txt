@@ -1,0 +1,22 @@
+NumberOfFields 12
+NumberOfColumns 12
+UniqueCounter 2
+-name event -type char(1) -index 0 
+-name time -type double -index 1
+-name NodeID -type integer -index 2 -startsWith _ -endsWith _
+-name TraceName -type varchar(20) -index 3
+-name Reason -type varchar(20) -index 4
+-name EventIdentifier -type int -index 5
+-name PacketType -type varchar(20) -index 6
+-name PacketSize -type int -index 7
+-name TimeToSendData -type varchar(20) -index 8 -startsWith [ -unique [
+-name DestinationMACAddress -type varchar(20) -index 9
+-name SourceMACAddress -type varchar(20) -index 10 
+-name TypeArpIp -type varchar(20) -index 11 -endsWith ] -unique ]
+-TimeRelated -column time
+-NodeRelated -column NodeID -column TraceName
+-PacketSize -column PacketSize
+-SendingNodes -column EventIdentifier -column NodeID -column SourceIpAddress
+-GeneratedPackets -column EventIdentifier -column NodeID -column SourceIpAddress
+-ReceivedPackets -column EventIdentifier -column DestinationIpAddress -column NodeID
+-ForwardedPackets -column EventIdentifier -column DestinationIpAddress -column NodeID
