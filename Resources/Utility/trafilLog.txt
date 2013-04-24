@@ -16492,3 +16492,139 @@ event char(1),time double,NodeID integer,TraceName varchar(20),Reason varchar(20
 [INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
 [SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
 [SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimc_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:0
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:0
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with test18_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:0
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:0
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimc_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:0
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:0
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with test18_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:0
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:0
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimc_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:0
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:0
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimc_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:0
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:0
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with test21_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:0
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:0
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimc_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:0
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:0
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with test18_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:0
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:0
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with test21_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:0
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:0
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with wireless1_out_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:1
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:1
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimc_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:0
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:0
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with wireless1_out_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:1
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:1
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimc_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:0
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:0
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with wireless1_out_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:1
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:1
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimc_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:0
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:0
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with wireless1_out_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:1
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:1
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimc_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:0
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:0
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimc_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:0
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:0
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimc_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:0
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:0
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with wireless2_out_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:3
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:3

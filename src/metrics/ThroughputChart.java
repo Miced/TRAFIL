@@ -18,16 +18,7 @@ import utilities.DatabaseConnection;
  *
  * @author charalampi
  */
-public class ThroughputChart {
-
-    private Double startTime, endTime;
-    private ResultSet rs;
-    private Statement st;
-    private JFreeChart chart;
-
-    public JFreeChart getChart() {
-	return chart;
-    }
+public class ThroughputChart extends Chart {
 
     /**
      * This constructor creates the throughput chart between two nodes that are
@@ -49,7 +40,7 @@ public class ThroughputChart {
 	    long calcStartTime, calcEndTime;
 	    calcStartTime = System.currentTimeMillis();
 	    st = DatabaseConnection.getSt();
-	    XYSeries series = new XYSeries("Throughput");
+	    series = new XYSeries("Throughput");
 	    XYDataset xyDataset;
 	    series.add(0, 0);
 	    if (metaHandler.getNode().indexOf("SourceNode") != -1) {
@@ -187,7 +178,7 @@ public class ThroughputChart {
 	    double throughput;
 	    double currentTime;
 	    st = DatabaseConnection.getSt();
-	    XYSeries series = new XYSeries("Throughput");
+	    series = new XYSeries("Throughput");
 	    XYDataset xyDataset;
 	    series.add(0, 0);
 	    if (metaHandler.getNode().indexOf("SourceNode") != -1) {

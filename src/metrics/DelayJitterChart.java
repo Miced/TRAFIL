@@ -1,13 +1,8 @@
 package metrics;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
@@ -20,16 +15,7 @@ import utilities.DatabaseConnection;
  *
  * @author MIKE
  */
-public class DelayJitterChart {
-
-    private Double startTime, endTime;
-    private ResultSet rs;
-    private Statement st;
-    private JFreeChart chart;
-
-    public JFreeChart getChart() {
-	return chart;
-    }
+public class DelayJitterChart extends Chart {
 
     /**
      * This constructor creates the delay jitter chart between two nodes that
@@ -48,7 +34,7 @@ public class DelayJitterChart {
 	Double currentTime;
 	Double delayJitter = 0.0;
 	st = DatabaseConnection.getSt();
-	XYSeries series = new XYSeries("Delay Jitter");
+	series = new XYSeries("Delay Jitter");
 	XYDataset xyDataset;
 	long cstartTime, cendTime;
 
@@ -221,7 +207,7 @@ public class DelayJitterChart {
 	ArrayList<Double> endToEndDelay = new ArrayList();
 	Double currentTime;
 	Double delayJitter = 0.0;
-	XYSeries series = new XYSeries("Delay Jitter");
+	series = new XYSeries("Delay Jitter");
 	XYDataset xyDataset;
 	st = DatabaseConnection.getSt();
 	series.add(0, 0);

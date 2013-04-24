@@ -418,13 +418,14 @@ public class TRAFIL extends javax.swing.JFrame {
         jPanel18 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         createChart = new javax.swing.JButton();
-        moreGraphsButton = new javax.swing.JButton();
+        loadMoreTracesButton = new javax.swing.JButton();
+        addMoreGraphsButton = new javax.swing.JButton();
         jLabel67 = new javax.swing.JLabel();
         chartLevel = new javax.swing.JComboBox();
         samplingRateSelector = new javax.swing.JComboBox();
         jLabel69 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        availableTraceFiles = new javax.swing.JList();
         connect_panel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
@@ -2220,22 +2221,31 @@ public class TRAFIL extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel70)
                     .addComponent(nodeChartStartNode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(enableNodeSpecific)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
 
         createChart.setText("Create New Chart");
+        createChart.setToolTipText("Create a new chart using the currently selected trace file info.");
         createChart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createChartActionPerformed(evt);
             }
         });
 
-        moreGraphsButton.setText("Add more graphs");
-        moreGraphsButton.addActionListener(new java.awt.event.ActionListener() {
+        loadMoreTracesButton.setText("Load New Trace File");
+        loadMoreTracesButton.setToolTipText("Load a new trace file but keep existing chart to add more graphs.");
+        loadMoreTracesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                moreGraphsButtonActionPerformed(evt);
+                loadMoreTracesButtonActionPerformed(evt);
+            }
+        });
+
+        addMoreGraphsButton.setText("Add More Graphs");
+        addMoreGraphsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addMoreGraphsButtonActionPerformed(evt);
             }
         });
 
@@ -2244,11 +2254,12 @@ public class TRAFIL extends javax.swing.JFrame {
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(145, Short.MAX_VALUE)
+                .addContainerGap(136, Short.MAX_VALUE)
                 .addComponent(createChart)
-                .addGap(67, 67, 67)
-                .addComponent(moreGraphsButton)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addMoreGraphsButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(loadMoreTracesButton))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2256,7 +2267,8 @@ public class TRAFIL extends javax.swing.JFrame {
                 .addGap(61, 61, 61)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createChart)
-                    .addComponent(moreGraphsButton))
+                    .addComponent(loadMoreTracesButton)
+                    .addComponent(addMoreGraphsButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -2266,12 +2278,8 @@ public class TRAFIL extends javax.swing.JFrame {
 
         jLabel69.setText("Sampling Rate(sec):");
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane6.setViewportView(jList1);
+        availableTraceFiles.setModel(model);
+        jScrollPane6.setViewportView(availableTraceFiles);
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -2326,7 +2334,7 @@ public class TRAFIL extends javax.swing.JFrame {
                                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3551,8 +3559,56 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
 	}
     }//GEN-LAST:event_openTCLFileActionPerformed
 
-    private void moreGraphsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreGraphsButtonActionPerformed
+    private void loadMoreTracesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMoreTracesButtonActionPerformed
 
+	Object sfile = availableTraceFiles.getSelectedValue();
+	statusBar.setText("Loading trace file: " + sfile.toString());
+	statusBar.paintImmediately(statusBar.getVisibleRect());
+	if (!TraceHandler.loadSelectedTraceFile(sfile.toString())) {
+	    Logger.getLogger(TRAFIL.class.getName()).severe("Error in loading " + sfile.toString());
+	    //System.out.println("[" + NOW() + "] Error in loading " + sfile.toString());
+	    return;
+	}
+	TraceFile.setInfo(null, sfile.toString());
+	chartPanel.removeAll();
+	simulationInfo = new GeneralSimulationInformation(TraceHandler.getMetaHandler(), TraceHandler.getStatement(), TraceFile);
+	nodeSelector.removeAllItems();
+	startNodes.removeAllItems();
+	endNodes.removeAllItems();
+	levels.removeAllItems();
+	chartStartNode.removeAllItems();
+	nodeChartStartNode.removeAllItems();
+	chartEndNode.removeAllItems();
+	chartLevel.removeAllItems();
+	nodeInfo = new GeneralNodeInformation(TraceHandler.getMetaHandler(), TraceHandler.getStatement(), TraceFile);
+	metric = new Metrics(TraceHandler.getMetaHandler(), TraceFile);
+	graph = new Graph(TraceHandler.getMetaHandler(), TraceFile);
+	for (int i = 0; i < nodeInfo.getNodesIdentifiers().size(); i++) {
+	    nodeSelector.addItem(nodeInfo.getNodesIdentifiers().get(i));
+	    startNodes.addItem(nodeInfo.getNodesIdentifiers().get(i));
+	    endNodes.addItem(nodeInfo.getNodesIdentifiers().get(i));
+	    chartStartNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
+	    nodeChartStartNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
+	    chartEndNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
+	}
+	for (int i = 0; i < metric.getLevels().size(); i++) {
+	    levels.addItem(metric.getLevels().get(i));
+	    chartLevel.addItem(metric.getLevels().get(i));
+	}
+	TableHan.getTestModel().addTableModelListener(tmh);
+	next.setEnabled(false);
+	previous.setEnabled(false);
+	if (TraceHandler.getOveralLineCounter() > 10000) {
+	    next.setEnabled(true);
+	}
+	simulationInfo.retrieveMetrics();
+	updateStandardMetrics();
+	m2.setText("<html><font color=#0033FF size=+1>Showing Lines:</font>0:" + TraceHandler.getCurrentLineCounter() + "</html>");
+	statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
+	statusBar.paintImmediately(statusBar.getVisibleRect());
+    }//GEN-LAST:event_loadMoreTracesButtonActionPerformed
+
+    private void addMoreGraphsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMoreGraphsButtonActionPerformed
 
 	if (TraceFile.getTraceFileName() != null) {
 	    if (enableNodetoNode.isSelected()) {
@@ -3591,15 +3647,15 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
 		}
 	    }
 
-	    chartPanel.setLayout(new java.awt.BorderLayout());
-	    chartPanel.removeAll();
+//		chartPanel.setLayout(new java.awt.BorderLayout());
+//		chartPanel.removeAll();
 	    chartPanel.add(graph.getGraph());
 	    chartPanel.revalidate();
 	} else {
 	    statusBar.setText("<html><font color=#0033FF>You have not selected a trace file.</font></html>");
 	    statusBar.paintImmediately(statusBar.getVisibleRect());
 	}
-    }//GEN-LAST:event_moreGraphsButtonActionPerformed
+    }//GEN-LAST:event_addMoreGraphsButtonActionPerformed
 
     public static void main(String args[]) {
 	java.awt.EventQueue.invokeLater(new Runnable() {
@@ -3620,6 +3676,8 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JMenuItem Exit;
     private javax.swing.JMenu NsTool;
     private javax.swing.JMenuItem OpenTraceFile;
+    private javax.swing.JButton addMoreGraphsButton;
+    private javax.swing.JList availableTraceFiles;
     private javax.swing.JLabel averagePacketSize;
     private javax.swing.JLabel averagePacketSize1;
     private javax.swing.JButton browseRawVideo;
@@ -3774,7 +3832,6 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JLabel jLabel97;
     private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
-    private javax.swing.JList jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -3806,6 +3863,7 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JComboBox levels;
     private javax.swing.JButton linkListButton;
+    private javax.swing.JButton loadMoreTracesButton;
     public javax.swing.JLabel m2;
     private javax.swing.JPanel mainpanel;
     private javax.swing.JLabel maximumPacketSize;
@@ -3814,7 +3872,6 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JTable metricsTable;
     private javax.swing.JLabel minimumPacketSize;
     private javax.swing.JLabel minimumPacketSize1;
-    private javax.swing.JButton moreGraphsButton;
     private javax.swing.JTextField mp4Fps;
     private javax.swing.JTextField mp4IpAddress;
     private javax.swing.JTextField mp4MTU;

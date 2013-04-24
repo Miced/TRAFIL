@@ -1,14 +1,7 @@
 package metrics;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Collection;
-import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
@@ -21,18 +14,7 @@ import utilities.DatabaseConnection;
  *
  * @author Drakoulelis
  */
-public class ThroughputBitsChart {
-
-    private Double startTime, endTime;
-    private ResultSet rs;
-    private Statement st;
-    private JFreeChart chart;
-    private XYSeries series = new XYSeries("Throughput(bits/sec)");
-    private Collection<XYSeries> seriesList = new ArrayList<XYSeries>();
-
-    public JFreeChart getChart() {
-	return chart;
-    }
+public class ThroughputBitsChart extends Chart {
 
     /**
      * This constructor creates the throughput bits chart between two nodes that
@@ -48,7 +30,7 @@ public class ThroughputBitsChart {
      */
     public ThroughputBitsChart(int startNode, int endNode, String level, int sampleRate, MetaDataHandler metaHandler, TraceFileInfo traceFile) {
 	try {
-	    int packetNumber = 0;
+	    series = new XYSeries("Throughput(bits/sec)");
 	    double throughput;
 	    double currentTime;
 	    double packetsSentSize = 0.0;
@@ -184,7 +166,7 @@ public class ThroughputBitsChart {
      */
     public ThroughputBitsChart(int startNode, String level, int sampleRate, MetaDataHandler metaHandler, TraceFileInfo traceFile) {
 	try {
-	    int packetNumber = 0;
+	    series = new XYSeries("Throughput(bits/sec)");
 	    double throughput;
 	    double currentTime;
 	    double packetsSentSize = 0.0;
@@ -298,14 +280,5 @@ public class ThroughputBitsChart {
 	    ex.printStackTrace();
 
 	}
-    }
-
-    private XYDataset createDataset() {
-	final XYSeriesCollection dataset = new XYSeriesCollection();
-	for (XYSeries xy : seriesList) {
-	    dataset.addSeries(xy);
-	}
-
-	return dataset;
     }
 }
