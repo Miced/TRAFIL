@@ -198,7 +198,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="343" max="-2" attributes="0"/>
                   <Component id="connect_panel" min="-2" max="-2" attributes="1"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="352" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -760,7 +760,7 @@
                               <Component id="simulationINfoPanel1" max="32767" attributes="1"/>
                               <Component id="nodeInformation" max="32767" attributes="1"/>
                           </Group>
-                          <EmptySpace pref="220" max="32767" attributes="0"/>
+                          <EmptySpace pref="294" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -771,7 +771,7 @@
                           <Component id="simulationINfoPanel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="nodeInformation" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="44" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1746,7 +1746,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="239" max="-2" attributes="0"/>
                           <Component id="jPanel5" min="-2" max="-2" attributes="1"/>
-                          <EmptySpace pref="257" max="32767" attributes="0"/>
+                          <EmptySpace pref="293" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
@@ -1762,7 +1762,7 @@
                           <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jScrollPane3" min="-2" pref="164" max="-2" attributes="0"/>
-                          <EmptySpace pref="215" max="32767" attributes="0"/>
+                          <EmptySpace pref="219" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1929,12 +1929,12 @@
                                   <Component id="clearSQL" min="-2" pref="74" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="41" max="32767" attributes="0"/>
+                          <EmptySpace pref="46" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
                                   <Component id="jLabel71" min="-2" pref="138" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="353" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jScrollPane5" min="-2" pref="580" max="-2" attributes="0"/>
@@ -1961,7 +1961,7 @@
                               </Group>
                               <Component id="jScrollPane5" min="-2" pref="427" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="64" max="32767" attributes="0"/>
+                          <EmptySpace pref="65" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2052,7 +2052,7 @@
                               <Component id="jPanel10" min="-2" max="-2" attributes="1"/>
                               <Component id="jPanel11" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace pref="28" max="32767" attributes="0"/>
+                          <EmptySpace pref="71" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2278,7 +2278,7 @@
                                       <Component id="jLabel91" alignment="0" max="32767" attributes="1"/>
                                       <Component id="jLabel92" alignment="0" max="32767" attributes="1"/>
                                       <Component id="jLabel87" alignment="1" max="32767" attributes="1"/>
-                                      <Component id="jLabel89" alignment="0" pref="201" max="32767" attributes="1"/>
+                                      <Component id="jLabel89" alignment="0" pref="207" max="32767" attributes="1"/>
                                       <Component id="jLabel90" alignment="0" max="32767" attributes="1"/>
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -2289,7 +2289,7 @@
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="34" max="32767" attributes="0"/>
+                                  <EmptySpace pref="41" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="inputVideoSize" alignment="0" max="32767" attributes="1"/>
                                       <Component id="qualityScaleStartValue" alignment="0" max="32767" attributes="1"/>
@@ -3022,11 +3022,11 @@
                               <Component id="simParamButton" alignment="1" pref="152" max="32767" attributes="0"/>
                               <Component id="linkListButton" alignment="1" max="32767" attributes="0"/>
                               <Component id="jToolBar1" max="32767" attributes="0"/>
-                              <Component id="connectedAgentsButton" alignment="0" pref="152" max="32767" attributes="0"/>
+                              <Component id="connectedAgentsButton" alignment="0" pref="158" max="32767" attributes="0"/>
                               <Component id="wirelessSettingsButton" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="designScrollPanel" pref="876" max="32767" attributes="0"/>
+                          <Component id="designScrollPanel" pref="882" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -3037,7 +3037,7 @@
                               <Component id="designScrollPanel" pref="0" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="jToolBar1" min="-2" pref="320" max="-2" attributes="0"/>
-                                  <EmptySpace pref="14" max="32767" attributes="0"/>
+                                  <EmptySpace pref="18" max="32767" attributes="0"/>
                                   <Component id="wirelessSettingsButton" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="connectedAgentsButton" min="-2" max="-2" attributes="0"/>
@@ -3047,7 +3047,7 @@
                                   <Component id="simParamButton" min="-2" pref="36" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="79" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="84" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

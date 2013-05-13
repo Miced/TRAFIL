@@ -71,62 +71,62 @@ public class TRAFIL extends javax.swing.JFrame {
      * files structure.
      */
     public TRAFIL() {
-	model3 = TableHan.getModel3();
+        model3 = TableHan.getModel3();
 
-	//this.setExtendedState((int)screenSize.getWidth(),(int)screenSize.getHeight());
-	initComponents();
-	traceFileList.addMouseListener(new DoubleClickHandler(selecttracefile));
-	statusBar.setVisible(false);
-	username.setFocusable(true);
-	linkWindow = new LinkListWindow(this);
-	simProperties = new SimulationPropertiesWindow(this);
-	connectedAgents = new ConnectedAgentsWindow(tclDesigner);
-	wirelessWindow = new SimulationWirelessSettingsWindow();
-	TclDesignerPanel.setTrafil(this);
-	TclDesignerPanel.setLinkWindow(linkWindow);
-	TclDesignerPanel.setConnectedAgents(connectedAgents);
-	TclDesignerPanel.setWirelessSettings(wirelessWindow);
+        //this.setExtendedState((int)screenSize.getWidth(),(int)screenSize.getHeight());
+        initComponents();
+        traceFileList.addMouseListener(new DoubleClickHandler(selecttracefile));
+        statusBar.setVisible(false);
+        username.setFocusable(true);
+        linkWindow = new LinkListWindow(this);
+        simProperties = new SimulationPropertiesWindow(this);
+        connectedAgents = new ConnectedAgentsWindow(tclDesigner);
+        wirelessWindow = new SimulationWirelessSettingsWindow();
+        TclDesignerPanel.setTrafil(this);
+        TclDesignerPanel.setLinkWindow(linkWindow);
+        TclDesignerPanel.setConnectedAgents(connectedAgents);
+        TclDesignerPanel.setWirelessSettings(wirelessWindow);
 
-	// TODO: find better remember login solution
-	if (loginCredentials.exists()) {
-	    try {
-		FileInputStream fstream = new FileInputStream(loginCredentials);
-		DataInputStream in = new DataInputStream(fstream);
-		BufferedReader br = new BufferedReader(new InputStreamReader(in));
-		String strLine;
-		try {
-		    if ((strLine = br.readLine()) != null) {
-			username.setText(strLine);
-		    }
-		    if ((strLine = br.readLine()) != null) {
-			password.setText(strLine);
-		    }
-		    if ((strLine = br.readLine()) != null) {
-			dbname.setText(strLine);
-		    }
-		    if ((strLine = br.readLine()) != null && strLine.equals("y")) {
-			rememberLoginCheckBox.setSelected(true);
-		    }
-		} catch (IOException ex) {
-		    Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
-		}
-	    } catch (FileNotFoundException ex) {
-		Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
-	    }
-	}
+        // TODO: find better remember login solution
+        if (loginCredentials.exists()) {
+            try {
+                FileInputStream fstream = new FileInputStream(loginCredentials);
+                DataInputStream in = new DataInputStream(fstream);
+                BufferedReader br = new BufferedReader(new InputStreamReader(in));
+                String strLine;
+                try {
+                    if ((strLine = br.readLine()) != null) {
+                        username.setText(strLine);
+                    }
+                    if ((strLine = br.readLine()) != null) {
+                        password.setText(strLine);
+                    }
+                    if ((strLine = br.readLine()) != null) {
+                        dbname.setText(strLine);
+                    }
+                    if ((strLine = br.readLine()) != null && strLine.equals("y")) {
+                        rememberLoginCheckBox.setSelected(true);
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
     }
 
     public ConnectedAgentsWindow getConnectedAgents() {
-	return connectedAgents;
+        return connectedAgents;
     }
 
     public TclDesignerPanel getTclDesigner() {
-	return tclDesigner;
+        return tclDesigner;
     }
 
     public LinkListWindow getLinkWindow() {
-	return linkWindow;
+        return linkWindow;
     }
 
     @SuppressWarnings("unchecked")
@@ -2611,108 +2611,108 @@ public class TRAFIL extends javax.swing.JFrame {
      * @param evt connect command button event
      */
 private void connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectActionPerformed
-	try {
+        try {
 
-	    boolean success;
+            boolean success;
 
-	    String user = username.getText();
-	    String pa = password.getText();
-	    String dbName = dbname.getText();
-	    // Save login info to file
-	    if (loginCredentials.exists()) {
-		loginCredentials.delete();
-	    }
-	    if (rememberLoginCheckBox.isSelected()) {
-		try {
-		    loginCredentials.createNewFile();
-		    FileWriter fstream = new FileWriter(loginCredentials);
-		    BufferedWriter out = new BufferedWriter(fstream);
-		    out.write(user + "\n" + pa + "\n" + dbName + "\n" + "y");
-		    out.close();
-		} catch (IOException ex) {
-		    Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, "Saving login info failed.", ex);
-		}
-	    }
+            String user = username.getText();
+            String pa = password.getText();
+            String dbName = dbname.getText();
+            // Save login info to file
+            if (loginCredentials.exists()) {
+                loginCredentials.delete();
+            }
+            if (rememberLoginCheckBox.isSelected()) {
+                try {
+                    loginCredentials.createNewFile();
+                    FileWriter fstream = new FileWriter(loginCredentials);
+                    BufferedWriter out = new BufferedWriter(fstream);
+                    out.write(user + "\n" + pa + "\n" + dbName + "\n" + "y");
+                    out.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, "Saving login info failed.", ex);
+                }
+            }
 
-	    try {
-		//logHandler = new FileHandler(getClass().getClassLoader().getResource(".").getPath().replace("%20", " ") + "../../Resources/Utility/trafilLog.txt", true);
-		logHandler = new FileHandler(PathLocator.getLogPath(System.getProperty("user.dir")), true);
-		//logHandler.setFormatter(new SimpleFormatter());
-		logHandler.setFormatter(new Formatter() {
-		    @Override
-		    public String format(LogRecord record) {
-			if (record.getMessage().contains("START")) {
-			    return "\n[" + record.getLevel() + "]  :  "
-				    + record.getSourceClassName() + " -:- "
-				    + record.getSourceMethodName() + " -:- "
-				    + record.getMessage() + "\n";
-			} else {
-			    return "[" + record.getLevel() + "]  :  "
-				    + record.getSourceClassName() + " -:- "
-				    + record.getSourceMethodName() + " -:- "
-				    + record.getMessage() + "\n";
+            try {
+                //logHandler = new FileHandler(getClass().getClassLoader().getResource(".").getPath().replace("%20", " ") + "../../Resources/Utility/trafilLog.txt", true);
+                logHandler = new FileHandler(PathLocator.getLogPath(System.getProperty("user.dir")), true);
+                //logHandler.setFormatter(new SimpleFormatter());
+                logHandler.setFormatter(new Formatter() {
+                    @Override
+                    public String format(LogRecord record) {
+                        if (record.getMessage().contains("START")) {
+                            return "\n[" + record.getLevel() + "]  :  "
+                                    + record.getSourceClassName() + " -:- "
+                                    + record.getSourceMethodName() + " -:- "
+                                    + record.getMessage() + "\n";
+                        } else {
+                            return "[" + record.getLevel() + "]  :  "
+                                    + record.getSourceClassName() + " -:- "
+                                    + record.getSourceMethodName() + " -:- "
+                                    + record.getMessage() + "\n";
 
-			}
+                        }
 
-		    }
-		});
-		Logger.getLogger("").addHandler(logHandler);
-		Logger.getLogger(TRAFIL.class.getName()).log(Level.INFO, "START TIME:{0}", NOW());
+                    }
+                });
+                Logger.getLogger("").addHandler(logHandler);
+                Logger.getLogger(TRAFIL.class.getName()).log(Level.INFO, "START TIME:{0}", NOW());
 
-	    } catch (IOException ex) {
-		Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
-	    } catch (SecurityException ex) {
-		Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
-	    }
-	    tmh = new TableListener(TraceHandler.getMetaHandler(), TraceFile, TableHan, TraceHandler);
+            } catch (IOException ex) {
+                Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SecurityException ex) {
+                Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            tmh = new TableListener(TraceHandler.getMetaHandler(), TraceFile, TableHan, TraceHandler);
 
-	    success = TraceHandler.performConnection(dbName, user, pa, model, statusBar, jTable1, TraceFile, tmh, TableHan);
+            success = TraceHandler.performConnection(dbName, user, pa, model, statusBar, jTable1, TraceFile, tmh, TableHan);
 
-	    if (success) {
-		rs = TraceHandler.getResultSet();
-		next.setEnabled(false);
-		previous.setEnabled(false);
-		model.clear();
-		chartTypeButtonGroup.add(throughputChart);
-		chartTypeButtonGroup.add(throughputBitsChart);
-		chartTypeButtonGroup.add(delayJitterChart);
-		chartTypeButtonGroup.add(endToEndDelayChart);
+            if (success) {
+                rs = TraceHandler.getResultSet();
+                next.setEnabled(false);
+                previous.setEnabled(false);
+                model.clear();
+                chartTypeButtonGroup.add(throughputChart);
+                chartTypeButtonGroup.add(throughputBitsChart);
+                chartTypeButtonGroup.add(delayJitterChart);
+                chartTypeButtonGroup.add(endToEndDelayChart);
 
-		chartEnableButtonGroup.add(enableNodetoNode);
-		chartEnableButtonGroup.add(enableNodeSpecific);
+                chartEnableButtonGroup.add(enableNodetoNode);
+                chartEnableButtonGroup.add(enableNodeSpecific);
 
-		//nodeSelector.removeAll();
+                //nodeSelector.removeAll();
                 /*
-		 * adding the names of the tracefiles to the list of tracefiles
-		 */
+                 * adding the names of the tracefiles to the list of tracefiles
+                 */
 
-		while (rs.next()) {
-		    input = rs.getString(1);
-		    model.addElement(input);
-		}
-		levels.setSize(100, 50);
-		connect_panel.setVisible(false);
+                while (rs.next()) {
+                    input = rs.getString(1);
+                    model.addElement(input);
+                }
+                levels.setSize(100, 50);
+                connect_panel.setVisible(false);
 
-		statusBar.setVisible(true);
-		m2.setText("");
-		menuBar1.setVisible(true);
-		tabbed.setVisible(true);
+                statusBar.setVisible(true);
+                m2.setText("");
+                menuBar1.setVisible(true);
+                tabbed.setVisible(true);
 
-		TableHan.getModel3().addTableModelListener(tmh);
+                TableHan.getModel3().addTableModelListener(tmh);
 
-		if (System.getProperty("os.name").contains("Windows") || System.getProperty("os.name").contains("windows")) {
-		    NsTool.setVisible(false);
-		    tabbed.remove(jPanel9);
-		}
-	    }
+                if (System.getProperty("os.name").contains("Windows") || System.getProperty("os.name").contains("windows")) {
+                    NsTool.setVisible(false);
+                    tabbed.remove(jPanel9);
+                }
+            }
 
-	} catch (SQLException e1) {
-	    JOptionPane.showConfirmDialog(null, "" + e1.getMessage());
-	    Logger.getLogger(TRAFIL.class.getName()).severe("Error in TRAFIL conncetion to database attempt.");
+        } catch (SQLException e1) {
+            JOptionPane.showConfirmDialog(null, "" + e1.getMessage());
+            Logger.getLogger(TRAFIL.class.getName()).severe("Error in TRAFIL conncetion to database attempt.");
 
-	} catch (ClassNotFoundException ex) {
-	    Logger.getLogger(TRAFIL.class.getName()).severe("Error in TRAFIL conncetion to database attempt.");
-	}
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TRAFIL.class.getName()).severe("Error in TRAFIL conncetion to database attempt.");
+        }
 
 
 }//GEN-LAST:event_connectActionPerformed
@@ -2723,10 +2723,10 @@ private void connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
      * @param evt cancel command button event
      */
 private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
-	int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?");
-	if (response == 0) {
-	    System.exit(0);
-	}
+        int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?");
+        if (response == 0) {
+            System.exit(0);
+        }
     }//GEN-LAST:event_cancelActionPerformed
 
     /**
@@ -2735,10 +2735,10 @@ private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
      * @param evt exit button event
      */
 private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
-	int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?");
-	if (response == 0) {
-	    System.exit(0);
-	}
+        int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?");
+        if (response == 0) {
+            System.exit(0);
+        }
     }//GEN-LAST:event_ExitActionPerformed
 
     /**
@@ -2750,94 +2750,94 @@ private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:ev
      * @param evt open trace file menu item action event
      */
 private void OpenTraceFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenTraceFileActionPerformed
-	fc.setFileFilter(new GenericFileFilter(".tr"));
-	int returnVal = fc.showOpenDialog(null);
-	if (returnVal == JFileChooser.APPROVE_OPTION) {
+        fc.setFileFilter(new GenericFileFilter(".tr"));
+        int returnVal = fc.showOpenDialog(null);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
 
-	    try {
+            try {
 
-		statusBar.setText("Loading:" + fc.getSelectedFile().getName() + "...");
-		statusBar.paintImmediately(statusBar.getVisibleRect());
+                statusBar.setText("Loading:" + fc.getSelectedFile().getName() + "...");
+                statusBar.paintImmediately(statusBar.getVisibleRect());
 
-		if (!TraceHandler.OpenTraceFile(fc.getSelectedFile())) {
-		    statusBar.setText("No Trace File selected.");
-		    statusBar.paintImmediately(statusBar.getVisibleRect());
-		    return;
-		}
-		TableHan.getTestModel().addTableModelListener(tmh);
-		model.clear();
-		tmh.setSqlupdatequery("");
-		rs = TraceHandler.getResultSet();
-		while (rs.next()) {
-		    input = rs.getString(1);
-		    model.addElement(input);
-		}
-		TraceFile.setInfo(fc.getSelectedFile(), TraceHandler.getSelectedTraceFile());
-		statusBar.setText("Calculating General Simulation and Node Information...");
-		statusBar.paintImmediately(statusBar.getVisibleRect());
-		/*
-		 * Clearing all previous information and chart.
-		 */
-		clearAllInformation();
-		chartPanel.removeAll();
-		nodeSelector.removeAllItems();
-		startNodes.removeAllItems();
-		endNodes.removeAllItems();
-		levels.removeAllItems();
-		chartStartNode.removeAllItems();
-		nodeChartStartNode.removeAllItems();
-		chartEndNode.removeAllItems();
-		chartLevel.removeAllItems();
-		next.setEnabled(false);
-		previous.setEnabled(false);
+                if (!TraceHandler.OpenTraceFile(fc.getSelectedFile())) {
+                    statusBar.setText("No Trace File selected.");
+                    statusBar.paintImmediately(statusBar.getVisibleRect());
+                    return;
+                }
+                TableHan.getTestModel().addTableModelListener(tmh);
+                model.clear();
+                tmh.setSqlupdatequery("");
+                rs = TraceHandler.getResultSet();
+                while (rs.next()) {
+                    input = rs.getString(1);
+                    model.addElement(input);
+                }
+                TraceFile.setInfo(fc.getSelectedFile(), TraceHandler.getSelectedTraceFile());
+                statusBar.setText("Calculating General Simulation and Node Information...");
+                statusBar.paintImmediately(statusBar.getVisibleRect());
+                /*
+                 * Clearing all previous information and chart.
+                 */
+                clearAllInformation();
+                chartPanel.removeAll();
+                nodeSelector.removeAllItems();
+                startNodes.removeAllItems();
+                endNodes.removeAllItems();
+                levels.removeAllItems();
+                chartStartNode.removeAllItems();
+                nodeChartStartNode.removeAllItems();
+                chartEndNode.removeAllItems();
+                chartLevel.removeAllItems();
+                next.setEnabled(false);
+                previous.setEnabled(false);
 
-		if (TraceHandler.getLineCounter() > 10000) {
-		    next.setEnabled(true);
-		    m2.setText("<html><font color=#0033FF size=+1>Showing Lines:</font>0:" + TraceHandler.getCurrentLineCounter() + "<html>");
-		} else {
-		    m2.setText("<html><font color=#0033FF size=+1>Showing Lines:</font>0:" + TraceHandler.getCurrentLineCounter() + "<html>");
-		}
+                if (TraceHandler.getLineCounter() > 10000) {
+                    next.setEnabled(true);
+                    m2.setText("<html><font color=#0033FF size=+1>Showing Lines:</font>0:" + TraceHandler.getCurrentLineCounter() + "<html>");
+                } else {
+                    m2.setText("<html><font color=#0033FF size=+1>Showing Lines:</font>0:" + TraceHandler.getCurrentLineCounter() + "<html>");
+                }
 
 
-		//JOptionPane.showMessageDialog(null, "" + TraceHandler.getMetaHandler().getMetaFilePath());
+                //JOptionPane.showMessageDialog(null, "" + TraceHandler.getMetaHandler().getMetaFilePath());
 //            if (!TraceHandler.getMetaHandler().getMetaFilePath().contains("normal") && !TraceHandler.getMetaHandler().getMetaFilePath().contains("oldwireless")) {
 //                statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
 //                simulationInfo.storeMetrics();
 //                return;
 //            }
-		simulationInfo = new GeneralSimulationInformation(TraceHandler.getMetaHandler(), TraceHandler.getStatement(), TraceFile);
-		if (simulationInfo.storeMetrics()) {
-		    updateStandardMetrics();
-		} else {
-		    Logger.getLogger(TRAFIL.class.getName()).severe("Error in producing-storing standard metrics.");
-		    //System.out.println("[" + NOW() + "] Error in producing-storing standard metrics.");
-		}
+                simulationInfo = new GeneralSimulationInformation(TraceHandler.getMetaHandler(), TraceHandler.getStatement(), TraceFile);
+                if (simulationInfo.storeMetrics()) {
+                    updateStandardMetrics();
+                } else {
+                    Logger.getLogger(TRAFIL.class.getName()).severe("Error in producing-storing standard metrics.");
+                    //System.out.println("[" + NOW() + "] Error in producing-storing standard metrics.");
+                }
 
-		nodeInfo = new GeneralNodeInformation(TraceHandler.getMetaHandler(), TraceHandler.getStatement(), TraceFile);
-		for (int i = 0; i < nodeInfo.getNodesIdentifiers().size(); i++) {
-		    nodeSelector.addItem(nodeInfo.getNodesIdentifiers().get(i));
-		    startNodes.addItem(nodeInfo.getNodesIdentifiers().get(i));
-		    endNodes.addItem(nodeInfo.getNodesIdentifiers().get(i));
-		    chartStartNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
-		    nodeChartStartNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
-		    chartEndNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
-		}
+                nodeInfo = new GeneralNodeInformation(TraceHandler.getMetaHandler(), TraceHandler.getStatement(), TraceFile);
+                for (int i = 0; i < nodeInfo.getNodesIdentifiers().size(); i++) {
+                    nodeSelector.addItem(nodeInfo.getNodesIdentifiers().get(i));
+                    startNodes.addItem(nodeInfo.getNodesIdentifiers().get(i));
+                    endNodes.addItem(nodeInfo.getNodesIdentifiers().get(i));
+                    chartStartNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
+                    nodeChartStartNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
+                    chartEndNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
+                }
 
 
-		metric = new Metrics(TraceHandler.getMetaHandler(), TraceFile);
-		graph = new Graph(TraceHandler.getMetaHandler(), TraceFile);
-		for (int i = 0; i < metric.getLevels().size(); i++) {
-		    levels.addItem(metric.getLevels().get(i));
-		    chartLevel.addItem(metric.getLevels().get(i));
-		}
+                metric = new Metrics(TraceHandler.getMetaHandler(), TraceFile);
+                graph = new Graph(TraceHandler.getMetaHandler(), TraceFile);
+                for (int i = 0; i < metric.getLevels().size(); i++) {
+                    levels.addItem(metric.getLevels().get(i));
+                    chartLevel.addItem(metric.getLevels().get(i));
+                }
 
-		statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
+                statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
 
-	    } catch (Exception ex) {
-		Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
-	    }
+            } catch (Exception ex) {
+                Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-	}
+        }
 
 
 
@@ -2852,17 +2852,17 @@ private void OpenTraceFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN
      * @param evt previous command button action event
      */
 private void previousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousActionPerformed
-	TraceHandler.LoadPreviousTraceFileLines();
-	next.setEnabled(true);
-	if (TraceHandler.getPageCounter() + 1 == 2) {
-	    m2.setText("<html><font color=#0033FF size=+1>Showing Lines:</font>0:" + TraceHandler.getCurrentLineCounter() + "<html>");
-	    previous.setEnabled(false);
-	} else {
-	    m2.setText("<html><font color=#0033FF size=+1>Showing Lines:</font>" + (TraceHandler.getPageLineLimit() * (TraceHandler.getPageCounter() - 1) + 1) + ":" + TraceHandler.getCurrentLineCounter() + "<html>");
-	}
-	if ((TraceHandler.getPageLineLimit() * (TraceHandler.getPageCounter() - 1) + 1) > TraceHandler.getOveralLineCounter()) {
-	    next.setEnabled(false);
-	}
+        TraceHandler.LoadPreviousTraceFileLines();
+        next.setEnabled(true);
+        if (TraceHandler.getPageCounter() + 1 == 2) {
+            m2.setText("<html><font color=#0033FF size=+1>Showing Lines:</font>0:" + TraceHandler.getCurrentLineCounter() + "<html>");
+            previous.setEnabled(false);
+        } else {
+            m2.setText("<html><font color=#0033FF size=+1>Showing Lines:</font>" + (TraceHandler.getPageLineLimit() * (TraceHandler.getPageCounter() - 1) + 1) + ":" + TraceHandler.getCurrentLineCounter() + "<html>");
+        }
+        if ((TraceHandler.getPageLineLimit() * (TraceHandler.getPageCounter() - 1) + 1) > TraceHandler.getOveralLineCounter()) {
+            next.setEnabled(false);
+        }
 }//GEN-LAST:event_previousActionPerformed
 
     /**
@@ -2873,15 +2873,15 @@ private void previousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
      */
 private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
 
-	TraceHandler.LoadNextTraceFileLines();
-	previous.setEnabled(true);
+        TraceHandler.LoadNextTraceFileLines();
+        previous.setEnabled(true);
 
-	if (TraceHandler.getCurrentLineCounter() > TraceHandler.getOveralLineCounter()) {
-	    m2.setText("<html><font color=#0033FF size=+1>Showing Lines:</font>" + (TraceHandler.getPageLineLimit() * (TraceHandler.getPageCounter() - 1) + 1) + ":" + TraceHandler.getOveralLineCounter() + "<html>");
-	    next.setEnabled(false);
-	} else {
-	    m2.setText("<html><font color=#0033FF size=+1>Lines:</font>" + (TraceHandler.getPageLineLimit() * (TraceHandler.getPageCounter() - 1) + 1) + ":" + TraceHandler.getCurrentLineCounter() + "<html>");
-	}
+        if (TraceHandler.getCurrentLineCounter() > TraceHandler.getOveralLineCounter()) {
+            m2.setText("<html><font color=#0033FF size=+1>Showing Lines:</font>" + (TraceHandler.getPageLineLimit() * (TraceHandler.getPageCounter() - 1) + 1) + ":" + TraceHandler.getOveralLineCounter() + "<html>");
+            next.setEnabled(false);
+        } else {
+            m2.setText("<html><font color=#0033FF size=+1>Lines:</font>" + (TraceHandler.getPageLineLimit() * (TraceHandler.getPageCounter() - 1) + 1) + ":" + TraceHandler.getCurrentLineCounter() + "<html>");
+        }
 }//GEN-LAST:event_nextActionPerformed
 
     /**
@@ -2891,15 +2891,15 @@ private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:ev
      * @param evt delete command button action event
      */
 private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
-	int[] selectedTclFiles = traceFileList.getSelectedIndices();
-	for (int i = (selectedTclFiles.length - 1); i >= 0; i--) {
-	    Object selectedTcl = traceFileList.getModel().getElementAt(selectedTclFiles[i]);
-	    TraceHandler.DeleteTraceFile(selectedTcl.toString());
-	    clearAllInformation();
-	    Logger.getLogger(TRAFIL.class.getName()).info("Deleted Trace File:" + selectedTcl.toString());
-	}
+        int[] selectedTclFiles = traceFileList.getSelectedIndices();
+        for (int i = (selectedTclFiles.length - 1); i >= 0; i--) {
+            Object selectedTcl = traceFileList.getModel().getElementAt(selectedTclFiles[i]);
+            TraceHandler.DeleteTraceFile(selectedTcl.toString());
+            clearAllInformation();
+            Logger.getLogger(TRAFIL.class.getName()).info("Deleted Trace File:" + selectedTcl.toString());
+        }
 
-	//System.out.println("[" + NOW() + "] Deleted Trace File:" + selectedTcl.toString());
+        //System.out.println("[" + NOW() + "] Deleted Trace File:" + selectedTcl.toString());
 
 }//GEN-LAST:event_DeleteActionPerformed
 
@@ -2911,13 +2911,13 @@ private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
      * @param evt
      */
 private void savechangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savechangesActionPerformed
-	try {
-	    TraceHandler.saveChanges();
+        try {
+            TraceHandler.saveChanges();
 
 
-	} catch (SQLException ex) {
-	    Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
-	}
+        } catch (SQLException ex) {
+            Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
+        }
 }//GEN-LAST:event_savechangesActionPerformed
 
     /**
@@ -2929,52 +2929,52 @@ private void savechangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
      */
 private void selecttracefileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecttracefileActionPerformed
 
-	Object sfile = traceFileList.getSelectedValue();
-	statusBar.setText("Loading trace file: " + sfile.toString());
-	statusBar.paintImmediately(statusBar.getVisibleRect());
-	if (!TraceHandler.loadSelectedTraceFile(sfile.toString())) {
-	    Logger.getLogger(TRAFIL.class.getName()).severe("Error in loading " + sfile.toString());
-	    //System.out.println("[" + NOW() + "] Error in loading " + sfile.toString());
-	    return;
-	}
-	TraceFile.setInfo(null, sfile.toString());
-	chartPanel.removeAll();
-	simulationInfo = new GeneralSimulationInformation(TraceHandler.getMetaHandler(), TraceHandler.getStatement(), TraceFile);
-	nodeSelector.removeAllItems();
-	startNodes.removeAllItems();
-	endNodes.removeAllItems();
-	levels.removeAllItems();
-	chartStartNode.removeAllItems();
-	nodeChartStartNode.removeAllItems();
-	chartEndNode.removeAllItems();
-	chartLevel.removeAllItems();
-	nodeInfo = new GeneralNodeInformation(TraceHandler.getMetaHandler(), TraceHandler.getStatement(), TraceFile);
-	metric = new Metrics(TraceHandler.getMetaHandler(), TraceFile);
-	graph = new Graph(TraceHandler.getMetaHandler(), TraceFile);
-	for (int i = 0; i < nodeInfo.getNodesIdentifiers().size(); i++) {
-	    nodeSelector.addItem(nodeInfo.getNodesIdentifiers().get(i));
-	    startNodes.addItem(nodeInfo.getNodesIdentifiers().get(i));
-	    endNodes.addItem(nodeInfo.getNodesIdentifiers().get(i));
-	    chartStartNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
-	    nodeChartStartNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
-	    chartEndNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
-	}
-	for (int i = 0; i < metric.getLevels().size(); i++) {
-	    levels.addItem(metric.getLevels().get(i));
-	    chartLevel.addItem(metric.getLevels().get(i));
-	}
-	TableHan.getTestModel().addTableModelListener(tmh);
-	next.setEnabled(false);
-	previous.setEnabled(false);
-	if (TraceHandler.getOveralLineCounter() > 10000) {
-	    next.setEnabled(true);
-	}
-	simulationInfo.retrieveMetrics();
-	updateStandardMetrics();
-	m2.setText("<html><font color=#0033FF size=+1>Showing Lines:</font>0:" + TraceHandler.getCurrentLineCounter() + "</html>");
-	statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
-	statusBar.paintImmediately(statusBar.getVisibleRect());
-	//int response2 =JOptionPane.showConfirmDialog(null,"After select:"+jTable1.getRowCount()+" "+model3.getRowCount());
+        Object sfile = traceFileList.getSelectedValue();
+        statusBar.setText("Loading trace file: " + sfile.toString());
+        statusBar.paintImmediately(statusBar.getVisibleRect());
+        if (!TraceHandler.loadSelectedTraceFile(sfile.toString())) {
+            Logger.getLogger(TRAFIL.class.getName()).severe("Error in loading " + sfile.toString());
+            //System.out.println("[" + NOW() + "] Error in loading " + sfile.toString());
+            return;
+        }
+        TraceFile.setInfo(null, sfile.toString());
+        chartPanel.removeAll();
+        simulationInfo = new GeneralSimulationInformation(TraceHandler.getMetaHandler(), TraceHandler.getStatement(), TraceFile);
+        nodeSelector.removeAllItems();
+        startNodes.removeAllItems();
+        endNodes.removeAllItems();
+        levels.removeAllItems();
+        chartStartNode.removeAllItems();
+        nodeChartStartNode.removeAllItems();
+        chartEndNode.removeAllItems();
+        chartLevel.removeAllItems();
+        nodeInfo = new GeneralNodeInformation(TraceHandler.getMetaHandler(), TraceHandler.getStatement(), TraceFile);
+        metric = new Metrics(TraceHandler.getMetaHandler(), TraceFile);
+        graph = new Graph(TraceHandler.getMetaHandler(), TraceFile);
+        for (int i = 0; i < nodeInfo.getNodesIdentifiers().size(); i++) {
+            nodeSelector.addItem(nodeInfo.getNodesIdentifiers().get(i));
+            startNodes.addItem(nodeInfo.getNodesIdentifiers().get(i));
+            endNodes.addItem(nodeInfo.getNodesIdentifiers().get(i));
+            chartStartNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
+            nodeChartStartNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
+            chartEndNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
+        }
+        for (int i = 0; i < metric.getLevels().size(); i++) {
+            levels.addItem(metric.getLevels().get(i));
+            chartLevel.addItem(metric.getLevels().get(i));
+        }
+        TableHan.getTestModel().addTableModelListener(tmh);
+        next.setEnabled(false);
+        previous.setEnabled(false);
+        if (TraceHandler.getOveralLineCounter() > 10000) {
+            next.setEnabled(true);
+        }
+        simulationInfo.retrieveMetrics();
+        updateStandardMetrics();
+        m2.setText("<html><font color=#0033FF size=+1>Showing Lines:</font>0:" + TraceHandler.getCurrentLineCounter() + "</html>");
+        statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
+        statusBar.paintImmediately(statusBar.getVisibleRect());
+        //int response2 =JOptionPane.showConfirmDialog(null,"After select:"+jTable1.getRowCount()+" "+model3.getRowCount());
 }//GEN-LAST:event_selecttracefileActionPerformed
 
     /**
@@ -2985,21 +2985,21 @@ private void selecttracefileActionPerformed(java.awt.event.ActionEvent evt) {//G
      * @param evt node selector combo box action event
      */
 private void nodeSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nodeSelectorActionPerformed
-	if (nodeSelector.getSelectedItem() != null) {
-	    Logger.getLogger(TRAFIL.class.getName()).info("Trying to create Node information for node:" + nodeSelector.getSelectedItem());
-	    //System.out.println("[" + NOW() + "] Trying to create Node information for node:" + nodeSelector.getSelectedItem());
-	    if (!nodeInfo.produceMetrics(((Integer) nodeSelector.getSelectedItem()))) {
-		Logger.getLogger(TRAFIL.class.getName()).severe("Error in creating Node information for node:" + nodeSelector.getSelectedItem());
-		//System.out.println("[" + NOW() + "] Error in creating Node information for node:" + nodeSelector.getSelectedItem());
-	    } else {
-		//Logger.getLogger(mainFrame.class.getName()).addHandler(logHandler);
-		//Logger.getLogger(mainFrame.class.getName()).setUseParentHandlers(false);
-		Logger.getLogger(TRAFIL.class.getName()).info("Success in creating Node information for node:" + nodeSelector.getSelectedItem());
-		//System.out.println("[" + NOW() + "] Success in creating Node information for node:" + nodeSelector.getSelectedItem());
+        if (nodeSelector.getSelectedItem() != null) {
+            Logger.getLogger(TRAFIL.class.getName()).info("Trying to create Node information for node:" + nodeSelector.getSelectedItem());
+            //System.out.println("[" + NOW() + "] Trying to create Node information for node:" + nodeSelector.getSelectedItem());
+            if (!nodeInfo.produceMetrics(((Integer) nodeSelector.getSelectedItem()))) {
+                Logger.getLogger(TRAFIL.class.getName()).severe("Error in creating Node information for node:" + nodeSelector.getSelectedItem());
+                //System.out.println("[" + NOW() + "] Error in creating Node information for node:" + nodeSelector.getSelectedItem());
+            } else {
+                //Logger.getLogger(mainFrame.class.getName()).addHandler(logHandler);
+                //Logger.getLogger(mainFrame.class.getName()).setUseParentHandlers(false);
+                Logger.getLogger(TRAFIL.class.getName()).info("Success in creating Node information for node:" + nodeSelector.getSelectedItem());
+                //System.out.println("[" + NOW() + "] Success in creating Node information for node:" + nodeSelector.getSelectedItem());
 
-	    }
-	    updateNodeInformation();
-	}
+            }
+            updateNodeInformation();
+        }
 
 
 }//GEN-LAST:event_nodeSelectorActionPerformed
@@ -3014,25 +3014,25 @@ private void nodeSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
      */
 private void calculateMetricsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateMetricsActionPerformed
 
-	if ((TraceFile.getTraceFileName() != null) && (metric.calculateMetrics((Integer) startNodes.getSelectedItem(), (Integer) endNodes.getSelectedItem(), (String) levels.getSelectedItem()))) {
-	    //metric.calculateMetrics((Integer) startNodes.getSelectedItem(), (Integer) endNodes.getSelectedItem(), (String) levels.getSelectedItem());
-	    statusBar.setText("<html><font color=#0033FF>Selected Trace File:" + TraceFile.getTraceFileName() + "...</font></html>");
-	    metricsTable.getModel().setValueAt(metric.getThroughput(), 0, 1);
-	    metricsTable.getModel().setValueAt(metric.getThroughputBits(), 1, 1);
-	    metricsTable.getModel().setValueAt(metric.getMinEndToEndDelay(), 2, 1);
-	    metricsTable.getModel().setValueAt(metric.getMaxEndToEndDealy(), 3, 1);
-	    metricsTable.getModel().setValueAt(metric.getAverageEndToEndDelay(), 4, 1);
-	    metricsTable.getModel().setValueAt(metric.getDelayJitter(), 5, 1);
-	    metricsTable.getModel().setValueAt(metric.getMinDelayJitter(), 6, 1);
-	    metricsTable.getModel().setValueAt(metric.getMaxDelayJitter(), 7, 1);
-	    metricsTable.getModel().setValueAt(metric.getAverageDelayJitter(), 8, 1);
-	    metricsTable.getModel().setValueAt(metric.getPacketLossRatio(), 9, 1);
-	    Logger.getLogger(TRAFIL.class.getName()).info("Success in creating metrics for trace file: " + TraceFile.getTraceFileName());
-	    //System.out.println("[" + NOW() + "] Success in creating metrics for trace file: " + TraceFile.getTraceFileName());
-	} else {
-	    Logger.getLogger(TRAFIL.class.getName()).severe("Error in creating metrics for trace file: " + TraceFile.getTraceFileName());
-	    //System.out.println("[" + NOW() + "] Error in creating metrics for trace file: " + TraceFile.getTraceFileName());
-	}
+        if ((TraceFile.getTraceFileName() != null) && (metric.calculateMetrics((Integer) startNodes.getSelectedItem(), (Integer) endNodes.getSelectedItem(), (String) levels.getSelectedItem()))) {
+            //metric.calculateMetrics((Integer) startNodes.getSelectedItem(), (Integer) endNodes.getSelectedItem(), (String) levels.getSelectedItem());
+            statusBar.setText("<html><font color=#0033FF>Selected Trace File:" + TraceFile.getTraceFileName() + "...</font></html>");
+            metricsTable.getModel().setValueAt(metric.getThroughput(), 0, 1);
+            metricsTable.getModel().setValueAt(metric.getThroughputBits(), 1, 1);
+            metricsTable.getModel().setValueAt(metric.getMinEndToEndDelay(), 2, 1);
+            metricsTable.getModel().setValueAt(metric.getMaxEndToEndDealy(), 3, 1);
+            metricsTable.getModel().setValueAt(metric.getAverageEndToEndDelay(), 4, 1);
+            metricsTable.getModel().setValueAt(metric.getDelayJitter(), 5, 1);
+            metricsTable.getModel().setValueAt(metric.getMinDelayJitter(), 6, 1);
+            metricsTable.getModel().setValueAt(metric.getMaxDelayJitter(), 7, 1);
+            metricsTable.getModel().setValueAt(metric.getAverageDelayJitter(), 8, 1);
+            metricsTable.getModel().setValueAt(metric.getPacketLossRatio(), 9, 1);
+            Logger.getLogger(TRAFIL.class.getName()).info("Success in creating metrics for trace file: " + TraceFile.getTraceFileName());
+            //System.out.println("[" + NOW() + "] Success in creating metrics for trace file: " + TraceFile.getTraceFileName());
+        } else {
+            Logger.getLogger(TRAFIL.class.getName()).severe("Error in creating metrics for trace file: " + TraceFile.getTraceFileName());
+            //System.out.println("[" + NOW() + "] Error in creating metrics for trace file: " + TraceFile.getTraceFileName());
+        }
 }//GEN-LAST:event_calculateMetricsActionPerformed
 
     /**
@@ -3043,10 +3043,10 @@ private void calculateMetricsActionPerformed(java.awt.event.ActionEvent evt) {//
      * @param evt
      */
 private void exportToExcellActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportToExcellActionPerformed
-	exporter = new ExportData(TraceFile, TraceHandler.getStatement(), TraceHandler.getMetaHandler());
-	if (exporter.exportToExcell()) {
-	    JOptionPane.showMessageDialog(null, "Succesfully exported the trace file.");
-	}
+        exporter = new ExportData(TraceFile, TraceHandler.getStatement(), TraceHandler.getMetaHandler());
+        if (exporter.exportToExcell()) {
+            JOptionPane.showMessageDialog(null, "Succesfully exported the trace file.");
+        }
 
 }//GEN-LAST:event_exportToExcellActionPerformed
 
@@ -3059,10 +3059,10 @@ private void exportToExcellActionPerformed(java.awt.event.ActionEvent evt) {//GE
      * @param evt
      */
 private void exportToTxtFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportToTxtFileActionPerformed
-	exporter = new ExportData(TraceFile, TraceHandler.getStatement(), TraceHandler.getMetaHandler());
-	if (exporter.exportToTextFile()) {
-	    JOptionPane.showMessageDialog(null, "Succesfully exported the trace file.");
-	}
+        exporter = new ExportData(TraceFile, TraceHandler.getStatement(), TraceHandler.getMetaHandler());
+        if (exporter.exportToTextFile()) {
+            JOptionPane.showMessageDialog(null, "Succesfully exported the trace file.");
+        }
 
 }//GEN-LAST:event_exportToTxtFileActionPerformed
 
@@ -3075,10 +3075,10 @@ private void exportToTxtFileActionPerformed(java.awt.event.ActionEvent evt) {//G
      * @param evt
      */
 private void exportSimlutaionInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportSimlutaionInfoActionPerformed
-	exporter = new ExportData(TraceFile, TraceHandler.getStatement(), TraceHandler.getMetaHandler());
-	if (exporter.exportSimulationInformation(simulationInfo)) {
-	    JOptionPane.showMessageDialog(null, "Succesfully exported General Simulation Information.");
-	}
+        exporter = new ExportData(TraceFile, TraceHandler.getStatement(), TraceHandler.getMetaHandler());
+        if (exporter.exportSimulationInformation(simulationInfo)) {
+            JOptionPane.showMessageDialog(null, "Succesfully exported General Simulation Information.");
+        }
 
 }//GEN-LAST:event_exportSimlutaionInfoActionPerformed
 
@@ -3090,10 +3090,10 @@ private void exportSimlutaionInfoActionPerformed(java.awt.event.ActionEvent evt)
      * @param evt
      */
 private void exportMetricsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportMetricsActionPerformed
-	exporter = new ExportData(TraceFile, TraceHandler.getStatement(), TraceHandler.getMetaHandler());
-	if (exporter.exportMetrics(metric)) {
-	    JOptionPane.showMessageDialog(null, "Succesfully exported Metrics.");
-	}
+        exporter = new ExportData(TraceFile, TraceHandler.getStatement(), TraceHandler.getMetaHandler());
+        if (exporter.exportMetrics(metric)) {
+            JOptionPane.showMessageDialog(null, "Succesfully exported Metrics.");
+        }
 }//GEN-LAST:event_exportMetricsActionPerformed
 
     /**
@@ -3105,53 +3105,53 @@ private void exportMetricsActionPerformed(java.awt.event.ActionEvent evt) {//GEN
      */
 private void createChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createChartActionPerformed
 
-	Chart.resetGraph();
-	if (TraceFile.getTraceFileName() != null) {
+        Chart.resetGraph();
+        if (TraceFile.getTraceFileName() != null) {
 
-	    if (enableNodetoNode.isSelected()) {
-		statusBar.setText("Creating chart between nodes " + chartStartNode.getSelectedItem() + " and " + chartEndNode.getSelectedItem());
-		statusBar.paintImmediately(statusBar.getVisibleRect());
-		if (throughputChart.isSelected()) {
-		    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputChart.getText());
-		} else if (delayJitterChart.isSelected()) {
-		    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), delayJitterChart.getText());
-		} else if (endToEndDelayChart.isSelected()) {
-		    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), endToEndDelayChart.getText());
-		} else if (throughputBitsChart.isSelected()) {
-		    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputBitsChart.getText());
-		} else {
-		    JOptionPane.showMessageDialog(null, "You have not selected a chart type.");
-		    statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
-		    statusBar.paintImmediately(statusBar.getVisibleRect());
-		    return;
-		}
-	    } else if (enableNodeSpecific.isSelected()) {
-		statusBar.setText("Creating chart for node " + nodeChartStartNode.getSelectedItem());
-		statusBar.paintImmediately(statusBar.getVisibleRect());
-		if (throughputChart.isSelected()) {
-		    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputChart.getText());
-		} else if (delayJitterChart.isSelected()) {
-		    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), delayJitterChart.getText());
-		} else if (endToEndDelayChart.isSelected()) {
-		    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), endToEndDelayChart.getText());
-		} else if (throughputBitsChart.isSelected()) {
-		    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputBitsChart.getText());
-		} else {
-		    JOptionPane.showMessageDialog(null, "You have not selected a chart type.");
-		    statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
-		    statusBar.paintImmediately(statusBar.getVisibleRect());
-		    return;
-		}
-	    }
+            if (enableNodetoNode.isSelected()) {
+                statusBar.setText("Creating chart between nodes " + chartStartNode.getSelectedItem() + " and " + chartEndNode.getSelectedItem());
+                statusBar.paintImmediately(statusBar.getVisibleRect());
+                if (throughputChart.isSelected()) {
+                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputChart.getText());
+                } else if (delayJitterChart.isSelected()) {
+                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), delayJitterChart.getText());
+                } else if (endToEndDelayChart.isSelected()) {
+                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), endToEndDelayChart.getText());
+                } else if (throughputBitsChart.isSelected()) {
+                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputBitsChart.getText());
+                } else {
+                    JOptionPane.showMessageDialog(null, "You have not selected a chart type.");
+                    statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
+                    statusBar.paintImmediately(statusBar.getVisibleRect());
+                    return;
+                }
+            } else if (enableNodeSpecific.isSelected()) {
+                statusBar.setText("Creating chart for node " + nodeChartStartNode.getSelectedItem());
+                statusBar.paintImmediately(statusBar.getVisibleRect());
+                if (throughputChart.isSelected()) {
+                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputChart.getText());
+                } else if (delayJitterChart.isSelected()) {
+                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), delayJitterChart.getText());
+                } else if (endToEndDelayChart.isSelected()) {
+                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), endToEndDelayChart.getText());
+                } else if (throughputBitsChart.isSelected()) {
+                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputBitsChart.getText());
+                } else {
+                    JOptionPane.showMessageDialog(null, "You have not selected a chart type.");
+                    statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
+                    statusBar.paintImmediately(statusBar.getVisibleRect());
+                    return;
+                }
+            }
 
-	    chartPanel.setLayout(new java.awt.BorderLayout());
-	    chartPanel.removeAll();
-	    chartPanel.add(graph.getGraph());
-	    chartPanel.revalidate();
-	} else {
-	    statusBar.setText("<html><font color=#0033FF>No Trace File Selected.</font></html>");
-	    statusBar.paintImmediately(statusBar.getVisibleRect());
-	}
+            chartPanel.setLayout(new java.awt.BorderLayout());
+            chartPanel.removeAll();
+            chartPanel.add(graph.getGraph());
+            chartPanel.revalidate();
+        } else {
+            statusBar.setText("<html><font color=#0033FF>No Trace File Selected.</font></html>");
+            statusBar.paintImmediately(statusBar.getVisibleRect());
+        }
 }//GEN-LAST:event_createChartActionPerformed
 
     /**
@@ -3162,18 +3162,18 @@ private void createChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
      * @param evt
      */
 private void exportChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportChartActionPerformed
-	exporter = new ExportData(TraceFile, TraceHandler.getStatement(), TraceHandler.getMetaHandler());
-	if (throughputChart.isSelected()) {
-	    exporter.exportChart(graph.getChart(), throughputChart.getText());
-	} else if (throughputBitsChart.isSelected()) {
-	    exporter.exportChart(graph.getChart(), throughputBitsChart.getText());
-	} else if (delayJitterChart.isSelected()) {
-	    exporter.exportChart(graph.getChart(), delayJitterChart.getText());
-	} else if (endToEndDelayChart.isSelected()) {
-	    exporter.exportChart(graph.getChart(), "EndToEndDelay");
-	} else {
-	    JOptionPane.showMessageDialog(null, "You have not selected a chart type.");
-	}
+        exporter = new ExportData(TraceFile, TraceHandler.getStatement(), TraceHandler.getMetaHandler());
+        if (throughputChart.isSelected()) {
+            exporter.exportChart(graph.getChart(), throughputChart.getText());
+        } else if (throughputBitsChart.isSelected()) {
+            exporter.exportChart(graph.getChart(), throughputBitsChart.getText());
+        } else if (delayJitterChart.isSelected()) {
+            exporter.exportChart(graph.getChart(), delayJitterChart.getText());
+        } else if (endToEndDelayChart.isSelected()) {
+            exporter.exportChart(graph.getChart(), "EndToEndDelay");
+        } else {
+            JOptionPane.showMessageDialog(null, "You have not selected a chart type.");
+        }
 }//GEN-LAST:event_exportChartActionPerformed
 
     /**
@@ -3187,492 +3187,493 @@ private void exportChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
      * @param evt
      */
     private void openOTCLScriptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openOTCLScriptActionPerformed
-	fc.setFileFilter(new GenericFileFilter(".tcl"));
-	int returnVal = fc.showOpenDialog(null);
-	if (returnVal == JFileChooser.APPROVE_OPTION) {
-	    try {
-		String path = fc.getSelectedFile().getCanonicalPath();
-		executeNS2Simulation(path);
-	    } catch (IOException ex) {
-		Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
-	    }
-	}
+        fc.setFileFilter(new GenericFileFilter(".tcl"));
+        int returnVal = fc.showOpenDialog(null);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            try {
+                String path = fc.getSelectedFile().getCanonicalPath();
+                executeNS2Simulation(path);
+            } catch (IOException ex) {
+                Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_openOTCLScriptActionPerformed
 
     public void executeNS2Simulation(String path) {
-	try {
-	    String tempString = statusBar.getText();
-	    statusBar.setText("Running Ns with file:" + path + "...");
-	    statusBar.paintImmediately(statusBar.getVisibleRect());
-	    NetworkSimulator ns = new NetworkSimulator(path);
-	    ns.executeSimulation();
-	    File createdTraceFile = ns.getCreatedTraceFile();
-	    if (createdTraceFile == null) {
-		statusBar.setText(tempString);
-		statusBar.paintImmediately(statusBar.getVisibleRect());
-		return;
-	    }
-	    System.out.println("Simulation complete.");
-	    statusBar.setText("Loading:" + createdTraceFile.getName() + "...");
-	    statusBar.paintImmediately(statusBar.getVisibleRect());
+        try {
+            String tempString = statusBar.getText();
+            statusBar.setText("Running Ns with file:" + path + "...");
+            statusBar.paintImmediately(statusBar.getVisibleRect());
+            NetworkSimulator ns = new NetworkSimulator(path);
+            ns.executeSimulation();
+            File createdTraceFile = ns.getCreatedTraceFile();
+            if (createdTraceFile == null) {
+                statusBar.setText(tempString);
+                statusBar.paintImmediately(statusBar.getVisibleRect());
+                return;
+            }
+            System.out.println("Simulation complete.");
+            statusBar.setText("Loading:" + createdTraceFile.getName() + "...");
+            statusBar.paintImmediately(statusBar.getVisibleRect());
 
-	    if (!TraceHandler.OpenTraceFile(createdTraceFile)) {
-		statusBar.setText(tempString);
-		statusBar.paintImmediately(statusBar.getVisibleRect());
-		return;
-	    }
-	    TableHan.getTestModel().addTableModelListener(tmh);
-	    model.clear();
-	    tmh.setSqlupdatequery("");
-	    rs = TraceHandler.getResultSet();
-	    while (rs.next()) {
-		input = rs.getString(1);
-		model.addElement(input);
-	    }
-	    TraceFile.setInfo(createdTraceFile, TraceHandler.getSelectedTraceFile());
-	    statusBar.setText("Calculating General Simulation and Node Information...");
-	    statusBar.paintImmediately(statusBar.getVisibleRect());
-	    /*
-	     * Clearing all previous information and chart.
-	     */
-	    clearAllInformation();
-	    chartPanel.removeAll();
-	    nodeSelector.removeAllItems();
-	    startNodes.removeAllItems();
-	    endNodes.removeAllItems();
-	    levels.removeAllItems();
-	    chartStartNode.removeAllItems();
-	    chartEndNode.removeAllItems();
-	    chartLevel.removeAllItems();
-	    next.setEnabled(false);
-	    previous.setEnabled(false);
+            if (!TraceHandler.OpenTraceFile(createdTraceFile)) {
+                statusBar.setText(tempString);
+                statusBar.paintImmediately(statusBar.getVisibleRect());
+                return;
+            }
+            TableHan.getTestModel().addTableModelListener(tmh);
+            model.clear();
+            tmh.setSqlupdatequery("");
+            rs = TraceHandler.getResultSet();
+            while (rs.next()) {
+                input = rs.getString(1);
+                model.addElement(input);
+            }
+            TraceFile.setInfo(createdTraceFile, TraceHandler.getSelectedTraceFile());
+            statusBar.setText("Calculating General Simulation and Node Information...");
+            statusBar.paintImmediately(statusBar.getVisibleRect());
+            /*
+             * Clearing all previous information and chart.
+             */
+            clearAllInformation();
+            chartPanel.removeAll();
+            nodeSelector.removeAllItems();
+            startNodes.removeAllItems();
+            endNodes.removeAllItems();
+            levels.removeAllItems();
+            chartStartNode.removeAllItems();
+            chartEndNode.removeAllItems();
+            chartLevel.removeAllItems();
+            next.setEnabled(false);
+            previous.setEnabled(false);
 
-	    if (TraceHandler.getLineCounter() > 10000) {
-		next.setEnabled(true);
-		m2.setText("<html><font color=#0033FF size=+1>Showing Lines:</font>0:" + TraceHandler.getCurrentLineCounter() + "<html>");
-	    } else {
-		m2.setText("<html><font color=#0033FF size=+1>Showing Lines:</font>0:" + TraceHandler.getCurrentLineCounter() + "<html>");
-	    }
-
-
-	    //JOptionPane.showMessageDialog(null, "" + TraceHandler.getMetaHandler().getMetaFilePath());
-	    if (!TraceHandler.getMetaHandler().getMetaFilePath().contains("normal") && !TraceHandler.getMetaHandler().getMetaFilePath().contains("oldwireless")) {
-		statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
-		simulationInfo.storeMetrics();
-		return;
-	    }
-	    simulationInfo = new GeneralSimulationInformation(TraceHandler.getMetaHandler(), TraceHandler.getStatement(), TraceFile);
-	    if (simulationInfo.storeMetrics()) {
-		updateStandardMetrics();
-	    } else {
-		Logger.getLogger(TRAFIL.class.getName()).severe("Error in producing-storing standard metrics.");
-		//System.out.println("[" + NOW() + "] Error in producing-storing standard metrics.");
-	    }
-
-	    nodeInfo = new GeneralNodeInformation(TraceHandler.getMetaHandler(), TraceHandler.getStatement(), TraceFile);
-	    for (int j = 0; j < nodeInfo.getNodesIdentifiers().size(); j++) {
-		nodeSelector.addItem(nodeInfo.getNodesIdentifiers().get(j));
-		startNodes.addItem(nodeInfo.getNodesIdentifiers().get(j));
-		endNodes.addItem(nodeInfo.getNodesIdentifiers().get(j));
-		chartStartNode.addItem(nodeInfo.getNodesIdentifiers().get(j));
-		chartEndNode.addItem(nodeInfo.getNodesIdentifiers().get(j));
-	    }
+            if (TraceHandler.getLineCounter() > 10000) {
+                next.setEnabled(true);
+                m2.setText("<html><font color=#0033FF size=+1>Showing Lines:</font>0:" + TraceHandler.getCurrentLineCounter() + "<html>");
+            } else {
+                m2.setText("<html><font color=#0033FF size=+1>Showing Lines:</font>0:" + TraceHandler.getCurrentLineCounter() + "<html>");
+            }
 
 
-	    metric = new Metrics(TraceHandler.getMetaHandler(), TraceFile);
-	    graph = new Graph(TraceHandler.getMetaHandler(), TraceFile);
-	    for (int j = 0; j < metric.getLevels().size(); j++) {
-		levels.addItem(metric.getLevels().get(j));
-		chartLevel.addItem(metric.getLevels().get(j));
-	    }
-	    if (!ns.getSimulationMessage().isEmpty()) {
-		SimulationResultPresenter simulationResults = new SimulationResultPresenter(this, null, PathLocator.getNetworkSimulationOutputsPath(System.getProperty("user.dir")));
-		simulationResults.setSimulationOuput(ns.getSimulationMessage());
-	    }
+            //JOptionPane.showMessageDialog(null, "" + TraceHandler.getMetaHandler().getMetaFilePath());
+            if (!TraceHandler.getMetaHandler().getMetaFilePath().contains("normal") && !TraceHandler.getMetaHandler().getMetaFilePath().contains("oldwireless")) {
+                statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
+                simulationInfo.storeMetrics();
+                return;
+            }
+            simulationInfo = new GeneralSimulationInformation(TraceHandler.getMetaHandler(), TraceHandler.getStatement(), TraceFile);
+            if (simulationInfo.storeMetrics()) {
+                updateStandardMetrics();
+            } else {
+                Logger.getLogger(TRAFIL.class.getName()).severe("Error in producing-storing standard metrics.");
+                //System.out.println("[" + NOW() + "] Error in producing-storing standard metrics.");
+            }
 
-	    statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
+            nodeInfo = new GeneralNodeInformation(TraceHandler.getMetaHandler(), TraceHandler.getStatement(), TraceFile);
+            for (int j = 0; j < nodeInfo.getNodesIdentifiers().size(); j++) {
+                nodeSelector.addItem(nodeInfo.getNodesIdentifiers().get(j));
+                startNodes.addItem(nodeInfo.getNodesIdentifiers().get(j));
+                endNodes.addItem(nodeInfo.getNodesIdentifiers().get(j));
+                chartStartNode.addItem(nodeInfo.getNodesIdentifiers().get(j));
+                chartEndNode.addItem(nodeInfo.getNodesIdentifiers().get(j));
+            }
 
-	} catch (Exception ex) {
-	    JOptionPane.showMessageDialog(null,
-		    "TRAFIL could not find the Ns application.\n"
-		    + "Please make sure that Ns is installed in the system\n"
-		    + "or else that the Ns executable is located in the directory\n"
-		    + "/usr/bin",
-		    "Error",
-		    JOptionPane.ERROR_MESSAGE);
 
-	    ex.printStackTrace(System.err);
-	}
+            metric = new Metrics(TraceHandler.getMetaHandler(), TraceFile);
+            graph = new Graph(TraceHandler.getMetaHandler(), TraceFile);
+            for (int j = 0; j < metric.getLevels().size(); j++) {
+                levels.addItem(metric.getLevels().get(j));
+                chartLevel.addItem(metric.getLevels().get(j));
+            }
+            if (!ns.getSimulationMessage().isEmpty()) {
+                SimulationResultPresenter simulationResults = new SimulationResultPresenter(this, null, PathLocator.getNetworkSimulationOutputsPath(System.getProperty("user.dir")));
+                simulationResults.setSimulationOuput(ns.getSimulationMessage());
+            }
+
+            statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,
+                    "TRAFIL could not find the Ns application.\n"
+                    + "Please make sure that Ns is installed in the system\n"
+                    + "or else that the Ns executable is located in the directory\n"
+                    + "/usr/bin",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+
+            ex.printStackTrace(System.err);
+        }
     }
 
 private void enableNodeSpecificActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enableNodeSpecificActionPerformed
-	//throughputBitsChart.setVisible(false);
-	//delayJitterChart.setVisible(false);
-	//endToEndDelayChart.setVisible(false);
+        //throughputBitsChart.setVisible(false);
+        //delayJitterChart.setVisible(false);
+        //endToEndDelayChart.setVisible(false);
 }//GEN-LAST:event_enableNodeSpecificActionPerformed
 
 private void executeSQLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_executeSQLActionPerformed
-	queryResultArea.setText("");
-	QueryHandler queryHandler = new QueryHandler();
-	ArrayList<String> queryResult = queryHandler.executeQuery(sqlQueryArea.getText());
-	for (int i = 0; i < queryResult.size(); i++) {
-	    queryResultArea.append(queryResult.get(i));
-	}
+        queryResultArea.setText("");
+        QueryHandler queryHandler = new QueryHandler();
+        ArrayList<String> queryResult = queryHandler.executeQuery(sqlQueryArea.getText());
+        for (int i = 0; i < queryResult.size(); i++) {
+            queryResultArea.append(queryResult.get(i));
+        }
 
 }//GEN-LAST:event_executeSQLActionPerformed
 
 private void clearSQLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearSQLActionPerformed
-	sqlQueryArea.setText("");
+        sqlQueryArea.setText("");
 }//GEN-LAST:event_clearSQLActionPerformed
 
 private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enableNodetoNodeActionPerformed
-	throughputBitsChart.setVisible(true);
-	delayJitterChart.setVisible(true);
-	endToEndDelayChart.setVisible(true);
+        throughputBitsChart.setVisible(true);
+        delayJitterChart.setVisible(true);
+        endToEndDelayChart.setVisible(true);
 }//GEN-LAST:event_enableNodetoNodeActionPerformed
 
     private void DesignQueryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DesignQueryButtonActionPerformed
 
-	design = new DesignWindow();
-	design.addWindowListener(new java.awt.event.WindowAdapter() {
-	    @Override
-	    public void windowDeactivated(java.awt.event.WindowEvent evt) {
-		//JOptionPane.showMessageDialog(null, design.getQuery());
-		sqlQueryArea.setText(design.getQuery());
-	    }
-	});
+        design = new DesignWindow();
+        design.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowDeactivated(java.awt.event.WindowEvent evt) {
+                //JOptionPane.showMessageDialog(null, design.getQuery());
+                sqlQueryArea.setText(design.getQuery());
+            }
+        });
 
     }//GEN-LAST:event_DesignQueryButtonActionPerformed
 
     private void browseRawVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseRawVideoActionPerformed
 
-	JFileChooser rawVideoChooser = new JFileChooser();
-	rawVideoChooser.setFileFilter(new GenericFileFilter(".yuv"));
-	int returnVal = rawVideoChooser.showOpenDialog(null);
-	if (returnVal == JFileChooser.APPROVE_OPTION) {
-	    try {
-		rawVideoPath.setText(rawVideoChooser.getSelectedFile().getCanonicalPath());
-	    } catch (IOException ex) {
-		Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
-	    }
+        JFileChooser rawVideoChooser = new JFileChooser();
+        rawVideoChooser.setFileFilter(new GenericFileFilter(".yuv"));
+        int returnVal = rawVideoChooser.showOpenDialog(null);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            try {
+                rawVideoPath.setText(rawVideoChooser.getSelectedFile().getCanonicalPath());
+            } catch (IOException ex) {
+                Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-	}
+        }
     }//GEN-LAST:event_browseRawVideoActionPerformed
 
     private void browseSimulationScriptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseSimulationScriptActionPerformed
-	JFileChooser scriptChooser = new JFileChooser();
-	scriptChooser.setFileFilter(new GenericFileFilter(".tcl"));
-	int returnVal = scriptChooser.showOpenDialog(null);
-	if (returnVal == JFileChooser.APPROVE_OPTION) {
-	    try {
-		simulationScriptPath.setText(scriptChooser.getSelectedFile().getCanonicalPath());
-	    } catch (IOException ex) {
-		Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
-	    }
+        JFileChooser scriptChooser = new JFileChooser();
+        scriptChooser.setFileFilter(new GenericFileFilter(".tcl"));
+        int returnVal = scriptChooser.showOpenDialog(null);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            try {
+                simulationScriptPath.setText(scriptChooser.getSelectedFile().getCanonicalPath());
+            } catch (IOException ex) {
+                Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-	}
+        }
     }//GEN-LAST:event_browseSimulationScriptActionPerformed
 
     private void executePreAndSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_executePreAndSimulationActionPerformed
-	try {
-	    String currentMessage = statusBar.getText();
-	    statusBar.setText("Running Evalvid Simulation...");
-	    statusBar.paintImmediately(statusBar.getVisibleRect());
-	    String externalToolsPath = PathLocator.getExternalToolsPath(System.getProperty("user.dir"));
-	    Map<String, String> simulationInformation = new HashMap<String, String>();
-	    Map<String, ArrayList<File>> outputs = null;
-	    String videoPath = new String("\"" + rawVideoPath.getText() + "\"");
+        try {
+            String currentMessage = statusBar.getText();
+            statusBar.setText("Running Evalvid Simulation...");
+            statusBar.paintImmediately(statusBar.getVisibleRect());
+            String externalToolsPath = PathLocator.getExternalToolsPath(System.getProperty("user.dir"));
+            Map<String, String> simulationInformation = new HashMap<String, String>();
+            Map<String, ArrayList<File>> outputs = null;
+            String videoPath = new String("\"" + rawVideoPath.getText() + "\"");
 
-	    simulationInformation.put("videoName", "akiyo_cif.yuv");
-	    simulationInformation.put("tclScript", PathLocator.validatePath(simulationScriptPath.getText()));
-	    simulationInformation.put("videoPath", PathLocator.validatePath(videoPath));
-	    simulationInformation.put("ffmpegPath", PathLocator.validatePath(externalToolsPath + "ffmpeg.exe"));
-	    simulationInformation.put("mp4Path", PathLocator.validatePath(externalToolsPath + "MP4.exe"));
-	    simulationInformation.put("inVideoSize", (String) inputVideoSize.getSelectedItem());
-	    simulationInformation.put("outVideoCodec", (String) outputVideoCodec.getSelectedItem());
-	    simulationInformation.put("outGOP", outputGroupOfPictures.getText());
-	    simulationInformation.put("videoPath", PathLocator.validatePath(rawVideoPath.getText()));
-	    simulationInformation.put("outQualityStart", qualityScaleStartValue.getText());
-	    simulationInformation.put("outQualityEnd", qualityScaleEndValue.getText());
-	    simulationInformation.put("outVideoSize", (String) outputVideoSize.getSelectedItem());
-	    simulationInformation.put("outFrameRate", outputFrameRate.getText());
-	    simulationInformation.put("mp4IpAddr", mp4IpAddress.getText());
-	    simulationInformation.put("mp4Port", mp4PortNumber.getText());
-	    simulationInformation.put("mp4FrameRate", mp4Fps.getText());
-	    simulationInformation.put("mp4MTU", mp4MTU.getText());
-	    simulationInformation.put("inFrameRate", inputFrameRate.getText());
-	    simulationInformation.put("ffmpegFileName", ffmpegVideoName.getText());
-	    simulationInformation.put("mp4FileName", mp4OutputFileName.getText());
-	    simulationInformation.put("senderPrefix", senderPrefix.getText());
-	    simulationInformation.put("receiverPrefix", receiverPrefix.getText());
+            simulationInformation.put("videoName", "akiyo_cif.yuv");
+            simulationInformation.put("tclScript", PathLocator.validatePath(simulationScriptPath.getText()));
+            simulationInformation.put("videoPath", PathLocator.validatePath(videoPath));
+            simulationInformation.put("ffmpegPath", PathLocator.validatePath(externalToolsPath + "ffmpeg.exe"));
+            simulationInformation.put("mp4Path", PathLocator.validatePath(externalToolsPath + "MP4.exe"));
+            simulationInformation.put("inVideoSize", (String) inputVideoSize.getSelectedItem());
+            simulationInformation.put("outVideoCodec", (String) outputVideoCodec.getSelectedItem());
+            simulationInformation.put("outGOP", outputGroupOfPictures.getText());
+            simulationInformation.put("videoPath", PathLocator.validatePath(rawVideoPath.getText()));
+            simulationInformation.put("outQualityStart", qualityScaleStartValue.getText());
+            simulationInformation.put("outQualityEnd", qualityScaleEndValue.getText());
+            simulationInformation.put("outVideoSize", (String) outputVideoSize.getSelectedItem());
+            simulationInformation.put("outFrameRate", outputFrameRate.getText());
+            simulationInformation.put("mp4IpAddr", mp4IpAddress.getText());
+            simulationInformation.put("mp4Port", mp4PortNumber.getText());
+            simulationInformation.put("mp4FrameRate", mp4Fps.getText());
+            simulationInformation.put("mp4MTU", mp4MTU.getText());
+            simulationInformation.put("inFrameRate", inputFrameRate.getText());
+            simulationInformation.put("ffmpegFileName", ffmpegVideoName.getText());
+            simulationInformation.put("mp4FileName", mp4OutputFileName.getText());
+            simulationInformation.put("senderPrefix", senderPrefix.getText());
+            simulationInformation.put("receiverPrefix", receiverPrefix.getText());
 
-	    VideoSimulator videoSimulator = new VideoSimulator(simulationInformation);
-	    if (videoSimulator.executeSimulation()) {
-		outputs = videoSimulator.getSimulationOutputs();
-		updateVideoSimulationResults(outputs);
-	    } else {
-		JOptionPane.showMessageDialog(null, "Video Simulation was not executed succesfully.", "Error", JOptionPane.ERROR_MESSAGE);
-		System.out.print("Error executing Simulation");
-	    }
-	    //JOptionPane.showMessageDialog(Exit, "Executed Script");
-	    if (!videoSimulator.getSimulationMessage().isEmpty()) {
-		SimulationResultPresenter videoResults = new SimulationResultPresenter(this, outputs, PathLocator.getSimulationOutputsPath(System.getProperty("user.dir")));
-		videoResults.setSimulationOuput(videoSimulator.getSimulationMessage());
-	    }
-	    statusBar.setText(currentMessage);
-	    statusBar.paintImmediately(statusBar.getVisibleRect());
-	} catch (Exception ex) {
-	    JOptionPane.showMessageDialog(null, "TRAFIL could not execute the simulation.\n", "Error", JOptionPane.ERROR_MESSAGE);
-	    ex.printStackTrace(System.err);
-	}
+            VideoSimulator videoSimulator = new VideoSimulator(simulationInformation);
+            if (videoSimulator.executeSimulation()) {
+                outputs = videoSimulator.getSimulationOutputs();
+                updateVideoSimulationResults(outputs);
+            } else {
+                JOptionPane.showMessageDialog(null, "Video Simulation was not executed succesfully.", "Error", JOptionPane.ERROR_MESSAGE);
+                System.out.print("Error executing Simulation");
+            }
+            //JOptionPane.showMessageDialog(Exit, "Executed Script");
+            if (!videoSimulator.getSimulationMessage().isEmpty()) {
+                SimulationResultPresenter videoResults = new SimulationResultPresenter(this, outputs, PathLocator.getSimulationOutputsPath(System.getProperty("user.dir")));
+                videoResults.setSimulationOuput(videoSimulator.getSimulationMessage());
+            }
+            statusBar.setText(currentMessage);
+            statusBar.paintImmediately(statusBar.getVisibleRect());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "TRAFIL could not execute the simulation.\n", "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace(System.err);
+        }
     }//GEN-LAST:event_executePreAndSimulationActionPerformed
 
     private void executepostSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_executepostSimulationActionPerformed
-	try {
-	    String currentMessage = statusBar.getText();
-	    statusBar.setText("Running Evalvid Post Simulation...");
-	    statusBar.paintImmediately(statusBar.getVisibleRect());
-	    String externalToolsPath = PathLocator.getExternalToolsPath(System.getProperty("user.dir"));
-	    Map<String, String> simulationInformation = new HashMap<String, String>();
-	    //Properties prop = new Properties();
-	    simulationInformation.put("senderFile", (String) senderFileSelect.getSelectedItem());
-	    simulationInformation.put("receiverFile", (String) receiverFileSelect.getSelectedItem());
-	    simulationInformation.put("mp4TraceFile", (String) mp4TraceSelect.getSelectedItem());
-	    simulationInformation.put("dataFile1", (String) videoDataFile1.getSelectedItem());
-	    simulationInformation.put("dataFile2", (String) videoDataFile2.getSelectedItem());
-	    simulationInformation.put("et_raVideoOutputFile", postSimulationVideoOutputName.getText());
-	    simulationInformation.put("postSimulationFrameRate", postSimulationFrameRate.getText());
-	    simulationInformation.put("postSimulationVideoCodec", (String) postSimulationVideoCodec.getSelectedItem());
-	    simulationInformation.put("ffmpegPostSimulationOutputVideoName", postSimulationOutputVideoName.getText());
-	    simulationInformation.put("psnrVideoWidth", "352");
-	    simulationInformation.put("psnrVideoHeight", "288");
-	    simulationInformation.put("et_raPath", PathLocator.validatePath(externalToolsPath + "et_ra.exe"));
-	    simulationInformation.put("psnrPath", PathLocator.validatePath(externalToolsPath + "psnr.exe"));
+        try {
+            String currentMessage = statusBar.getText();
+            statusBar.setText("Running Evalvid Post Simulation...");
+            statusBar.paintImmediately(statusBar.getVisibleRect());
+            String externalToolsPath = PathLocator.getExternalToolsPath(System.getProperty("user.dir"));
+            Map<String, String> simulationInformation = new HashMap<String, String>();
+            //Properties prop = new Properties();
+            simulationInformation.put("senderFile", (String) senderFileSelect.getSelectedItem());
+            simulationInformation.put("receiverFile", (String) receiverFileSelect.getSelectedItem());
+            simulationInformation.put("mp4TraceFile", (String) mp4TraceSelect.getSelectedItem());
+            simulationInformation.put("dataFile1", (String) videoDataFile1.getSelectedItem());
+            simulationInformation.put("dataFile2", (String) videoDataFile2.getSelectedItem());
+            simulationInformation.put("et_raVideoOutputFile", postSimulationVideoOutputName.getText());
+            simulationInformation.put("postSimulationFrameRate", postSimulationFrameRate.getText());
+            simulationInformation.put("postSimulationVideoCodec", (String) postSimulationVideoCodec.getSelectedItem());
+            simulationInformation.put("ffmpegPostSimulationOutputVideoName", postSimulationOutputVideoName.getText());
+            simulationInformation.put("psnrVideoWidth", "352");
+            simulationInformation.put("psnrVideoHeight", "288");
+            simulationInformation.put("et_raPath", PathLocator.validatePath(externalToolsPath + "et_ra.exe"));
+            simulationInformation.put("psnrPath", PathLocator.validatePath(externalToolsPath + "psnr.exe"));
 
-	    VideoPostSimulator videoPostSimulator = new VideoPostSimulator(simulationInformation);
+            VideoPostSimulator videoPostSimulator = new VideoPostSimulator(simulationInformation);
 
-	    if (videoPostSimulator.executeSimulation()) {
-		System.out.print("Executed Post Simulation");
-		JOptionPane.showMessageDialog(null, "Results extracted succesfully.", "TRAFIL message", JOptionPane.PLAIN_MESSAGE);
+            if (videoPostSimulator.executeSimulation()) {
+                System.out.print("Executed Post Simulation");
+                JOptionPane.showMessageDialog(null, "Results extracted succesfully.", "TRAFIL message", JOptionPane.PLAIN_MESSAGE);
 
-	    } else {
-		JOptionPane.showMessageDialog(null, "Results were not extraceted succesfully.", "Error.", JOptionPane.ERROR_MESSAGE);
-		System.out.print("Error executing Post Simulation");
-	    }
-	    SimulationResultPresenter videoResults = new SimulationResultPresenter(this, null, PathLocator.getSimulationOutputsPath(System.getProperty("user.dir")));
-	    videoResults.setSimulationOuput(videoPostSimulator.getSimulationMessage());
+            } else {
+                JOptionPane.showMessageDialog(null, "Results were not extraceted succesfully.", "Error.", JOptionPane.ERROR_MESSAGE);
+                System.out.print("Error executing Post Simulation");
+            }
+            SimulationResultPresenter videoResults = new SimulationResultPresenter(this, null, PathLocator.getSimulationOutputsPath(System.getProperty("user.dir")));
+            videoResults.setSimulationOuput(videoPostSimulator.getSimulationMessage());
 
-	    statusBar.setText(currentMessage);
-	    statusBar.paintImmediately(statusBar.getVisibleRect());
-	} catch (Exception ex) {
-	    ex.printStackTrace(System.err);
-	}
+            statusBar.setText(currentMessage);
+            statusBar.paintImmediately(statusBar.getVisibleRect());
+        } catch (Exception ex) {
+            ex.printStackTrace(System.err);
+        }
     }//GEN-LAST:event_executepostSimulationActionPerformed
 
     private void dbnameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dbnameKeyReleased
-	if (evt.getKeyCode() == 10) {
-	    connect.doClick();
-	}
+        if (evt.getKeyCode() == 10) {
+            connect.doClick();
+        }
 
     }//GEN-LAST:event_dbnameKeyReleased
 
     private void connect_panelKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_connect_panelKeyReleased
-	if (evt.getKeyCode() == 10) {
-	    connect.doClick();
-	}
+        if (evt.getKeyCode() == 10) {
+            connect.doClick();
+        }
     }//GEN-LAST:event_connect_panelKeyReleased
 
     private void usernameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameKeyReleased
-	if (evt.getKeyCode() == 10) {
-	    connect.doClick();
-	}
+        if (evt.getKeyCode() == 10) {
+            connect.doClick();
+        }
     }//GEN-LAST:event_usernameKeyReleased
 
     private void passwordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyReleased
-	if (evt.getKeyCode() == 10) {
-	    connect.doClick();
-	}
+        if (evt.getKeyCode() == 10) {
+            connect.doClick();
+        }
     }//GEN-LAST:event_passwordKeyReleased
 
     private void senderFileSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senderFileSelectActionPerformed
-	// TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_senderFileSelectActionPerformed
 
     private void newWiredNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newWiredNodeButtonActionPerformed
-	newWirelessNodeButton.setSelected(false);
-	newLinkButton.setSelected(false);
+        newWirelessNodeButton.setSelected(false);
+        newLinkButton.setSelected(false);
     }//GEN-LAST:event_newWiredNodeButtonActionPerformed
 
     private void chartStartNodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chartStartNodeActionPerformed
-	// TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_chartStartNodeActionPerformed
 
     private void simParamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simParamButtonActionPerformed
-	simProperties.setVisible(true);
+        simProperties.setVisible(true);
     }//GEN-LAST:event_simParamButtonActionPerformed
 
     private void linkListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_linkListButtonActionPerformed
-	linkWindow.setVisible(true);
+        linkWindow.setVisible(true);
     }//GEN-LAST:event_linkListButtonActionPerformed
 
     private void newWirelessNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newWirelessNodeButtonActionPerformed
-	newWiredNodeButton.setSelected(false);
-	newLinkButton.setSelected(false);
+        newWiredNodeButton.setSelected(false);
+        newLinkButton.setSelected(false);
     }//GEN-LAST:event_newWirelessNodeButtonActionPerformed
 
     private void newLinkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newLinkButtonActionPerformed
-	newWirelessNodeButton.setSelected(false);
-	newWiredNodeButton.setSelected(false);
+        newWirelessNodeButton.setSelected(false);
+        newWiredNodeButton.setSelected(false);
     }//GEN-LAST:event_newLinkButtonActionPerformed
 
     private void connectedAgentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectedAgentsButtonActionPerformed
-	connectedAgents.setVisible(true);
+        connectedAgents.setVisible(true);
     }//GEN-LAST:event_connectedAgentsButtonActionPerformed
 
     private void wirelessSettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wirelessSettingsButtonActionPerformed
-	wirelessWindow.setVisible(true);
+        wirelessWindow.setVisible(true);
     }//GEN-LAST:event_wirelessSettingsButtonActionPerformed
 
     private void openTCLFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openTCLFileActionPerformed
-	fc.setFileFilter(new GenericFileFilter(".tcl"));
-	int returnVal = fc.showOpenDialog(null);
-	if (returnVal == JFileChooser.APPROVE_OPTION) {
+        fc.setFileFilter(new GenericFileFilter(".tcl"));
+        int returnVal = fc.showOpenDialog(null);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
 
-	    try {
+            try {
 
-		statusBar.setText("Loading: " + fc.getSelectedFile().getName() + "...");
-		statusBar.paintImmediately(statusBar.getVisibleRect());
+                statusBar.setText("Loading: " + fc.getSelectedFile().getName() + "...");
+                statusBar.paintImmediately(statusBar.getVisibleRect());
 
-		if (!TclFileLoader.OpenTclFile(fc.getSelectedFile())) {
-		    statusBar.setText("No Tcl file selected.");
-		    statusBar.paintImmediately(statusBar.getVisibleRect());
-		    return;
-		}
+                if (!TclFileLoader.OpenTclFile(fc.getSelectedFile())) {
+                    statusBar.setText("No Tcl file selected.");
+                    statusBar.paintImmediately(statusBar.getVisibleRect());
+                    return;
+                }
 
-		tclDesigner.setWiredNodeList(TclFileLoader.getWiredNodeList());
-		tclDesigner.setWirelessNodeList(TclFileLoader.getWirelessNodeList());
-		statusBar.setText("<html><font color=#0033FF>Opened Tcl file!</font></html>");
-		statusBar.paintImmediately(statusBar.getVisibleRect());
-		tabbed.setSelectedComponent(jPanel19);
+                tclDesigner.setWiredNodeList(TclFileLoader.getWiredNodeList());
+                tclDesigner.setWirelessNodeList(TclFileLoader.getWirelessNodeList());
+                tclDesigner.setLinkList(TclFileLoader.getLinkList());
+                statusBar.setText("<html><font color=#0033FF>Opened Tcl file!</font></html>");
+                statusBar.paintImmediately(statusBar.getVisibleRect());
+                tabbed.setSelectedComponent(jPanel19);
 
-	    } catch (Exception ex) {
-		Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
-	    }
+            } catch (Exception ex) {
+                Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-	}
+        }
     }//GEN-LAST:event_openTCLFileActionPerformed
 
     private void loadMoreTracesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMoreTracesButtonActionPerformed
 
-	Object sfile = availableTraceFiles.getSelectedValue();
-	statusBar.setText("Loading trace file: " + sfile.toString());
-	statusBar.paintImmediately(statusBar.getVisibleRect());
-	if (!TraceHandler.loadSelectedTraceFile(sfile.toString())) {
-	    Logger.getLogger(TRAFIL.class.getName()).severe("Error in loading " + sfile.toString());
-	    //System.out.println("[" + NOW() + "] Error in loading " + sfile.toString());
-	    return;
-	}
-	TraceFile.setInfo(null, sfile.toString());
-	chartPanel.removeAll();
-	simulationInfo = new GeneralSimulationInformation(TraceHandler.getMetaHandler(), TraceHandler.getStatement(), TraceFile);
-	nodeSelector.removeAllItems();
-	startNodes.removeAllItems();
-	endNodes.removeAllItems();
-	levels.removeAllItems();
-	chartStartNode.removeAllItems();
-	nodeChartStartNode.removeAllItems();
-	chartEndNode.removeAllItems();
-	chartLevel.removeAllItems();
-	nodeInfo = new GeneralNodeInformation(TraceHandler.getMetaHandler(), TraceHandler.getStatement(), TraceFile);
-	metric = new Metrics(TraceHandler.getMetaHandler(), TraceFile);
-	graph = new Graph(TraceHandler.getMetaHandler(), TraceFile);
-	for (int i = 0; i < nodeInfo.getNodesIdentifiers().size(); i++) {
-	    nodeSelector.addItem(nodeInfo.getNodesIdentifiers().get(i));
-	    startNodes.addItem(nodeInfo.getNodesIdentifiers().get(i));
-	    endNodes.addItem(nodeInfo.getNodesIdentifiers().get(i));
-	    chartStartNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
-	    nodeChartStartNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
-	    chartEndNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
-	}
-	for (int i = 0; i < metric.getLevels().size(); i++) {
-	    levels.addItem(metric.getLevels().get(i));
-	    chartLevel.addItem(metric.getLevels().get(i));
-	}
-	TableHan.getTestModel().addTableModelListener(tmh);
-	next.setEnabled(false);
-	previous.setEnabled(false);
-	if (TraceHandler.getOveralLineCounter() > 10000) {
-	    next.setEnabled(true);
-	}
-	simulationInfo.retrieveMetrics();
-	updateStandardMetrics();
-	m2.setText("<html><font color=#0033FF size=+1>Showing Lines:</font>0:" + TraceHandler.getCurrentLineCounter() + "</html>");
-	statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
-	statusBar.paintImmediately(statusBar.getVisibleRect());
+        Object sfile = availableTraceFiles.getSelectedValue();
+        statusBar.setText("Loading trace file: " + sfile.toString());
+        statusBar.paintImmediately(statusBar.getVisibleRect());
+        if (!TraceHandler.loadSelectedTraceFile(sfile.toString())) {
+            Logger.getLogger(TRAFIL.class.getName()).severe("Error in loading " + sfile.toString());
+            //System.out.println("[" + NOW() + "] Error in loading " + sfile.toString());
+            return;
+        }
+        TraceFile.setInfo(null, sfile.toString());
+        chartPanel.removeAll();
+        simulationInfo = new GeneralSimulationInformation(TraceHandler.getMetaHandler(), TraceHandler.getStatement(), TraceFile);
+        nodeSelector.removeAllItems();
+        startNodes.removeAllItems();
+        endNodes.removeAllItems();
+        levels.removeAllItems();
+        chartStartNode.removeAllItems();
+        nodeChartStartNode.removeAllItems();
+        chartEndNode.removeAllItems();
+        chartLevel.removeAllItems();
+        nodeInfo = new GeneralNodeInformation(TraceHandler.getMetaHandler(), TraceHandler.getStatement(), TraceFile);
+        metric = new Metrics(TraceHandler.getMetaHandler(), TraceFile);
+        graph = new Graph(TraceHandler.getMetaHandler(), TraceFile);
+        for (int i = 0; i < nodeInfo.getNodesIdentifiers().size(); i++) {
+            nodeSelector.addItem(nodeInfo.getNodesIdentifiers().get(i));
+            startNodes.addItem(nodeInfo.getNodesIdentifiers().get(i));
+            endNodes.addItem(nodeInfo.getNodesIdentifiers().get(i));
+            chartStartNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
+            nodeChartStartNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
+            chartEndNode.addItem(nodeInfo.getNodesIdentifiers().get(i));
+        }
+        for (int i = 0; i < metric.getLevels().size(); i++) {
+            levels.addItem(metric.getLevels().get(i));
+            chartLevel.addItem(metric.getLevels().get(i));
+        }
+        TableHan.getTestModel().addTableModelListener(tmh);
+        next.setEnabled(false);
+        previous.setEnabled(false);
+        if (TraceHandler.getOveralLineCounter() > 10000) {
+            next.setEnabled(true);
+        }
+        simulationInfo.retrieveMetrics();
+        updateStandardMetrics();
+        m2.setText("<html><font color=#0033FF size=+1>Showing Lines:</font>0:" + TraceHandler.getCurrentLineCounter() + "</html>");
+        statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
+        statusBar.paintImmediately(statusBar.getVisibleRect());
     }//GEN-LAST:event_loadMoreTracesButtonActionPerformed
 
     private void addMoreGraphsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMoreGraphsButtonActionPerformed
 
-	if (TraceFile.getTraceFileName() != null) {
-	    if (enableNodetoNode.isSelected()) {
-		statusBar.setText("Creating chart between nodes " + chartStartNode.getSelectedItem() + " and " + chartEndNode.getSelectedItem());
-		statusBar.paintImmediately(statusBar.getVisibleRect());
-		if (throughputChart.isSelected()) {
-		    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputChart.getText());
-		} else if (delayJitterChart.isSelected()) {
-		    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), delayJitterChart.getText());
-		} else if (endToEndDelayChart.isSelected()) {
-		    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), endToEndDelayChart.getText());
-		} else if (throughputBitsChart.isSelected()) {
-		    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputBitsChart.getText());
-		} else {
-		    JOptionPane.showMessageDialog(null, "You have not selected a chart type.");
-		    statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
-		    statusBar.paintImmediately(statusBar.getVisibleRect());
-		    return;
-		}
-	    } else if (enableNodeSpecific.isSelected()) {
-		statusBar.setText("Creating chart for node " + nodeChartStartNode.getSelectedItem());
-		statusBar.paintImmediately(statusBar.getVisibleRect());
-		if (throughputChart.isSelected()) {
-		    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputChart.getText());
-		} else if (delayJitterChart.isSelected()) {
-		    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), delayJitterChart.getText());
-		} else if (endToEndDelayChart.isSelected()) {
-		    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), endToEndDelayChart.getText());
-		} else if (throughputBitsChart.isSelected()) {
-		    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputBitsChart.getText());
-		} else {
-		    JOptionPane.showMessageDialog(null, "You have not selected a chart type.");
-		    statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
-		    statusBar.paintImmediately(statusBar.getVisibleRect());
-		    return;
-		}
-	    }
+        if (TraceFile.getTraceFileName() != null) {
+            if (enableNodetoNode.isSelected()) {
+                statusBar.setText("Creating chart between nodes " + chartStartNode.getSelectedItem() + " and " + chartEndNode.getSelectedItem());
+                statusBar.paintImmediately(statusBar.getVisibleRect());
+                if (throughputChart.isSelected()) {
+                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputChart.getText());
+                } else if (delayJitterChart.isSelected()) {
+                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), delayJitterChart.getText());
+                } else if (endToEndDelayChart.isSelected()) {
+                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), endToEndDelayChart.getText());
+                } else if (throughputBitsChart.isSelected()) {
+                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputBitsChart.getText());
+                } else {
+                    JOptionPane.showMessageDialog(null, "You have not selected a chart type.");
+                    statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
+                    statusBar.paintImmediately(statusBar.getVisibleRect());
+                    return;
+                }
+            } else if (enableNodeSpecific.isSelected()) {
+                statusBar.setText("Creating chart for node " + nodeChartStartNode.getSelectedItem());
+                statusBar.paintImmediately(statusBar.getVisibleRect());
+                if (throughputChart.isSelected()) {
+                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputChart.getText());
+                } else if (delayJitterChart.isSelected()) {
+                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), delayJitterChart.getText());
+                } else if (endToEndDelayChart.isSelected()) {
+                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), endToEndDelayChart.getText());
+                } else if (throughputBitsChart.isSelected()) {
+                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputBitsChart.getText());
+                } else {
+                    JOptionPane.showMessageDialog(null, "You have not selected a chart type.");
+                    statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
+                    statusBar.paintImmediately(statusBar.getVisibleRect());
+                    return;
+                }
+            }
 
 //		chartPanel.setLayout(new java.awt.BorderLayout());
 //		chartPanel.removeAll();
-	    chartPanel.add(graph.getGraph());
-	    chartPanel.revalidate();
-	} else {
-	    statusBar.setText("<html><font color=#0033FF>You have not selected a trace file.</font></html>");
-	    statusBar.paintImmediately(statusBar.getVisibleRect());
-	}
+            chartPanel.add(graph.getGraph());
+            chartPanel.revalidate();
+        } else {
+            statusBar.setText("<html><font color=#0033FF>You have not selected a trace file.</font></html>");
+            statusBar.paintImmediately(statusBar.getVisibleRect());
+        }
     }//GEN-LAST:event_addMoreGraphsButtonActionPerformed
 
     public static void main(String args[]) {
-	java.awt.EventQueue.invokeLater(new Runnable() {
-	    @Override
-	    public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
 
-		TraceHandler = new TracefileHandler();
-		TclFileLoader = new TclFileLoader();
-		TraceFile = new TraceFileInfo();
-		TableHan = new TableHandler();
-		MetaHandler = new MetaDataHandler();
-		new TRAFIL().setVisible(true);
-	    }
-	});
+                TraceHandler = new TracefileHandler();
+                TclFileLoader = new TclFileLoader();
+                TraceFile = new TraceFileInfo();
+                TableHan = new TableHandler();
+                MetaHandler = new MetaDataHandler();
+                new TRAFIL().setVisible(true);
+            }
+        });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Delete;
@@ -3999,52 +4000,52 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
      * simulations information.
      */
     public void updateStandardMetrics() {
-	startTime.setText("" + simulationInfo.getStartTime());
-	startTime1.setText("" + simulationInfo.getStartTime());
-	endTime.setText("" + simulationInfo.getEndTime());
-	endTime1.setText("" + simulationInfo.getEndTime());
-	simulationTime.setText("" + simulationInfo.getSimulationTime());
-	simulationTime1.setText("" + simulationInfo.getSimulationTime());
-	numberOfNodes.setText("" + simulationInfo.getNumberOfNodes());
-	numberOfSendingNodes.setText("" + simulationInfo.getNumberOfSendingNodes());
-	numberOfSentPackets.setText("" + simulationInfo.getNumberOfSentPackets());
-	numberOfSentBytes.setText("" + simulationInfo.getNumberOfSentBytes());
-	numberOfForwardedPackets.setText("" + simulationInfo.getNumberOfForwardedPackets());
-	numberOfForwardedBytes.setText("" + simulationInfo.getNumberOfForwardedBytes());
-	numberOfDroppedPackets.setText("" + simulationInfo.getNumberOfDroppedPackets());
-	numberOfDroppedBytes.setText("" + simulationInfo.getNumberOfDroppedBytes());
-	numberOfReceivedPackets.setText("" + simulationInfo.getNumberOfReceivedPackets());
-	numberOfGeneratedPackets.setText("" + simulationInfo.getNumberOfGeneratedPackets());
-	minimumPacketSize.setText("" + simulationInfo.getMinimumPacketSize());
-	maximumPacketSize.setText("" + simulationInfo.getMaximumPacketSize());
-	averagePacketSize.setText("" + simulationInfo.getAveragePacketSize());
-	numberOfNodes1.setText("" + simulationInfo.getNumberOfNodes());
-	numberOfSendingNodes1.setText("" + simulationInfo.getNumberOfSendingNodes());
-	numberOfSentPackets1.setText("" + simulationInfo.getNumberOfSentPackets());
-	numberOfSentBytes1.setText("" + simulationInfo.getNumberOfSentBytes());
-	numberOfForwardedPackets1.setText("" + simulationInfo.getNumberOfForwardedPackets());
-	numberOfForwardedBytes1.setText("" + simulationInfo.getNumberOfForwardedBytes());
-	numberOfDroppedPackets1.setText("" + simulationInfo.getNumberOfDroppedPackets());
-	numberOfDroppedBytes1.setText("" + simulationInfo.getNumberOfDroppedBytes());
-	numberOfReceivedPackets1.setText("" + simulationInfo.getNumberOfReceivedPackets());
-	numberOfGeneratedPackets1.setText("" + simulationInfo.getNumberOfGeneratedPackets());
-	minimumPacketSize1.setText("" + simulationInfo.getMinimumPacketSize());
-	maximumPacketSize1.setText("" + simulationInfo.getMaximumPacketSize());
-	averagePacketSize1.setText("" + simulationInfo.getAveragePacketSize());
-	numberOfAGTGeneratedPackets.setText("" + simulationInfo.getGeneratedPacketsAGT());
-	numberOfRTRGeneratedPackets.setText("" + simulationInfo.getGeneratedPacketsRTR());
-	numberOfMACGeneratedPackets.setText("" + simulationInfo.getGeneratedPacketsMAC());
-	numberOfAGTGeneratedBytes.setText("" + simulationInfo.getGeneratedPacketsSizeAGT());
-	numberOfRTRGeneratedBytes.setText("" + simulationInfo.getGeneratedPacketsSizeRTR());
-	numberOfMACGeneratedBytes.setText("" + simulationInfo.getGeneratedPacketsSizeMAC());
-	numberOfAGTReceivedPackets.setText("" + simulationInfo.getReceivedPacketsAGT());
-	numberOfMACReceivedPackets.setText("" + simulationInfo.getReceivedPacketsMAC());
-	numberOfRTRReceivedPackets.setText("" + simulationInfo.getReceivedPacketsRTR());
-	numberOfAGTReceivedBytes.setText("" + simulationInfo.getReceivedPacketsSizeAGT());
-	numberOfRTRReceivedBytes.setText("" + simulationInfo.getReceivedPacketsSizeRTR());
-	numberOfMACReceivedBytes.setText("" + simulationInfo.getReceivedPacketsSizeMAC());
-	numberOfReceivedBytes.setText("" + simulationInfo.getNumberOfReceivedBytes());
-	numberOfGeneratedBytes.setText("" + simulationInfo.getNumberOfGeneratedBytes());
+        startTime.setText("" + simulationInfo.getStartTime());
+        startTime1.setText("" + simulationInfo.getStartTime());
+        endTime.setText("" + simulationInfo.getEndTime());
+        endTime1.setText("" + simulationInfo.getEndTime());
+        simulationTime.setText("" + simulationInfo.getSimulationTime());
+        simulationTime1.setText("" + simulationInfo.getSimulationTime());
+        numberOfNodes.setText("" + simulationInfo.getNumberOfNodes());
+        numberOfSendingNodes.setText("" + simulationInfo.getNumberOfSendingNodes());
+        numberOfSentPackets.setText("" + simulationInfo.getNumberOfSentPackets());
+        numberOfSentBytes.setText("" + simulationInfo.getNumberOfSentBytes());
+        numberOfForwardedPackets.setText("" + simulationInfo.getNumberOfForwardedPackets());
+        numberOfForwardedBytes.setText("" + simulationInfo.getNumberOfForwardedBytes());
+        numberOfDroppedPackets.setText("" + simulationInfo.getNumberOfDroppedPackets());
+        numberOfDroppedBytes.setText("" + simulationInfo.getNumberOfDroppedBytes());
+        numberOfReceivedPackets.setText("" + simulationInfo.getNumberOfReceivedPackets());
+        numberOfGeneratedPackets.setText("" + simulationInfo.getNumberOfGeneratedPackets());
+        minimumPacketSize.setText("" + simulationInfo.getMinimumPacketSize());
+        maximumPacketSize.setText("" + simulationInfo.getMaximumPacketSize());
+        averagePacketSize.setText("" + simulationInfo.getAveragePacketSize());
+        numberOfNodes1.setText("" + simulationInfo.getNumberOfNodes());
+        numberOfSendingNodes1.setText("" + simulationInfo.getNumberOfSendingNodes());
+        numberOfSentPackets1.setText("" + simulationInfo.getNumberOfSentPackets());
+        numberOfSentBytes1.setText("" + simulationInfo.getNumberOfSentBytes());
+        numberOfForwardedPackets1.setText("" + simulationInfo.getNumberOfForwardedPackets());
+        numberOfForwardedBytes1.setText("" + simulationInfo.getNumberOfForwardedBytes());
+        numberOfDroppedPackets1.setText("" + simulationInfo.getNumberOfDroppedPackets());
+        numberOfDroppedBytes1.setText("" + simulationInfo.getNumberOfDroppedBytes());
+        numberOfReceivedPackets1.setText("" + simulationInfo.getNumberOfReceivedPackets());
+        numberOfGeneratedPackets1.setText("" + simulationInfo.getNumberOfGeneratedPackets());
+        minimumPacketSize1.setText("" + simulationInfo.getMinimumPacketSize());
+        maximumPacketSize1.setText("" + simulationInfo.getMaximumPacketSize());
+        averagePacketSize1.setText("" + simulationInfo.getAveragePacketSize());
+        numberOfAGTGeneratedPackets.setText("" + simulationInfo.getGeneratedPacketsAGT());
+        numberOfRTRGeneratedPackets.setText("" + simulationInfo.getGeneratedPacketsRTR());
+        numberOfMACGeneratedPackets.setText("" + simulationInfo.getGeneratedPacketsMAC());
+        numberOfAGTGeneratedBytes.setText("" + simulationInfo.getGeneratedPacketsSizeAGT());
+        numberOfRTRGeneratedBytes.setText("" + simulationInfo.getGeneratedPacketsSizeRTR());
+        numberOfMACGeneratedBytes.setText("" + simulationInfo.getGeneratedPacketsSizeMAC());
+        numberOfAGTReceivedPackets.setText("" + simulationInfo.getReceivedPacketsAGT());
+        numberOfMACReceivedPackets.setText("" + simulationInfo.getReceivedPacketsMAC());
+        numberOfRTRReceivedPackets.setText("" + simulationInfo.getReceivedPacketsRTR());
+        numberOfAGTReceivedBytes.setText("" + simulationInfo.getReceivedPacketsSizeAGT());
+        numberOfRTRReceivedBytes.setText("" + simulationInfo.getReceivedPacketsSizeRTR());
+        numberOfMACReceivedBytes.setText("" + simulationInfo.getReceivedPacketsSizeMAC());
+        numberOfReceivedBytes.setText("" + simulationInfo.getNumberOfReceivedBytes());
+        numberOfGeneratedBytes.setText("" + simulationInfo.getNumberOfGeneratedBytes());
 
     }
 
@@ -4053,31 +4054,31 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
      * simulations information regarding a specific node.
      */
     private void updateNodeInformation() {
-	nodeSentPackets.setText("" + nodeInfo.getNumberOfSentPackets());
-	nodeSentBytes.setText("" + nodeInfo.getNumberOfSentBytes());
-	nodeGeneratedPackets.setText("" + nodeInfo.getNumberOfGeneratedPackets());
-	nodeGeneratedBytes.setText("" + nodeInfo.getNumberOfGeneratedBytes());
-	nodeDroppedPackets.setText("" + nodeInfo.getNumberOfDroppedPackets());
-	nodeDroppedBytes.setText("" + nodeInfo.getNumberOfDroppedBytes());
-	nodeReceivedPackets.setText("" + nodeInfo.getNumberOfReceivedPackets());
-	nodeReceivedBytes.setText("" + nodeInfo.getNumberOfReceivedBytes());
-	nodeForwardedPackets.setText("" + nodeInfo.getNumberOfForwardedPackets());
-	nodeForwardedBytes.setText("" + nodeInfo.getNumberOfForwardedBytes());
-	nodeAGTGeneratedPackets.setText("" + nodeInfo.getGeneratedPacketsAGT());
-	nodeRTRGeneratedPackets.setText("" + nodeInfo.getGeneratedPacketsRTR());
-	nodeMACGeneratedPackets.setText("" + nodeInfo.getGeneratedPacketsMAC());
-	nodeAGTGeneratedBytes.setText("" + nodeInfo.getGeneratedPacketsSizeAGT());
-	nodeRTRGeneratedBytes.setText("" + nodeInfo.getGeneratedPacketsSizeRTR());
-	nodeMACGeneratedBytes.setText("" + nodeInfo.getGeneratedPacketsSizeMAC());
-	nodeAGTReceivedPackets.setText("" + nodeInfo.getReceivedPacketsAGT());
-	nodeRTRReceivedPackets.setText("" + nodeInfo.getReceivedPacketsRTR());
-	nodeMACReceivedPackets.setText("" + nodeInfo.getReceivedPacketsMAC());
-	nodeAGTReceivedBytes.setText("" + nodeInfo.getReceivedPacketsSizeAGT());
-	nodeRTRReceivedBytes.setText("" + nodeInfo.getReceivedPacketsSizeRTR());
-	nodeMACReceivedBytes.setText("" + nodeInfo.getReceivedPacketsSizeMAC());
-	nodeMaximumPacket.setText("" + nodeInfo.getMaximumPacketSize());
-	nodeMinimumPacket.setText("" + nodeInfo.getMinimumPacketSize());
-	nodeAveragePacket.setText("" + nodeInfo.getAveragePacketSize());
+        nodeSentPackets.setText("" + nodeInfo.getNumberOfSentPackets());
+        nodeSentBytes.setText("" + nodeInfo.getNumberOfSentBytes());
+        nodeGeneratedPackets.setText("" + nodeInfo.getNumberOfGeneratedPackets());
+        nodeGeneratedBytes.setText("" + nodeInfo.getNumberOfGeneratedBytes());
+        nodeDroppedPackets.setText("" + nodeInfo.getNumberOfDroppedPackets());
+        nodeDroppedBytes.setText("" + nodeInfo.getNumberOfDroppedBytes());
+        nodeReceivedPackets.setText("" + nodeInfo.getNumberOfReceivedPackets());
+        nodeReceivedBytes.setText("" + nodeInfo.getNumberOfReceivedBytes());
+        nodeForwardedPackets.setText("" + nodeInfo.getNumberOfForwardedPackets());
+        nodeForwardedBytes.setText("" + nodeInfo.getNumberOfForwardedBytes());
+        nodeAGTGeneratedPackets.setText("" + nodeInfo.getGeneratedPacketsAGT());
+        nodeRTRGeneratedPackets.setText("" + nodeInfo.getGeneratedPacketsRTR());
+        nodeMACGeneratedPackets.setText("" + nodeInfo.getGeneratedPacketsMAC());
+        nodeAGTGeneratedBytes.setText("" + nodeInfo.getGeneratedPacketsSizeAGT());
+        nodeRTRGeneratedBytes.setText("" + nodeInfo.getGeneratedPacketsSizeRTR());
+        nodeMACGeneratedBytes.setText("" + nodeInfo.getGeneratedPacketsSizeMAC());
+        nodeAGTReceivedPackets.setText("" + nodeInfo.getReceivedPacketsAGT());
+        nodeRTRReceivedPackets.setText("" + nodeInfo.getReceivedPacketsRTR());
+        nodeMACReceivedPackets.setText("" + nodeInfo.getReceivedPacketsMAC());
+        nodeAGTReceivedBytes.setText("" + nodeInfo.getReceivedPacketsSizeAGT());
+        nodeRTRReceivedBytes.setText("" + nodeInfo.getReceivedPacketsSizeRTR());
+        nodeMACReceivedBytes.setText("" + nodeInfo.getReceivedPacketsSizeMAC());
+        nodeMaximumPacket.setText("" + nodeInfo.getMaximumPacketSize());
+        nodeMinimumPacket.setText("" + nodeInfo.getMinimumPacketSize());
+        nodeAveragePacket.setText("" + nodeInfo.getAveragePacketSize());
     }
 
     /**
@@ -4085,86 +4086,86 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
      * information.
      */
     public void clearAllInformation() {
-	m2.setText("");
-	startTime.setText("");
-	startTime1.setText("");
-	endTime.setText("");
-	endTime1.setText("");
-	simulationTime.setText("");
-	simulationTime1.setText("");
-	numberOfNodes.setText("");
-	numberOfSendingNodes.setText("");
-	numberOfSentPackets.setText("");
-	numberOfSentBytes.setText("");
-	numberOfForwardedPackets.setText("");
-	numberOfForwardedBytes.setText("");
-	numberOfDroppedPackets.setText("");
-	numberOfDroppedBytes.setText("");
-	numberOfReceivedPackets.setText("");
-	numberOfGeneratedPackets.setText("");
-	minimumPacketSize.setText("");
-	maximumPacketSize.setText("");
-	averagePacketSize.setText("");
-	numberOfNodes1.setText("");
-	numberOfSendingNodes1.setText("");
-	numberOfSentPackets1.setText("");
-	numberOfSentBytes1.setText("");
-	numberOfForwardedPackets1.setText("");
-	numberOfForwardedBytes1.setText("");
-	numberOfDroppedPackets1.setText("");
-	numberOfDroppedBytes1.setText("");
-	numberOfReceivedPackets1.setText("");
-	numberOfGeneratedPackets1.setText("");
-	minimumPacketSize1.setText("");
-	maximumPacketSize1.setText("");
-	averagePacketSize1.setText("");
-	numberOfAGTGeneratedPackets.setText("");
-	numberOfRTRGeneratedPackets.setText("");
-	numberOfMACGeneratedPackets.setText("");
-	numberOfAGTGeneratedBytes.setText("");
-	numberOfRTRGeneratedBytes.setText("");
-	numberOfMACGeneratedBytes.setText("");
-	numberOfAGTReceivedPackets.setText("");
-	numberOfMACReceivedPackets.setText("");
-	numberOfRTRReceivedPackets.setText("");
-	numberOfAGTReceivedBytes.setText("");
-	numberOfRTRReceivedBytes.setText("");
-	numberOfMACReceivedBytes.setText("");
-	numberOfReceivedBytes.setText("");
-	numberOfGeneratedBytes.setText("");
-	nodeSentPackets.setText("");
-	nodeSentBytes.setText("");
-	nodeGeneratedPackets.setText("");
-	nodeGeneratedBytes.setText("");
-	nodeDroppedPackets.setText("");
-	nodeDroppedBytes.setText("");
-	nodeReceivedPackets.setText("");
-	nodeReceivedBytes.setText("");
-	nodeForwardedPackets.setText("");
-	nodeForwardedBytes.setText("");
-	nodeAGTGeneratedPackets.setText("");
-	nodeRTRGeneratedPackets.setText("");
-	nodeMACGeneratedPackets.setText("");
-	nodeAGTGeneratedBytes.setText("");
-	nodeRTRGeneratedBytes.setText("");
-	nodeMACGeneratedBytes.setText("");
-	nodeAGTReceivedPackets.setText("");
-	nodeRTRReceivedPackets.setText("");
-	nodeMACReceivedPackets.setText("");
-	nodeAGTReceivedBytes.setText("");
-	nodeRTRReceivedBytes.setText("");
-	nodeMACReceivedBytes.setText("");
-	nodeMaximumPacket.setText("");
-	nodeMinimumPacket.setText("");
-	nodeAveragePacket.setText("");
-	chartStartNode.removeAllItems();
-	chartEndNode.removeAllItems();
-	nodeChartStartNode.removeAllItems();
-	nodeSelector.removeAllItems();
-	startNodes.removeAllItems();
-	endNodes.removeAllItems();
-	levels.removeAllItems();
-	chartLevel.removeAllItems();
+        m2.setText("");
+        startTime.setText("");
+        startTime1.setText("");
+        endTime.setText("");
+        endTime1.setText("");
+        simulationTime.setText("");
+        simulationTime1.setText("");
+        numberOfNodes.setText("");
+        numberOfSendingNodes.setText("");
+        numberOfSentPackets.setText("");
+        numberOfSentBytes.setText("");
+        numberOfForwardedPackets.setText("");
+        numberOfForwardedBytes.setText("");
+        numberOfDroppedPackets.setText("");
+        numberOfDroppedBytes.setText("");
+        numberOfReceivedPackets.setText("");
+        numberOfGeneratedPackets.setText("");
+        minimumPacketSize.setText("");
+        maximumPacketSize.setText("");
+        averagePacketSize.setText("");
+        numberOfNodes1.setText("");
+        numberOfSendingNodes1.setText("");
+        numberOfSentPackets1.setText("");
+        numberOfSentBytes1.setText("");
+        numberOfForwardedPackets1.setText("");
+        numberOfForwardedBytes1.setText("");
+        numberOfDroppedPackets1.setText("");
+        numberOfDroppedBytes1.setText("");
+        numberOfReceivedPackets1.setText("");
+        numberOfGeneratedPackets1.setText("");
+        minimumPacketSize1.setText("");
+        maximumPacketSize1.setText("");
+        averagePacketSize1.setText("");
+        numberOfAGTGeneratedPackets.setText("");
+        numberOfRTRGeneratedPackets.setText("");
+        numberOfMACGeneratedPackets.setText("");
+        numberOfAGTGeneratedBytes.setText("");
+        numberOfRTRGeneratedBytes.setText("");
+        numberOfMACGeneratedBytes.setText("");
+        numberOfAGTReceivedPackets.setText("");
+        numberOfMACReceivedPackets.setText("");
+        numberOfRTRReceivedPackets.setText("");
+        numberOfAGTReceivedBytes.setText("");
+        numberOfRTRReceivedBytes.setText("");
+        numberOfMACReceivedBytes.setText("");
+        numberOfReceivedBytes.setText("");
+        numberOfGeneratedBytes.setText("");
+        nodeSentPackets.setText("");
+        nodeSentBytes.setText("");
+        nodeGeneratedPackets.setText("");
+        nodeGeneratedBytes.setText("");
+        nodeDroppedPackets.setText("");
+        nodeDroppedBytes.setText("");
+        nodeReceivedPackets.setText("");
+        nodeReceivedBytes.setText("");
+        nodeForwardedPackets.setText("");
+        nodeForwardedBytes.setText("");
+        nodeAGTGeneratedPackets.setText("");
+        nodeRTRGeneratedPackets.setText("");
+        nodeMACGeneratedPackets.setText("");
+        nodeAGTGeneratedBytes.setText("");
+        nodeRTRGeneratedBytes.setText("");
+        nodeMACGeneratedBytes.setText("");
+        nodeAGTReceivedPackets.setText("");
+        nodeRTRReceivedPackets.setText("");
+        nodeMACReceivedPackets.setText("");
+        nodeAGTReceivedBytes.setText("");
+        nodeRTRReceivedBytes.setText("");
+        nodeMACReceivedBytes.setText("");
+        nodeMaximumPacket.setText("");
+        nodeMinimumPacket.setText("");
+        nodeAveragePacket.setText("");
+        chartStartNode.removeAllItems();
+        chartEndNode.removeAllItems();
+        nodeChartStartNode.removeAllItems();
+        nodeSelector.removeAllItems();
+        startNodes.removeAllItems();
+        endNodes.removeAllItems();
+        levels.removeAllItems();
+        chartLevel.removeAllItems();
 
     }
 
@@ -4174,59 +4175,59 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
      * @return it returns the time.
      */
     public static String NOW() {
-	Calendar cal = Calendar.getInstance();
-	SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
-	return sdf.format(cal.getTime());
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        return sdf.format(cal.getTime());
 
     }
 
     public void updateVideoSimulationResults(Map<String, ArrayList<File>> results) {
 
-	senderFileSelect.removeAllItems();
-	mp4TraceSelect.removeAllItems();
-	videoDataFile1.removeAllItems();
-	videoDataFile2.removeAllItems();
-	receiverFileSelect.removeAllItems();
-	if (!(results == null) && !(results.isEmpty())) {
-	    System.out.print("Updating Simulation Results");
-	    ArrayList<File> senderFiles = (ArrayList<File>) results.get("senderFiles");
-	    ArrayList<File> receiverFiles = (ArrayList<File>) results.get("receiverFiles");
-	    ArrayList<File> mp4OutFiles = (ArrayList<File>) results.get("mp4OutFiles");
-	    ArrayList<File> datFiles = (ArrayList<File>) results.get("datFiles");
-	    for (int i = 0; i < senderFiles.size(); i++) {
-		senderFileSelect.addItem(senderFiles.get(i).getName());
-	    }
-	    for (int i = 0; i < receiverFiles.size(); i++) {
-		receiverFileSelect.addItem(receiverFiles.get(i).getName());
-	    }
-	    for (int i = 0; i < mp4OutFiles.size(); i++) {
-		mp4TraceSelect.addItem(mp4OutFiles.get(i).getName());
-	    }
-	    for (int i = 0; i < datFiles.size(); i++) {
-		videoDataFile1.addItem(datFiles.get(i).getName());
-		videoDataFile2.addItem(datFiles.get(i).getName());
-	    }
-	}
+        senderFileSelect.removeAllItems();
+        mp4TraceSelect.removeAllItems();
+        videoDataFile1.removeAllItems();
+        videoDataFile2.removeAllItems();
+        receiverFileSelect.removeAllItems();
+        if (!(results == null) && !(results.isEmpty())) {
+            System.out.print("Updating Simulation Results");
+            ArrayList<File> senderFiles = (ArrayList<File>) results.get("senderFiles");
+            ArrayList<File> receiverFiles = (ArrayList<File>) results.get("receiverFiles");
+            ArrayList<File> mp4OutFiles = (ArrayList<File>) results.get("mp4OutFiles");
+            ArrayList<File> datFiles = (ArrayList<File>) results.get("datFiles");
+            for (int i = 0; i < senderFiles.size(); i++) {
+                senderFileSelect.addItem(senderFiles.get(i).getName());
+            }
+            for (int i = 0; i < receiverFiles.size(); i++) {
+                receiverFileSelect.addItem(receiverFiles.get(i).getName());
+            }
+            for (int i = 0; i < mp4OutFiles.size(); i++) {
+                mp4TraceSelect.addItem(mp4OutFiles.get(i).getName());
+            }
+            for (int i = 0; i < datFiles.size(); i++) {
+                videoDataFile1.addItem(datFiles.get(i).getName());
+                videoDataFile2.addItem(datFiles.get(i).getName());
+            }
+        }
     }
 
     /**
      * @return the newLinkButton
      */
     public JToggleButton getNewLinkButton() {
-	return newLinkButton;
+        return newLinkButton;
     }
 
     /**
      * @return the newWiredNodeButton
      */
     public javax.swing.JToggleButton getNewWiredNodeButton() {
-	return newWiredNodeButton;
+        return newWiredNodeButton;
     }
 
     /**
      * @return the newWirelessNodeButton
      */
     public javax.swing.JToggleButton getNewWirelessNodeButton() {
-	return newWirelessNodeButton;
+        return newWirelessNodeButton;
     }
 }

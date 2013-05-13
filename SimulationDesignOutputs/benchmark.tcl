@@ -17,7 +17,7 @@ proc finish {} {
 # set up topography object
 set topo       [new Topography]
 
-$topo load_flatgrid 500 500 
+$topo load_flatgrid 500 500
 create-god 3
 
 # configure node
@@ -41,7 +41,7 @@ create-god 3
 			 -macTrace OFF \
 			 -phyTrace OFF \
 			 -movementTrace OFF \
-			 -eotTrace OFF 
+			 -eotTrace OFF
 
 #Create nodes
 set n0 [$ns node] #{TRAFIL} xpos=146.0 ypos=146.0 wired
@@ -56,9 +56,9 @@ set n6 [$ns node] #{TRAFIL} xpos=739.0 ypos=739.0 wireless
 $n6 random-motion 0
 
 #Create links between the nodes
-$ns duplex-link $n0 $n1 1Mb 10ms DropTail
-$ns duplex-link $n2 $n3 1Mb 10ms DropTail
-$ns duplex-link $n2 $n1 1Mb 10ms DropTail
+$ns duplex-link $n0 $n1 1Mb 10ms DropTail #{TRAFIL} link
+$ns duplex-link $n2 $n3 1Mb 10ms DropTail #{TRAFIL} link
+$ns duplex-link $n2 $n1 1Mb 10ms DropTail #{TRAFIL} link
 
 #Create agent tcp7 and attach them to node n0
 set tcp7 [new Agent/TCP]

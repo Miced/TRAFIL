@@ -4,18 +4,9 @@
  */
 package UI;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.DefaultCellEditor;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 /**
@@ -31,29 +22,29 @@ public class LinkListWindow extends javax.swing.JFrame {
      * Creates new form LinkListWindow
      */
     public LinkListWindow(TRAFIL tr) {
-	initComponents();
-	this.setVisible(false);
+        initComponents();
+        this.setVisible(false);
 
-	model = (DefaultTableModel) linkListTable.getModel();
-	model.setRowCount(rowCount);
+        model = (DefaultTableModel) linkListTable.getModel();
+        model.setRowCount(rowCount);
 
-	TableColumn typeColumn = linkListTable.getColumnModel().getColumn(0);
-	JComboBox comboBox = new JComboBox();
-	comboBox.addItem("Duplex-link");
-	comboBox.addItem("Simplex-link");
-	typeColumn.setCellEditor(new DefaultCellEditor(comboBox));
+        TableColumn typeColumn = linkListTable.getColumnModel().getColumn(0);
+        JComboBox comboBox = new JComboBox();
+        comboBox.addItem("Duplex-link");
+        comboBox.addItem("Simplex-link");
+        typeColumn.setCellEditor(new DefaultCellEditor(comboBox));
     }
 
     public DefaultTableModel getModel() {
-	return model;
+        return model;
     }
 
     public int getRowCount() {
-	return rowCount;
+        return rowCount;
     }
 
     public void setRowCount(int rowCount) {
-	this.rowCount = rowCount;
+        this.rowCount = rowCount;
     }
 
     /**
