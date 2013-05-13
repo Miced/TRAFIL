@@ -40,11 +40,11 @@ public class TclDesignerPanel extends JPanel {
     public static ConnectedAgentsWindow connectedAgentsWindow;
     public static DefaultTableModel connectedAgentsModel;
     private static SimulationWirelessSettingsWindow wirelessSettings;
-    private static Collection<TclDesignWiredNode> wiredNodeList = new ArrayList<TclDesignWiredNode>();
-    private static Collection<TclDesignWirelessNode> wirelessNodeList = new ArrayList<TclDesignWirelessNode>();
-    private static Collection<Link> linkList = new ArrayList<Link>();
-    private static boolean linkPaintFlag = false;
-    private static Link tempLink;
+    private Collection<TclDesignWiredNode> wiredNodeList = new ArrayList<>();
+    private Collection<TclDesignWirelessNode> wirelessNodeList = new ArrayList<>();
+    private Collection<Link> linkList = new ArrayList<>();
+    private boolean linkPaintFlag = false;
+    private Link tempLink;
     private int x, y, nodeID = 0;
 
     public TclDesignerPanel() {
@@ -102,8 +102,9 @@ public class TclDesignerPanel extends JPanel {
 		    TclDesignWirelessNode wlnode = new TclDesignWirelessNode(nodeID++);
 		    wlnode.setCircle(new Ellipse2D.Double(x, y, wlnode.getWidth(), wlnode.getHeight()));
 		    wirelessNodeList.add(wlnode);
-		    ArrayList<TclDesignNode> exploredNodesTree = new ArrayList<TclDesignNode>();
-		    ArrayList<TclDesignNode> nodesToAdd = new ArrayList<TclDesignNode>(wirelessNodeList);
+		    ArrayList<TclDesignNode> exploredNodesTree = new ArrayList<>();
+		    ArrayList<TclDesignNode> nodesToAdd;
+		    nodesToAdd = new ArrayList<TclDesignNode>(wirelessNodeList);
 		    wlnode.addAdjacentNodes(nodesToAdd, exploredNodesTree);
 		    nodesToAdd = new ArrayList<TclDesignNode>(wirelessNodeList);
 		    nodesToAdd.add(wlnode);
@@ -152,12 +153,12 @@ public class TclDesignerPanel extends JPanel {
 				    linkWindow.setRowCount(linkWindow.getRowCount() + 1);
 
 				    // Update connectedAgentsWindow attached nodes and available agents
-				    ArrayList<TclDesignNode> exploredNodesTree = new ArrayList<TclDesignNode>();
-				    ArrayList<TclDesignNode> nodesToAdd = new ArrayList<TclDesignNode>(tempLink.getEndingNode().getAdjacentNodes());
+				    ArrayList<TclDesignNode> exploredNodesTree = new ArrayList<>();
+				    ArrayList<TclDesignNode> nodesToAdd = new ArrayList<>(tempLink.getEndingNode().getAdjacentNodes());
 				    nodesToAdd.add(tempLink.getEndingNode());
 				    tempLink.getStartingNode().addAdjacentNodes(nodesToAdd, exploredNodesTree);
 				    exploredNodesTree.clear();
-				    nodesToAdd = new ArrayList<TclDesignNode>(tempLink.getStartingNode().getAdjacentNodes());
+				    nodesToAdd = new ArrayList<>(tempLink.getStartingNode().getAdjacentNodes());
 				    nodesToAdd.add(tempLink.getStartingNode());
 				    tempLink.getEndingNode().addAdjacentNodes(nodesToAdd, exploredNodesTree);
 
@@ -245,6 +246,16 @@ public class TclDesignerPanel extends JPanel {
 	linkListModel = linkWindow.getModel();
     }
 
+    public void setWiredNodeList(Collection<TclDesignWiredNode> wiredNodeList) {
+	this.wiredNodeList = wiredNodeList;
+	repaint();
+    }
+
+    public void setWirelessNodeList(Collection<TclDesignWirelessNode> wirelessNodeList) {
+	this.wirelessNodeList = wirelessNodeList;
+	repaint();
+    }
+
     public static void setConnectedAgents(ConnectedAgentsWindow connectedAgents) {
 	TclDesignerPanel.connectedAgentsWindow = connectedAgents;
 	connectedAgentsModel = connectedAgents.getModel();
@@ -254,7 +265,7 @@ public class TclDesignerPanel extends JPanel {
 	TclDesignerPanel.wirelessSettings = wirelessSettings;
     }
 
-    public static String getNodeAgentByNodeName(String name) {
+    public String getNodeAgentByNodeName(String name) {
 	for (TclDesignWiredNode node : wiredNodeList) {
 	    if (node.getName().equals(name)) {
 		return node.getAttachedAgent();
@@ -263,7 +274,7 @@ public class TclDesignerPanel extends JPanel {
 	return null;
     }
 
-    public static String getScript() {
+    public String getScript() {
 	String outputContent = "";
 
 	outputContent += "# ======================================================================\n"
@@ -440,148 +451,146 @@ public class TclDesignerPanel extends JPanel {
 	String app = node.getAttachedApp();
 	// Add agents and attach them to nodes
 	outputContent += "#Create agent " + agent + " and attach them to node " + name + "\n";
-
-	if (node.getProperties().getAgentBox().getSelectedItem().toString().equals("UDP")) {
-	    outputContent += "set " + agent + " [new Agent/UDP]\n"
-		    + "$ns attach-agent $" + name + " $" + agent + "\n\n";
-	} else if (node.getProperties().getAgentBox().getSelectedItem().toString().equals("Null")) {
-	    outputContent += "set " + agent + " [new Agent/Null]\n"
-		    + "$ns attach-agent $" + name + " $" + agent + "\n\n";
-	} else {
-	    outputContent += "set " + agent + " [new Agent/TCP]\n"
-		    + "$ns attach-agent $" + name + " $" + agent + "\n\n";
+	switch (node.getProperties().getAgentBox().getSelectedItem().toString()) {
+	    case "UDP":
+		outputContent += "set " + agent + " [new Agent/UDP]\n"
+			+ "$ns attach-agent $" + name + " $" + agent + "\n\n";
+		break;
+	    case "Null":
+		outputContent += "set " + agent + " [new Agent/Null]\n"
+			+ "$ns attach-agent $" + name + " $" + agent + "\n\n";
+		break;
+	    default:
+		outputContent += "set " + agent + " [new Agent/TCP]\n"
+			+ "$ns attach-agent $" + name + " $" + agent + "\n\n";
+		break;
 	}
 
 
 	if (!node.getProperties().getAgentBox().getSelectedItem().toString().equals("Null")) {
 	    // Create traffic sources and attach them to agent
 	    outputContent += "#Create traffic sources and attach them to agent " + agent + "\n";
-	    if (node.getProperties().getAppBox().getSelectedItem().toString().equals("CBR")) {
-		if (!node.getProperties().getPacketSize().getText().equals("")) {
-		    outputContent += "set " + app + " [new Application/Traffic/CBR]\n"
-			    + "$" + app + " set packetSize_ " + node.getProperties().getPacketSize().getText() + "\n";
-		} else {
-		    statusBar.setText("No packet size selected at node " + node.getProperties().getNodeNameField().getText() + ".");
-		    statusBar.paintImmediately(statusBar.getVisibleRect());
-		    return "error";
-		}
-
-		if (node.getProperties().getRateRadioButton().isSelected()) {
-		    if (!node.getProperties().getSendingRate().getText().equals("")) {
-			outputContent += "$" + app + " set rate_ " + node.getProperties().getSendingRate().getText() + "\n";
+	    switch (node.getProperties().getAppBox().getSelectedItem().toString()) {
+		case "CBR":
+		    if (!node.getProperties().getPacketSize().getText().equals("")) {
+			outputContent += "set " + app + " [new Application/Traffic/CBR]\n"
+				+ "$" + app + " set packetSize_ " + node.getProperties().getPacketSize().getText() + "\n";
+		    } else {
+			statusBar.setText("No packet size selected at node " + node.getProperties().getNodeNameField().getText() + ".");
+			statusBar.paintImmediately(statusBar.getVisibleRect());
+			return "error";
+		    }
+		    if (node.getProperties().getRateRadioButton().isSelected()) {
+			if (!node.getProperties().getSendingRate().getText().equals("")) {
+			    outputContent += "$" + app + " set rate_ " + node.getProperties().getSendingRate().getText() + "\n";
+			} else {
+			    statusBar.setText("No rate selected at node " + node.getProperties().getNodeNameField().getText() + ".");
+			    statusBar.paintImmediately(statusBar.getVisibleRect());
+			    return "error";
+			}
+		    } else {
+			if (!node.getProperties().getSendingInterval().getText().equals("")) {
+			    outputContent += "$" + app + " set interval_ " + node.getProperties().getSendingInterval().getText() + "\n";
+			} else {
+			    statusBar.setText("No interval selected at node " + node.getProperties().getNodeNameField().getText() + ".");
+			    statusBar.paintImmediately(statusBar.getVisibleRect());
+			    return "error";
+			}
+		    }
+		    if (node.getProperties().getRandomBox().isSelected()) {
+			outputContent += "$" + app + " set random_ 1\n";
+		    }
+		    if (!node.getProperties().getPacketNumberBox().getText().equals("")) {
+			outputContent += "$" + app + " set packetSize_ " + node.getProperties().getPacketNumberBox().getText() + "\n";
+		    }
+		    outputContent += "$" + app + " attach-agent $" + agent + "\n\n";
+		    outputContent += "#Schedule events for the " + app + " source\n";
+		    outputContent += "$ns at " + node.getProperties().getAppStartTime().getText() + " \"$" + app + " start\"\n";
+		    outputContent += "$ns at " + node.getProperties().getAppStopTime().getText() + " \"$" + app + " stop\"\n\n";
+		    break;
+		case "FTP":
+		    outputContent += "set " + app + " [new Application/FTP]\n";
+		    if (!node.getProperties().getFTPpacketNumber().getText().equals("")) {
+			outputContent += "$" + app + " set maxpkts_ " + node.getProperties().getFTPpacketNumber().getText() + "\n";
+		    }
+		    break;
+		case "Telnet":
+		    outputContent += "set " + app + " [new Application/Telnet]\n";
+		    if (!node.getProperties().getTelnetInterval().getText().equals("")) {
+			outputContent += "$" + app + " set interval_ " + node.getProperties().getTelnetInterval().getText() + "\n";
+		    }
+		    break;
+		case "Exponential":
+		    if (!node.getProperties().getExpoPacketSize().getText().equals("")) {
+			outputContent += "set " + app + " [new Application/Traffic/Exponential]\n"
+				+ "$" + app + " set packetSize_ " + node.getProperties().getExpoPacketSize().getText() + "\n";
+		    } else {
+			statusBar.setText("No packet size selected at node " + node.getProperties().getNodeNameField().getText() + ".");
+			statusBar.paintImmediately(statusBar.getVisibleRect());
+			return "error";
+		    }
+		    if (!node.getProperties().getExpoSendingRate().getText().equals("")) {
+			outputContent += "$" + app + " set rate_ " + node.getProperties().getExpoSendingRate().getText() + "\n";
 		    } else {
 			statusBar.setText("No rate selected at node " + node.getProperties().getNodeNameField().getText() + ".");
 			statusBar.paintImmediately(statusBar.getVisibleRect());
 			return "error";
 		    }
-		} else {
-		    if (!node.getProperties().getSendingInterval().getText().equals("")) {
-			outputContent += "$" + app + " set interval_ " + node.getProperties().getSendingInterval().getText() + "\n";
+		    if (!node.getProperties().getBurstTime().getText().equals("")) {
+			outputContent += "$" + app + " set burst_time_ " + node.getProperties().getBurstTime().getText() + "\n";
 		    } else {
-			statusBar.setText("No interval selected at node " + node.getProperties().getNodeNameField().getText() + ".");
+			statusBar.setText("No burst time selected at node " + node.getProperties().getNodeNameField().getText() + ".");
 			statusBar.paintImmediately(statusBar.getVisibleRect());
 			return "error";
 		    }
-		}
-
-		if (node.getProperties().getRandomBox().isSelected()) {
-		    outputContent += "$" + app + " set random_ 1\n";
-		}
-
-		if (!node.getProperties().getPacketNumberBox().getText().equals("")) {
-		    outputContent += "$" + app + " set packetSize_ " + node.getProperties().getPacketNumberBox().getText() + "\n";
-		}
-		outputContent += "$" + app + " attach-agent $" + agent + "\n\n";
-
-		outputContent += "#Schedule events for the " + app + " source\n";
-		outputContent += "$ns at " + node.getProperties().getAppStartTime().getText() + " \"$" + app + " start\"\n";
-		outputContent += "$ns at " + node.getProperties().getAppStopTime().getText() + " \"$" + app + " stop\"\n\n";
-	    } else if (node.getProperties().getAppBox().getSelectedItem().toString().equals("FTP")) {
-		outputContent += "set " + app + " [new Application/FTP]\n";
-		if (!node.getProperties().getFTPpacketNumber().getText().equals("")) {
-		    outputContent += "$" + app + " set maxpkts_ " + node.getProperties().getFTPpacketNumber().getText() + "\n";
-		}
-	    } else if (node.getProperties().getAppBox().getSelectedItem().toString().equals("Telnet")) {
-		outputContent += "set " + app + " [new Application/Telnet]\n";
-		if (!node.getProperties().getTelnetInterval().getText().equals("")) {
-		    outputContent += "$" + app + " set interval_ " + node.getProperties().getTelnetInterval().getText() + "\n";
-		}
-	    } else if (node.getProperties().getAppBox().getSelectedItem().toString().equals("Exponential")) {
-		if (!node.getProperties().getExpoPacketSize().getText().equals("")) {
-		    outputContent += "set " + app + " [new Application/Traffic/Exponential]\n"
-			    + "$" + app + " set packetSize_ " + node.getProperties().getExpoPacketSize().getText() + "\n";
-		} else {
-		    statusBar.setText("No packet size selected at node " + node.getProperties().getNodeNameField().getText() + ".");
-		    statusBar.paintImmediately(statusBar.getVisibleRect());
-		    return "error";
-		}
-
-		if (!node.getProperties().getExpoSendingRate().getText().equals("")) {
-		    outputContent += "$" + app + " set rate_ " + node.getProperties().getExpoSendingRate().getText() + "\n";
-		} else {
-		    statusBar.setText("No rate selected at node " + node.getProperties().getNodeNameField().getText() + ".");
-		    statusBar.paintImmediately(statusBar.getVisibleRect());
-		    return "error";
-		}
-
-		if (!node.getProperties().getBurstTime().getText().equals("")) {
-		    outputContent += "$" + app + " set burst_time_ " + node.getProperties().getBurstTime().getText() + "\n";
-		} else {
-		    statusBar.setText("No burst time selected at node " + node.getProperties().getNodeNameField().getText() + ".");
-		    statusBar.paintImmediately(statusBar.getVisibleRect());
-		    return "error";
-		}
-
-		if (!node.getProperties().getIdleTime().getText().equals("")) {
-		    outputContent += "$" + app + " set idle_time_ " + node.getProperties().getIdleTime().getText() + "\n";
-		} else {
-		    statusBar.setText("No idle time selected at node " + node.getProperties().getNodeNameField().getText() + ".");
-		    statusBar.paintImmediately(statusBar.getVisibleRect());
-		    return "error";
-		}
-	    } else if (node.getProperties().getAppBox().getSelectedItem().toString().equals("Pareto")) {
-		if (!node.getProperties().getExpoPacketSize().getText().equals("")) {
-		    outputContent += "set " + app + " [new Application/Traffic/Pareto]\n"
-			    + "$" + app + " set packetSize_ " + node.getProperties().getExpoPacketSize().getText() + "\n";
-		} else {
-		    statusBar.setText("No packet size selected at node " + node.getProperties().getNodeNameField().getText() + ".");
-		    statusBar.paintImmediately(statusBar.getVisibleRect());
-		    return "error";
-		}
-
-		if (!node.getProperties().getExpoSendingRate().getText().equals("")) {
-		    outputContent += "$" + app + " set rate_ " + node.getProperties().getExpoSendingRate().getText() + "\n";
-		} else {
-		    statusBar.setText("No rate selected at node " + node.getProperties().getNodeNameField().getText() + ".");
-		    statusBar.paintImmediately(statusBar.getVisibleRect());
-		    return "error";
-		}
-
-		if (!node.getProperties().getBurstTime().getText().equals("")) {
-		    outputContent += "$" + app + " set burst_time_ " + node.getProperties().getBurstTime().getText() + "\n";
-		} else {
-		    statusBar.setText("No burst time selected at node " + node.getProperties().getNodeNameField().getText() + ".");
-		    statusBar.paintImmediately(statusBar.getVisibleRect());
-		    return "error";
-		}
-
-		if (!node.getProperties().getIdleTime().getText().equals("")) {
-		    outputContent += "$" + app + " set idle_time_ " + node.getProperties().getIdleTime().getText() + "\n";
-		} else {
-		    statusBar.setText("No idle time selected at node " + node.getProperties().getNodeNameField().getText() + ".");
-		    statusBar.paintImmediately(statusBar.getVisibleRect());
-		    return "error";
-		}
-
-		if (!node.getProperties().getParetoShape().getText().equals("")) {
-		    outputContent += "$" + app + " set shape_ " + node.getProperties().getParetoShape().getText() + "\n";
-		} else {
-		    statusBar.setText("No shape selected at node " + node.getProperties().getNodeNameField().getText() + ".");
-		    statusBar.paintImmediately(statusBar.getVisibleRect());
-		    return "error";
-		}
-	    } else {
-		// TODO: Application/Traffic/Trace
+		    if (!node.getProperties().getIdleTime().getText().equals("")) {
+			outputContent += "$" + app + " set idle_time_ " + node.getProperties().getIdleTime().getText() + "\n";
+		    } else {
+			statusBar.setText("No idle time selected at node " + node.getProperties().getNodeNameField().getText() + ".");
+			statusBar.paintImmediately(statusBar.getVisibleRect());
+			return "error";
+		    }
+		    break;
+		case "Pareto":
+		    if (!node.getProperties().getExpoPacketSize().getText().equals("")) {
+			outputContent += "set " + app + " [new Application/Traffic/Pareto]\n"
+				+ "$" + app + " set packetSize_ " + node.getProperties().getExpoPacketSize().getText() + "\n";
+		    } else {
+			statusBar.setText("No packet size selected at node " + node.getProperties().getNodeNameField().getText() + ".");
+			statusBar.paintImmediately(statusBar.getVisibleRect());
+			return "error";
+		    }
+		    if (!node.getProperties().getExpoSendingRate().getText().equals("")) {
+			outputContent += "$" + app + " set rate_ " + node.getProperties().getExpoSendingRate().getText() + "\n";
+		    } else {
+			statusBar.setText("No rate selected at node " + node.getProperties().getNodeNameField().getText() + ".");
+			statusBar.paintImmediately(statusBar.getVisibleRect());
+			return "error";
+		    }
+		    if (!node.getProperties().getBurstTime().getText().equals("")) {
+			outputContent += "$" + app + " set burst_time_ " + node.getProperties().getBurstTime().getText() + "\n";
+		    } else {
+			statusBar.setText("No burst time selected at node " + node.getProperties().getNodeNameField().getText() + ".");
+			statusBar.paintImmediately(statusBar.getVisibleRect());
+			return "error";
+		    }
+		    if (!node.getProperties().getIdleTime().getText().equals("")) {
+			outputContent += "$" + app + " set idle_time_ " + node.getProperties().getIdleTime().getText() + "\n";
+		    } else {
+			statusBar.setText("No idle time selected at node " + node.getProperties().getNodeNameField().getText() + ".");
+			statusBar.paintImmediately(statusBar.getVisibleRect());
+			return "error";
+		    }
+		    if (!node.getProperties().getParetoShape().getText().equals("")) {
+			outputContent += "$" + app + " set shape_ " + node.getProperties().getParetoShape().getText() + "\n";
+		    } else {
+			statusBar.setText("No shape selected at node " + node.getProperties().getNodeNameField().getText() + ".");
+			statusBar.paintImmediately(statusBar.getVisibleRect());
+			return "error";
+		    }
+		    break;
+		default:
+		    break;
 	    }
 	}
 

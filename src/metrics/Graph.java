@@ -1,7 +1,6 @@
 package metrics;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import org.jfree.chart.JFreeChart;
@@ -41,25 +40,25 @@ public class Graph {
 	this.metaHandler = metaHandler;
 	this.st = DatabaseConnection.getSt();
 	this.traceFile = TraceFile;
-	String temporaryLevel;
-	if (metaHandler.getNode().indexOf("SourceNode") != -1) {
-	    levels.add("Link Layer");
-	    levels.add("Network Layer");
-	} else {
-	    try {
-		st.execute("select distinct " + metaHandler.getNode().get(1) + " from " + traceFile.getTraceFileName() + ";");
-		rs = st.getResultSet();
-		while (rs.next()) {
-		    temporaryLevel = rs.getString(1);
-		    if (!temporaryLevel.equalsIgnoreCase("IFQ")) {
-			levels.add(temporaryLevel);
-		    }
-
-		}
-
-	    } catch (SQLException ex) {
-	    }
-	}
+//	String temporaryLevel;
+//	if (metaHandler.getNode().indexOf("SourceNode") != -1) {
+//	    levels.add("Link Layer");
+//	    levels.add("Network Layer");
+//	} else {
+//	    try {
+//		st.execute("select distinct " + metaHandler.getNode().get(1) + " from " + traceFile.getTraceFileName() + ";");
+//		rs = st.getResultSet();
+//		while (rs.next()) {
+//		    temporaryLevel = rs.getString(1);
+//		    if (!temporaryLevel.equalsIgnoreCase("IFQ")) {
+//			levels.add(temporaryLevel);
+//		    }
+//
+//		}
+//
+//	    } catch (SQLException ex) {
+//	    }
+//	}
 
     }
 
@@ -100,14 +99,14 @@ public class Graph {
      *
      * @param startNode the specific node the user selected
      * @param Level he trace level to which the information will refer
-     * @param smaplingRate the time interval in which the information will be
+     * @param samplingRate the time interval in which the information will be
      * collected
      * @param chartType which type of chart was requested
      */
-    public void createNodeSpecificChart(int startNode, String Level, int smaplingRate, String chartType) {
+    public void createNodeSpecificChart(int startNode, String Level, int samplingRate, String chartType) {
 	this.startingNode = startNode;
 	this.level = Level;
-	this.sampleRate = smaplingRate;
+	this.sampleRate = samplingRate;
 
 	if (chartType.equalsIgnoreCase("Packet Delivery Rate(packets/sec)")) {
 	    createThroughputChart("NodeSpecific");
@@ -118,17 +117,6 @@ public class Graph {
 	} else if (chartType.equalsIgnoreCase("Throughput(bits/sec)")) {
 	    createThroughputBits("NodeSpecific");
 	}
-    }
-
-    public JFreeChart getChart() {
-	return chart;
-    }
-
-    public ChartPanel getGraph() {
-	chartPanel = new ChartPanel(chart);
-	chartPanel.setPreferredSize(new java.awt.Dimension(693, 256));
-	return chartPanel;
-
     }
 
     /**
@@ -204,5 +192,15 @@ public class Graph {
 	    ThroughputBitsChart throughputbits = new ThroughputBitsChart(startingNode, level, sampleRate, metaHandler, traceFile);
 	    chart = throughputbits.getChart();
 	}
+    }
+
+    public JFreeChart getChart() {
+	return chart;
+    }
+
+    public ChartPanel getGraph() {
+	chartPanel = new ChartPanel(chart);
+	chartPanel.setPreferredSize(new java.awt.Dimension(693, 256));
+	return chartPanel;
     }
 }

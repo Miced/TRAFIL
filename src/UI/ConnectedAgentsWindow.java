@@ -22,12 +22,14 @@ public class ConnectedAgentsWindow extends javax.swing.JFrame implements TableMo
     private DefaultTableModel model;
     private int rowCount = 0;
     List<TableCellEditor> attachedNodeEditors;
+    private TclDesignerPanel tclDesigner;
 
     /**
      * Creates new form ConnectedAgentsWindow
      */
-    public ConnectedAgentsWindow() {
-	this.attachedNodeEditors = new ArrayList<TableCellEditor>();
+    public ConnectedAgentsWindow(TclDesignerPanel tclDesigner) {
+	this.tclDesigner = tclDesigner;
+	this.attachedNodeEditors = new ArrayList<>();
 	initComponents();
 	this.setVisible(false);
 
@@ -103,7 +105,7 @@ public class ConnectedAgentsWindow extends javax.swing.JFrame implements TableMo
 	int column = e.getColumn();
 	if (column == 2) {
 	    String data = (String) model.getValueAt(row, column);
-	    String agent = TclDesignerPanel.getNodeAgentByNodeName(data);
+	    String agent = tclDesigner.getNodeAgentByNodeName(data);
 	    model.setValueAt(agent, row, 3);
 	}
     }

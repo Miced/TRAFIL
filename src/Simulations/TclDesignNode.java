@@ -26,7 +26,7 @@ public abstract class TclDesignNode {
     protected String name;
     protected String attachedAgent;
     protected String attachedApp;
-    protected ArrayList<TclDesignNode> adjacentNodes = new ArrayList<TclDesignNode>();
+    protected ArrayList<TclDesignNode> adjacentNodes = new ArrayList<>();
     private DefaultCellEditor dce;
     private boolean rowExists = false;
 
@@ -81,7 +81,7 @@ public abstract class TclDesignNode {
 	    }
 	}
 
-	ArrayList<String> adjacentNodeNames = new ArrayList<String>();
+	ArrayList<String> adjacentNodeNames = new ArrayList<>();
 	adjacentNodeNames.add("");
 	for (TclDesignNode adjacentNode : adjacentNodes) {
 	    if (adjacentNode.getAttachedAgent().contains("null")) {
@@ -119,8 +119,6 @@ public abstract class TclDesignNode {
 		break;
 	    }
 	}
-
-	System.out.println(connectedAgentsWindow.getAttachedNodeEditors().size());
     }
 
     public ArrayList<TclDesignNode> getAdjacentNodes() {

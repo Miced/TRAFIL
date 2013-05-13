@@ -5,21 +5,19 @@
 package metrics;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
-import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import src.MetaDataHandler;
-import src.TraceFileInfo;
 import utilities.DatabaseConnection;
 
 /**
+ * This class handles the creation of new charts that are requested via TRAFIL's
+ * chart tab.
  *
  * @author Drakoulelis
  */
@@ -31,6 +29,11 @@ public abstract class Chart {
     protected JFreeChart chart;
     protected XYSeries series;
     protected static Collection<XYSeries> seriesList = new ArrayList<>();
+    private ChartPanel chartPanel;
+
+    public Chart() {
+	this.st = DatabaseConnection.getSt();
+    }
 
     protected XYDataset createDataset() {
 	final XYSeriesCollection dataset = new XYSeriesCollection();
@@ -45,5 +48,15 @@ public abstract class Chart {
 
     public JFreeChart getChart() {
 	return chart;
+    }
+
+    public ChartPanel getGraph() {
+	chartPanel = new ChartPanel(chart);
+	chartPanel.setPreferredSize(new java.awt.Dimension(693, 256));
+	return chartPanel;
+    }
+
+    public static void resetGraph() {
+	seriesList.removeAll(seriesList);
     }
 }

@@ -1,10 +1,8 @@
 package metrics;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import static metrics.Chart.seriesList;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
@@ -149,7 +147,9 @@ public class ThroughputChart extends Chart {
 	    }
 	    calcEndTime = System.currentTimeMillis();
 	    System.out.println("Chart before library:" + (calcEndTime - startTime));
-	    xyDataset = new XYSeriesCollection(series);
+	    seriesList.add(series);
+	    //xyDataset = new XYSeriesCollection(series);
+	    xyDataset = createDataset();
 	    chart = ChartFactory.createXYLineChart(null, "Time(sec)", "Packets Delivered", xyDataset, PlotOrientation.VERTICAL, true, false, false);
 	    chart.setTitle(new org.jfree.chart.title.TextTitle("Packet Delivery Rate", new java.awt.Font("SansSerif", java.awt.Font.BOLD, 16)));
 	    long tEndTime = System.currentTimeMillis();
@@ -279,13 +279,14 @@ public class ThroughputChart extends Chart {
 		}
 	    }
 
-	    xyDataset = new XYSeriesCollection(series);
+	    seriesList.add(series);
+	    //xyDataset = new XYSeriesCollection(series);
+	    xyDataset = createDataset();
 	    chart = ChartFactory.createXYLineChart(null, "Time(sec)", "Packets Delivered", xyDataset, PlotOrientation.VERTICAL, true, false, false);
 	    chart.setTitle(new org.jfree.chart.title.TextTitle("Packet Delivery Rate", new java.awt.Font("SansSerif", java.awt.Font.BOLD, 16)));
 	} catch (SQLException ex) {
 	    ex.getSQLState();
 	    ex.printStackTrace();
-
 	}
 
     }

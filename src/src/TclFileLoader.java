@@ -4,15 +4,14 @@
  */
 package src;
 
-import Simulations.TclDesignNode;
 import Simulations.TclDesignWiredNode;
 import Simulations.TclDesignWirelessNode;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,10 +26,11 @@ import java.util.regex.Pattern;
  */
 public class TclFileLoader {
 
+    private Collection<TclDesignWiredNode> wiredNodeList = new ArrayList<>();
+    private Collection<TclDesignWirelessNode> wirelessNodeList = new ArrayList<>();
+
     public boolean OpenTclFile(File tclFile) {
 	String data;
-	Collection<TclDesignWiredNode> wiredNodeList = new ArrayList<TclDesignWiredNode>();
-	Collection<TclDesignWirelessNode> wirelessNodeList = new ArrayList<TclDesignWirelessNode>();
 
 	Pattern tracefilenamePattern = Pattern.compile("\\[open (.*?).tr w\\]");
 	Pattern nodesPattern = Pattern.compile("\\[\\$ns node\\]");
@@ -49,11 +49,28 @@ public class TclFileLoader {
 
 		m = nodesPattern.matcher(data);
 		if (m.find()) {
-		    TclDesignWiredNode wnode = new TclDesignWiredNode(0);
-		    String[] split = data.split(" ");
-		    wnode.setName(split[1]);
-		    System.out.println(split[1]);
+		    if (data.substring(data.lastIndexOf(" ") + 1).equals("wired")) {
+			TclDesignWiredNode wnode = new TclDesignWiredNode(0);
+			String[] split = data.split(" ");
+			wnode.setName(split[1]);
+			int xpos = Integer.parseInt(data.substring(data.indexOf("xpos=") + "xpos=".length(), data.indexOf(".", data.indexOf("xpos="))));
+			int ypos = Integer.parseInt(data.substring(data.indexOf("ypos=") + "ypos=".length(), data.indexOf(".", data.indexOf("ypos="))));
+			wnode.setRectangle(new Rectangle2D.Double(xpos, ypos, wnode.getWidth(), wnode.getHeight()));
+			wiredNodeList.add(wnode);
+			System.out.println("Wired Node: " + wnode.getName());
+		    } else {
+			TclDesignWirelessNode wlnode = new TclDesignWirelessNode(0);
+			String[] split = data.split(" ");
+			wlnode.setName(split[1]);
+			int xpos = Integer.parseInt(data.substring(data.indexOf("xpos=") + "xpos=".length(), data.indexOf(".", data.indexOf("xpos="))));
+			int ypos = Integer.parseInt(data.substring(data.indexOf("ypos=") + "ypos=".length(), data.indexOf(".", data.indexOf("ypos="))));
+			wlnode.setCircle(new Ellipse2D.Double(xpos, ypos, wlnode.getWidth(), wlnode.getHeight()));
+			wirelessNodeList.add(wlnode);
+			System.out.println("Wireless Node: " + wlnode.getName());
+		    }
 		}
+
+
 	    }
 	} catch (FileNotFoundException ex) {
 	    Logger.getLogger(TclFileLoader.class.getName()).log(Level.SEVERE, null, ex);
@@ -63,7 +80,14 @@ public class TclFileLoader {
 	    return false;
 	}
 
-	return false;
+	return true;
+    }
 
+    public Collection<TclDesignWiredNode> getWiredNodeList() {
+	return wiredNodeList;
+    }
+
+    public Collection<TclDesignWirelessNode> getWirelessNodeList() {
+	return wirelessNodeList;
     }
 }

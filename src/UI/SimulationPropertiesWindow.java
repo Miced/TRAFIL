@@ -135,7 +135,7 @@ public class SimulationPropertiesWindow extends javax.swing.JFrame {
 
     private void simStartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simStartButtonActionPerformed
 	this.setVisible(false);
-	String outputContent = TclDesignerPanel.getScript();
+	String outputContent = tclDesigner.getScript();
 
 	if (outputContent.equals("error")) {
 	    return;
@@ -164,7 +164,7 @@ public class SimulationPropertiesWindow extends javax.swing.JFrame {
 
     private void exportScriptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportScriptButtonActionPerformed
 	this.setVisible(false);
-	String outputContent = TclDesignerPanel.getScript();
+	String outputContent = tclDesigner.getScript();
 
 	if (outputContent.equals("error")) {
 	    return;

@@ -17,7 +17,7 @@ public class TclDesignWirelessNode extends TclDesignNode {
     private Ellipse2D.Double circle;
 
     public TclDesignWirelessNode(int nodeID) {
-	name = "n" + nodeID;
+	name = "n" + nodeID;	// TODO: remove nodeID limitation from constructor
 	properties.getNodeNameField().setText(name);
     }
 

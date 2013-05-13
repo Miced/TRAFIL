@@ -2,6 +2,7 @@ package metrics;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import static metrics.Chart.seriesList;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYDataset;
@@ -13,7 +14,7 @@ import utilities.DatabaseConnection;
 
 /**
  *
- * @author MIKE
+ * @author Drakoulelis
  */
 public class DelayJitterChart extends Chart {
 
@@ -48,8 +49,6 @@ public class DelayJitterChart extends Chart {
 		    System.out.println("Endnode:" + endNode);
 		    System.out.println("Level:" + level);
 		    System.out.println("SampleRate:" + sampleRate);
-
-
 
 		    st.execute("select min(time) as min,max(time) as max from " + traceFile.getTraceFileName() + " where event='r' and " + metaHandler.getGeneratePackets().get(0) + "=" + startNode + " and "
 			    + "" + metaHandler.getReceivedPackets().get(0) + "=" + endNode + ";");
@@ -183,7 +182,9 @@ public class DelayJitterChart extends Chart {
 		}
 	    }
 
-	    xyDataset = new XYSeriesCollection(series);
+	    seriesList.add(series);
+	    //xyDataset = new XYSeriesCollection(series);
+	    xyDataset = createDataset();
 	    chart = ChartFactory.createXYLineChart(null, "Time(sec)", "Delay Jitter(sec)", xyDataset, PlotOrientation.VERTICAL, true, false, false);
 	    chart.setTitle(new org.jfree.chart.title.TextTitle("Delay Jitter vs Time", new java.awt.Font("SansSerif", java.awt.Font.BOLD, 16)));
 	} catch (SQLException ex2) {
@@ -321,7 +322,9 @@ public class DelayJitterChart extends Chart {
 		}
 	    }
 
-	    xyDataset = new XYSeriesCollection(series);
+	    seriesList.add(series);
+	    //xyDataset = new XYSeriesCollection(series);
+	    xyDataset = createDataset();
 	    chart = ChartFactory.createXYLineChart(null, "Time(sec)", "Delay Jitter(sec)", xyDataset, PlotOrientation.VERTICAL, true, false, false);
 	    chart.setTitle(new org.jfree.chart.title.TextTitle("Delay Jitter vs Time", new java.awt.Font("SansSerif", java.awt.Font.BOLD, 16)));
 	} catch (SQLException ex2) {

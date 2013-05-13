@@ -1,6 +1,7 @@
 package metrics;
 
 import java.sql.SQLException;
+import static metrics.Chart.seriesList;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYDataset;
@@ -140,7 +141,6 @@ public class ThroughputBitsChart extends Chart {
 	    }
 
 	    seriesList.add(series);
-	    System.out.println("Filling chart...");
 
 	    //xyDataset = new XYSeriesCollection(series);
 	    xyDataset = createDataset();
@@ -272,13 +272,14 @@ public class ThroughputBitsChart extends Chart {
 		}
 	    }
 
-	    xyDataset = new XYSeriesCollection(series);
+	    seriesList.add(series);
+	    //xyDataset = new XYSeriesCollection(series);
+	    xyDataset = createDataset();
 	    chart = ChartFactory.createXYLineChart(null, "Time(seconds)", "Throughput(bits/seconds)", xyDataset, PlotOrientation.VERTICAL, true, false, false);
 	    chart.setTitle(new org.jfree.chart.title.TextTitle("Throughput vs Time", new java.awt.Font("SansSerif", java.awt.Font.BOLD, 16)));
 	} catch (SQLException ex) {
 	    ex.getSQLState();
 	    ex.printStackTrace();
-
 	}
     }
 }

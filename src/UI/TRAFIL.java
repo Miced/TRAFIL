@@ -9,10 +9,7 @@ import metrics.GeneralSimulationInformation;
 import metrics.GeneralNodeInformation;
 
 import java.awt.Dimension;
-import java.awt.MouseInfo;
 import java.awt.Toolkit;
-import java.awt.MouseInfo;
-import java.awt.GridLayout;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.*;
@@ -30,6 +27,7 @@ import src.*;
 import utilities.ExportData;
 import java.io.*;
 import java.util.*;
+import metrics.Chart;
 import utilities.*;
 
 /**
@@ -82,7 +80,7 @@ public class TRAFIL extends javax.swing.JFrame {
 	username.setFocusable(true);
 	linkWindow = new LinkListWindow(this);
 	simProperties = new SimulationPropertiesWindow(this);
-	connectedAgents = new ConnectedAgentsWindow();
+	connectedAgents = new ConnectedAgentsWindow(tclDesigner);
 	wirelessWindow = new SimulationWirelessSettingsWindow();
 	TclDesignerPanel.setTrafil(this);
 	TclDesignerPanel.setLinkWindow(linkWindow);
@@ -1255,7 +1253,7 @@ public class TRAFIL extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(simulationINfoPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(nodeInformation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(220, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1349,7 +1347,7 @@ public class TRAFIL extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(239, 239, 239)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(205, Short.MAX_VALUE))
+                .addContainerGap(257, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(124, 124, 124)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
@@ -1362,7 +1360,7 @@ public class TRAFIL extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addContainerGap(215, Short.MAX_VALUE))
         );
 
         tabbed.addTab("Metrics", jPanel4);
@@ -1406,7 +1404,7 @@ public class TRAFIL extends javax.swing.JFrame {
                         .addComponent(executeSQL, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(clearSQL, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(sqlQueryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(sqlQueryPanelLayout.createSequentialGroup()
                         .addGap(104, 104, 104)
@@ -1430,7 +1428,7 @@ public class TRAFIL extends javax.swing.JFrame {
                             .addComponent(executeSQL)
                             .addComponent(clearSQL)))
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         tabbed.addTab("SQL Queries", sqlQueryPanel);
@@ -1557,7 +1555,7 @@ public class TRAFIL extends javax.swing.JFrame {
                     .addComponent(jLabel91, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel92, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel87, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel89, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                    .addComponent(jLabel89, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
                     .addComponent(jLabel90, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1565,7 +1563,7 @@ public class TRAFIL extends javax.swing.JFrame {
                             .addComponent(jLabel84, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel85, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(inputVideoSize, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(qualityScaleStartValue)
@@ -1951,7 +1949,7 @@ public class TRAFIL extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2055,13 +2053,13 @@ public class TRAFIL extends javax.swing.JFrame {
             .addGroup(jPanel19Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(simParamButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                    .addComponent(simParamButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                     .addComponent(linkListButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(connectedAgentsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                     .addComponent(wirelessSettingsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(designScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 881, Short.MAX_VALUE))
+                .addComponent(designScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 876, Short.MAX_VALUE))
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2070,7 +2068,7 @@ public class TRAFIL extends javax.swing.JFrame {
                     .addComponent(designScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel19Layout.createSequentialGroup()
                         .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                         .addComponent(wirelessSettingsButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(connectedAgentsButton)
@@ -2078,7 +2076,7 @@ public class TRAFIL extends javax.swing.JFrame {
                         .addComponent(linkListButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(simParamButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 72, Short.MAX_VALUE))
+                .addGap(0, 79, Short.MAX_VALUE))
         );
 
         tabbed.addTab("TCL Design", jPanel19);
@@ -2113,7 +2111,7 @@ public class TRAFIL extends javax.swing.JFrame {
                     .addGroup(chartParametersLayout.createSequentialGroup()
                         .addGroup(chartParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel68, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                            .addComponent(jLabel66, javax.swing.GroupLayout.PREFERRED_SIZE, 104, Short.MAX_VALUE))
+                            .addComponent(jLabel66, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(chartParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(chartStartNode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2150,7 +2148,7 @@ public class TRAFIL extends javax.swing.JFrame {
         );
         chartPanelLayout.setVerticalGroup(
             chartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 229, Short.MAX_VALUE)
+            .addGap(0, 228, Short.MAX_VALUE)
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chart Type", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12)))); // NOI18N
@@ -2463,19 +2461,19 @@ public class TRAFIL extends javax.swing.JFrame {
         mainpanelLayout.setHorizontalGroup(
             mainpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainpanelLayout.createSequentialGroup()
-                .addGap(289, 289, 289)
-                .addComponent(connect_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(mainpanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbed, javax.swing.GroupLayout.DEFAULT_SIZE, 1065, Short.MAX_VALUE))
+                .addComponent(tabbed, javax.swing.GroupLayout.DEFAULT_SIZE, 1057, Short.MAX_VALUE))
+            .addGroup(mainpanelLayout.createSequentialGroup()
+                .addGap(343, 343, 343)
+                .addComponent(connect_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         mainpanelLayout.setVerticalGroup(
             mainpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainpanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(connect_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(tabbed, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -2704,7 +2702,7 @@ private void connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 
 		if (System.getProperty("os.name").contains("Windows") || System.getProperty("os.name").contains("windows")) {
 		    NsTool.setVisible(false);
-		    tabbed.remove(5);
+		    tabbed.remove(jPanel9);
 		}
 	    }
 
@@ -3107,8 +3105,9 @@ private void exportMetricsActionPerformed(java.awt.event.ActionEvent evt) {//GEN
      */
 private void createChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createChartActionPerformed
 
-
+	Chart.resetGraph();
 	if (TraceFile.getTraceFileName() != null) {
+
 	    if (enableNodetoNode.isSelected()) {
 		statusBar.setText("Creating chart between nodes " + chartStartNode.getSelectedItem() + " and " + chartEndNode.getSelectedItem());
 		statusBar.paintImmediately(statusBar.getVisibleRect());
@@ -3550,7 +3549,11 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
 		    return;
 		}
 
+		tclDesigner.setWiredNodeList(TclFileLoader.getWiredNodeList());
+		tclDesigner.setWirelessNodeList(TclFileLoader.getWirelessNodeList());
 		statusBar.setText("<html><font color=#0033FF>Opened Tcl file!</font></html>");
+		statusBar.paintImmediately(statusBar.getVisibleRect());
+		tabbed.setSelectedComponent(jPanel19);
 
 	    } catch (Exception ex) {
 		Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, null, ex);

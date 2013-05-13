@@ -1,10 +1,8 @@
 package metrics;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import static metrics.Chart.seriesList;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
@@ -64,7 +62,10 @@ public class PacketEndToEndDelayChart extends Chart {
 	    while (rs.next()) {
 		series.add(rs.getInt(1), rs.getDouble(2));
 	    }
-	    xyDataset = new XYSeriesCollection(series);
+
+	    seriesList.add(series);
+	    //xyDataset = new XYSeriesCollection(series);
+	    xyDataset = createDataset();
 	    chart = ChartFactory.createXYLineChart(null, "Packet Id", "End to End Delay(sec)", xyDataset, PlotOrientation.VERTICAL, true, false, false);
 	    chart.setTitle(new org.jfree.chart.title.TextTitle("End to End Delay over Packet Id", new java.awt.Font("SansSerif", java.awt.Font.BOLD, 16)));
 
@@ -118,7 +119,9 @@ public class PacketEndToEndDelayChart extends Chart {
 	    while (rs.next()) {
 		series.add(rs.getInt(1), rs.getDouble(2));
 	    }
-	    xyDataset = new XYSeriesCollection(series);
+	    seriesList.add(series);
+	    //xyDataset = new XYSeriesCollection(series);
+	    xyDataset = createDataset();
 	    chart = ChartFactory.createXYLineChart(null, "Packet Id", "End to End Delay(sec)", xyDataset, PlotOrientation.VERTICAL, true, false, false);
 	    chart.setTitle(new org.jfree.chart.title.TextTitle("End to End Delay over Packet Id", new java.awt.Font("SansSerif", java.awt.Font.BOLD, 16)));
 
