@@ -16778,3 +16778,71 @@ event char(1),time double,NodeID integer,TraceName varchar(20),Reason varchar(20
 [INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
 [SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
 [SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}

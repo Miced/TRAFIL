@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import utilities.PathLocator;
 
 /**
@@ -21,18 +22,24 @@ import utilities.PathLocator;
 public class SimulationPropertiesWindow extends javax.swing.JFrame {
 
     private static TRAFIL tr;
-    private static LinkListWindow linkWindow;
     private static TclDesignerPanel tclDesigner;
 
     /**
      * Creates new form SimulationPropertiesWindow
      */
     public SimulationPropertiesWindow(TRAFIL tr) {
-	initComponents();
-	this.setVisible(false);
-	SimulationPropertiesWindow.tr = tr;
-	SimulationPropertiesWindow.linkWindow = tr.getLinkWindow();
-	tclDesigner = tr.getTclDesigner();
+        initComponents();
+        this.setVisible(false);
+        SimulationPropertiesWindow.tr = tr;
+        tclDesigner = tr.getTclDesigner();
+    }
+
+    public void setOutputFileField(String outputFileField) {
+        this.outputFileField.setText(outputFileField);
+    }
+
+    public void setSimEndField(String simEndField) {
+        this.simEndField.setText(simEndField);
     }
 
     /**
@@ -134,62 +141,62 @@ public class SimulationPropertiesWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void simStartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simStartButtonActionPerformed
-	this.setVisible(false);
-	String outputContent = tclDesigner.getScript();
+        this.setVisible(false);
+        String outputContent = tclDesigner.getScript();
 
-	if (outputContent.equals("error")) {
-	    return;
-	}
+        if (outputContent.equals("error")) {
+            return;
+        }
 
-	outputContent += "#Call the finish procedure after  seconds of simulation time\n";
-	outputContent += "$ns at " + simEndField.getText() + " \"finish\"\n\n";
+        outputContent += "#Call the finish procedure after  seconds of simulation time\n";
+        outputContent += "$ns at " + simEndField.getText() + " \"finish\"\n\n";
 
-	outputContent += "#Run the simulation\n"
-		+ "$ns run";
+        outputContent += "#Run the simulation\n"
+                + "$ns run";
 
-	outputContent = outputContent.replaceFirst("tracefile.tr", outputFileField.getText() + ".tr");
+        outputContent = outputContent.replaceFirst("tracefile.tr", outputFileField.getText() + ".tr");
 
-	try {
-	    String path = PathLocator.getDesignOutputPath(System.getProperty("user.dir")) + outputFileField.getText() + ".tcl";
-	    File file = new File(path);
-	    file.createNewFile();
-	    BufferedWriter out = new BufferedWriter(new FileWriter(file));
-	    out.write(outputContent);
-	    out.close();
-	    tr.executeNS2Simulation(path);
-	} catch (IOException ex) {
-	    Logger.getLogger(SimulationPropertiesWindow.class.getName()).log(Level.SEVERE, null, ex);
-	}
+        try {
+            String path = PathLocator.getDesignOutputPath(System.getProperty("user.dir")) + outputFileField.getText() + ".tcl";
+            File file = new File(path);
+            file.createNewFile();
+            BufferedWriter out = new BufferedWriter(new FileWriter(file));
+            out.write(outputContent);
+            out.close();
+            tr.executeNS2Simulation(path);
+        } catch (IOException ex) {
+            Logger.getLogger(SimulationPropertiesWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_simStartButtonActionPerformed
 
     private void exportScriptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportScriptButtonActionPerformed
-	this.setVisible(false);
-	String outputContent = tclDesigner.getScript();
+        this.setVisible(false);
+        String outputContent = tclDesigner.getScript();
 
-	if (outputContent.equals("error")) {
-	    return;
-	}
+        if (outputContent.equals("error")) {
+            return;
+        }
 
-	outputContent += "#Call the finish procedure after  seconds of simulation time\n";
-	outputContent += "$ns at " + simEndField.getText() + " \"finish\"\n\n";
+        outputContent += "#Call the finish procedure after  seconds of simulation time\n";
+        outputContent += "$ns at " + simEndField.getText() + " \"finish\"\n\n";
 
-	outputContent += "#Run the simulation\n"
-		+ "$ns run";
+        outputContent += "#Run the simulation\n"
+                + "$ns run";
 
-	outputContent = outputContent.replaceFirst("tracefile.tr", outputFileField.getText() + ".tr");
+        outputContent = outputContent.replaceFirst("tracefile.tr", outputFileField.getText() + ".tr");
 
-	try {
-	    String path = PathLocator.getDesignOutputPath(System.getProperty("user.dir")) + outputFileField.getText() + ".tcl";
-	    File file = new File(path);
-	    file.createNewFile();
-	    BufferedWriter out = new BufferedWriter(new FileWriter(file));
-	    out.write(outputContent);
-	    out.close();
-	} catch (IOException ex) {
-	    Logger.getLogger(SimulationPropertiesWindow.class.getName()).log(Level.SEVERE, null, ex);
-	}
+        try {
+            String path = PathLocator.getDesignOutputPath(System.getProperty("user.dir")) + outputFileField.getText() + ".tcl";
+            File file = new File(path);
+            file.createNewFile();
+            BufferedWriter out = new BufferedWriter(new FileWriter(file));
+            out.write(outputContent);
+            out.close();
+        } catch (IOException ex) {
+            Logger.getLogger(SimulationPropertiesWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-	javax.swing.JOptionPane.showMessageDialog(this, "Tcl script file saved under TRAFIL/SimulationDesignOutputs folder.", "Script saved!", JOptionPane.INFORMATION_MESSAGE);
+        javax.swing.JOptionPane.showMessageDialog(this, "Tcl script file saved under TRAFIL/SimulationDesignOutputs folder.", "Script saved!", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_exportScriptButtonActionPerformed
     /**
      * @param args the command line arguments

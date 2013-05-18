@@ -25,110 +25,114 @@ public class NodePropertiesWindow extends javax.swing.JFrame {
      * Creates new form NodePropertiesWindow
      */
     public NodePropertiesWindow(TclDesignNode node) {
-	initComponents();
-	nodeParametersPanel.setVisible(false);
-	cbrParametersPanel.setVisible(true);
-	ftpParametersPanel.setVisible(false);
-	expoParametersPanel.setVisible(false);
-	nodeNameField.setText(null);
+        initComponents();
+        nodeParametersPanel.setVisible(false);
+        cbrParametersPanel.setVisible(true);
+        ftpParametersPanel.setVisible(false);
+        expoParametersPanel.setVisible(false);
+        nodeNameField.setText(null);
 
-	this.node = node;
-	node.setAttachedApp(appBox.getSelectedItem().toString().toLowerCase() + appID++);
+        this.node = node;
+        node.setAttachedApp(appBox.getSelectedItem().toString().toLowerCase() + appID++);
     }
 
     public NodePropertiesWindow(TclDesignNode node, String agent, String agentType, String app, String appType, ArrayList<String[]> settings) {
-	initComponents();
+        initComponents();
 
-	this.node = node;
-	nodeNameField.setText(node.getName());
-	switch (agentType) {
-	    case "TCP":
-		agentBox.setSelectedItem("TCP");
-		break;
-	    case "UDP":
-		agentBox.setSelectedItem("UDP");
-		break;
-	    default:
-		agentBox.setSelectedItem("Null");
-		break;
-	}
+        this.node = node;
+        nodeNameField.setText(node.getName());
+        switch (agentType) {
+            case "TCP":
+                agentBox.setSelectedItem("TCP");
+                break;
+            case "UDP":
+                agentBox.setSelectedItem("UDP");
+                break;
+            default:
+                agentBox.setSelectedItem("Null");
+                break;
+        }
 
-	node.setAttachedApp(app);
-	if (appType.contains("Telnet")) {
-	    appBox.setSelectedItem("Telnet");
-	} else if (appType.contains("FTP")) {
-	    appBox.setSelectedItem("FTP");
-	} else if (appType.contains("Pareto")) {
-	    appBox.setSelectedItem("Pareto");
-	} else if (appType.contains("Exponential")) {
-	    appBox.setSelectedItem("Exponential");
-	} else if (appType.contains("Trace")) {
-	    appBox.setSelectedItem("Trace");
-	} else {
-	    appBox.setSelectedItem("CBR");
-	}
+        node.setAttachedApp(app);
+        if (appType.contains("Telnet")) {
+            appBox.setSelectedItem("Telnet");
+        } else if (appType.contains("FTP")) {
+            appBox.setSelectedItem("FTP");
+        } else if (appType.contains("Pareto")) {
+            appBox.setSelectedItem("Pareto");
+        } else if (appType.contains("Exponential")) {
+            appBox.setSelectedItem("Exponential");
+        } else if (appType.contains("Trace")) {
+            appBox.setSelectedItem("Trace");
+        } else {
+            appBox.setSelectedItem("CBR");
+        }
 
-	for (String[] str : settings) {
-	    switch (str[0]) {
-		case "packetSize":
-		    packetSize.setText(str[1]);
-		    expoPacketSize.setText(str[1]);
-		    break;
-		case "rate":
-		    sendingRate.setText(str[1]);
-		    rateRadioButton.setSelected(true);
-		    expoSendingRate.setText(str[1]);
-		    break;
-		case "interval":
-		    sendingInterval.setText(str[1]);
-		    intervalRadioButton.setSelected(true);
-		    telnetInterval.setText(str[1]);
-		    break;
-		case "random":
-		    if (str[1].equals("1")) {
-			randomBox.setSelected(true);
-		    }
-		    break;
-		case "maxpkts":
-		    FTPpacketNumber.setText(str[1]);
-		    break;
-		case "burst_time":
-		    burstTime.setText(str[1]);
-		    break;
-		case "idle_time":
-		    idleTime.setText(str[1]);
-		    break;
-		case "shape":
-		    paretoShape.setText(str[1]);
-		    break;
-		default:
-		    break;
-	    }
-	}
+        for (String[] str : settings) {
+            switch (str[0]) {
+                case "packetSize":
+                    packetSize.setText(str[1]);
+                    expoPacketSize.setText(str[1]);
+                    break;
+                case "rate":
+                    sendingRate.setText(str[1]);
+                    rateRadioButton.setSelected(true);
+                    expoSendingRate.setText(str[1]);
+                    break;
+                case "interval":
+                    sendingInterval.setText(str[1]);
+                    intervalRadioButton.setSelected(true);
+                    telnetInterval.setText(str[1]);
+                    break;
+                case "random":
+                    if (str[1].equals("1")) {
+                        randomBox.setSelected(true);
+                    }
+                    break;
+                case "maxpkts":
+                    FTPpacketNumber.setText(str[1]);
+                    break;
+                case "burst_time":
+                    burstTime.setText(str[1]);
+                    break;
+                case "idle_time":
+                    idleTime.setText(str[1]);
+                    break;
+                case "shape":
+                    paretoShape.setText(str[1]);
+                    break;
+                case "start":
+                    appStartTime.setText(str[1]);
+                case "stop":
+                    appStopTime.setText(str[1]);
+                default:
+                    break;
+            }
+        }
     }
 
     public final void setNewAgent() {
-	String selectedAgent = (String) agentBox.getSelectedItem();
-	node.setAttachedAgent(selectedAgent.toLowerCase() + agentID++);
-	if ("Null".equals(selectedAgent)) {
-	    nodeParametersPanel.setVisible(false);
-	    try {
-		node.removeFromConnectedAgents();
-		for (TclDesignNode adjacentNode : node.getAdjacentNodes()) {
-		    adjacentNode.updateAdjacentNodes();
-		}
-	    } catch (Exception ex) {
-	    }
-	} else {
-	    nodeParametersPanel.setVisible(true);
-	    try {
-		node.addToConnectedAgents();
-		for (TclDesignNode adjacentNode : node.getAdjacentNodes()) {
-		    adjacentNode.updateAdjacentNodes();
-		}
-	    } catch (Exception ex) {
-	    }
-	}
+        String selectedAgent = (String) agentBox.getSelectedItem();
+        node.setAttachedAgent(selectedAgent.toLowerCase() + agentID++);
+        if ("Null".equals(selectedAgent)) {
+            nodeParametersPanel.setVisible(false);
+            try {
+                node.removeFromConnectedAgents();
+                for (TclDesignNode adjacentNode : node.getAdjacentNodes()) {
+                    adjacentNode.updateAdjacentNodes();
+                }
+            } catch (Exception ex) {
+            }
+        } else {
+            nodeParametersPanel.setVisible(true);
+            try {
+                node.addToConnectedAgents();
+                for (TclDesignNode adjacentNode : node.getAdjacentNodes()) {
+                    adjacentNode.updateAdjacentNodes();
+                }
+            } catch (Exception ex) {
+            }
+        }
     }
 
     /**
@@ -483,57 +487,57 @@ public class NodePropertiesWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void agentBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agentBoxActionPerformed
-	setNewAgent();
+        setNewAgent();
     }//GEN-LAST:event_agentBoxActionPerformed
 
     private void appBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appBoxActionPerformed
-	String selectedApp = (String) appBox.getSelectedItem();
-	node.setAttachedApp(selectedApp.toLowerCase() + appID++);
-	if (selectedApp.equals("CBR")) {
-	    cbrParametersPanel.setVisible(true);
-	    ftpParametersPanel.setVisible(false);
-	    expoParametersPanel.setVisible(false);
-	    timeParametersPanel.setVisible(true);
-	} else if (selectedApp.equals("FTP")) {
-	    cbrParametersPanel.setVisible(false);
-	    ftpParametersPanel.setVisible(true);
-	    expoParametersPanel.setVisible(false);
-	    timeParametersPanel.setVisible(true);
-	    FTPpacketNumber.setVisible(true);
-	    FTPpacketNumberLabel.setVisible(true);
-	    telnetIntervalLabel.setVisible(false);
-	    telnetInterval.setVisible(false);
-	} else if (selectedApp.equals("Exponential")) {
-	    cbrParametersPanel.setVisible(false);
-	    ftpParametersPanel.setVisible(false);
-	    expoParametersPanel.setVisible(true);
-	    timeParametersPanel.setVisible(true);
-	    paretoShape.setVisible(false);
-	    shapeLabel.setVisible(false);
-	} else if (selectedApp.equals("Trace")) {
-	    cbrParametersPanel.setVisible(false);
-	    ftpParametersPanel.setVisible(false);
-	    expoParametersPanel.setVisible(false);
-	    timeParametersPanel.setVisible(false);
-	} else if (selectedApp.equals("Telnet")) {
-	    cbrParametersPanel.setVisible(false);
-	    ftpParametersPanel.setVisible(true);
-	    expoParametersPanel.setVisible(false);
-	    timeParametersPanel.setVisible(true);
-	    telnetIntervalLabel.setVisible(false);
-	    telnetInterval.setVisible(false);
-	    FTPpacketNumber.setVisible(false);
-	    FTPpacketNumberLabel.setVisible(false);
-	    telnetInterval.setVisible(true);
-	    telnetIntervalLabel.setVisible(true);
-	} else if (selectedApp.equals("Pareto")) {
-	    cbrParametersPanel.setVisible(false);
-	    ftpParametersPanel.setVisible(false);
-	    expoParametersPanel.setVisible(true);
-	    timeParametersPanel.setVisible(true);
-	    paretoShape.setVisible(true);
-	    shapeLabel.setVisible(true);
-	}
+        String selectedApp = (String) appBox.getSelectedItem();
+        node.setAttachedApp(selectedApp.toLowerCase() + appID++);
+        if (selectedApp.equals("CBR")) {
+            cbrParametersPanel.setVisible(true);
+            ftpParametersPanel.setVisible(false);
+            expoParametersPanel.setVisible(false);
+            timeParametersPanel.setVisible(true);
+        } else if (selectedApp.equals("FTP")) {
+            cbrParametersPanel.setVisible(false);
+            ftpParametersPanel.setVisible(true);
+            expoParametersPanel.setVisible(false);
+            timeParametersPanel.setVisible(true);
+            FTPpacketNumber.setVisible(true);
+            FTPpacketNumberLabel.setVisible(true);
+            telnetIntervalLabel.setVisible(false);
+            telnetInterval.setVisible(false);
+        } else if (selectedApp.equals("Exponential")) {
+            cbrParametersPanel.setVisible(false);
+            ftpParametersPanel.setVisible(false);
+            expoParametersPanel.setVisible(true);
+            timeParametersPanel.setVisible(true);
+            paretoShape.setVisible(false);
+            shapeLabel.setVisible(false);
+        } else if (selectedApp.equals("Trace")) {
+            cbrParametersPanel.setVisible(false);
+            ftpParametersPanel.setVisible(false);
+            expoParametersPanel.setVisible(false);
+            timeParametersPanel.setVisible(false);
+        } else if (selectedApp.equals("Telnet")) {
+            cbrParametersPanel.setVisible(false);
+            ftpParametersPanel.setVisible(true);
+            expoParametersPanel.setVisible(false);
+            timeParametersPanel.setVisible(true);
+            telnetIntervalLabel.setVisible(false);
+            telnetInterval.setVisible(false);
+            FTPpacketNumber.setVisible(false);
+            FTPpacketNumberLabel.setVisible(false);
+            telnetInterval.setVisible(true);
+            telnetIntervalLabel.setVisible(true);
+        } else if (selectedApp.equals("Pareto")) {
+            cbrParametersPanel.setVisible(false);
+            ftpParametersPanel.setVisible(false);
+            expoParametersPanel.setVisible(true);
+            timeParametersPanel.setVisible(true);
+            paretoShape.setVisible(true);
+            shapeLabel.setVisible(true);
+        }
     }//GEN-LAST:event_appBoxActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField FTPpacketNumber;
@@ -579,74 +583,74 @@ public class NodePropertiesWindow extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public JCheckBox getRandomBox() {
-	return randomBox;
+        return randomBox;
     }
 
     public JTextField getSendingInterval() {
-	return sendingInterval;
+        return sendingInterval;
     }
 
     public JTextField getSendingRate() {
-	return sendingRate;
+        return sendingRate;
     }
 
     public JRadioButton getRateRadioButton() {
-	return rateRadioButton;
+        return rateRadioButton;
     }
 
     public JTextField getPacketNumberBox() {
-	return packetNumberBox;
+        return packetNumberBox;
     }
 
     public JTextField getPacketSize() {
-	return packetSize;
+        return packetSize;
     }
 
     public JTextField getAppStartTime() {
-	return appStartTime;
+        return appStartTime;
     }
 
     public JTextField getAppStopTime() {
-	return appStopTime;
+        return appStopTime;
     }
 
     public JComboBox getAgentBox() {
-	return agentBox;
+        return agentBox;
     }
 
     public JComboBox getAppBox() {
-	return appBox;
+        return appBox;
     }
 
     public JTextField getNodeNameField() {
-	return nodeNameField;
+        return nodeNameField;
     }
 
     public JTextField getTelnetInterval() {
-	return telnetInterval;
+        return telnetInterval;
     }
 
     public JTextField getFTPpacketNumber() {
-	return FTPpacketNumber;
+        return FTPpacketNumber;
     }
 
     public JTextField getBurstTime() {
-	return burstTime;
+        return burstTime;
     }
 
     public JTextField getExpoPacketSize() {
-	return expoPacketSize;
+        return expoPacketSize;
     }
 
     public JTextField getExpoSendingRate() {
-	return expoSendingRate;
+        return expoSendingRate;
     }
 
     public JTextField getIdleTime() {
-	return idleTime;
+        return idleTime;
     }
 
     public JTextField getParetoShape() {
-	return paretoShape;
+        return paretoShape;
     }
 }

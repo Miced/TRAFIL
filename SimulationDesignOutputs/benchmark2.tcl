@@ -38,8 +38,8 @@ $cbr0 set packetSize_ 500
 $cbr0 attach-agent $tcp4
 
 #Schedule events for the cbr0 source
-$ns at 0.5 "$cbr0 start"
-$ns at 1.0 "$cbr0 stop"
+$ns at 1.5 "$cbr0 start"
+$ns at 2.0 "$cbr0 stop"
 
 #Create agent null1 and attach them to node n1
 set null1 [new Agent/Null]

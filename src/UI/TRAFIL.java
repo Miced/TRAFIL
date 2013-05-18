@@ -3552,6 +3552,16 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
                 tclDesigner.setWiredNodeList(TclFileLoader.getWiredNodeList());
                 tclDesigner.setWirelessNodeList(TclFileLoader.getWirelessNodeList());
                 tclDesigner.setLinkList(TclFileLoader.getLinkList());
+                DefaultTableModel connectedAgentsModel = TclDesignerPanel.getConnectedAgentsModel();
+                for (String[] str : TclFileLoader.getConnectedAgentsList()) {
+                    for (int row = 0; row < connectedAgentsModel.getRowCount(); row++) {
+                        if (connectedAgentsModel.getValueAt(row, 0).equals(str[0])) {
+                            connectedAgentsModel.setValueAt(str[1], row, 2);
+                        }
+                    }
+                }
+                simProperties.setOutputFileField(TclFileLoader.getScriptFileName());
+                simProperties.setSimEndField(TclFileLoader.getScriptFinishTime());
                 statusBar.setText("<html><font color=#0033FF>Opened Tcl file!</font></html>");
                 statusBar.paintImmediately(statusBar.getVisibleRect());
                 tabbed.setSelectedComponent(jPanel19);
