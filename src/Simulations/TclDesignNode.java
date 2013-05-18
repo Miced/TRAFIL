@@ -170,6 +170,10 @@ public abstract class TclDesignNode {
 	return properties;
     }
 
+    public void setProperties(NodePropertiesWindow properties) {
+	this.properties = properties;
+    }
+
     public void setName(String name) {
 	this.name = name;
     }
