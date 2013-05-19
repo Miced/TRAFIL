@@ -4,6 +4,7 @@
  */
 package UI;
 
+import java.util.ArrayList;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -18,8 +19,117 @@ public class SimulationWirelessSettingsWindow extends javax.swing.JFrame {
      * Creates new form SimulationWirelessSettingsWindow
      */
     public SimulationWirelessSettingsWindow() {
-	initComponents();
-	this.setVisible(false);
+        initComponents();
+        this.setVisible(false);
+    }
+
+    public void loadSettings(ArrayList<String[]> settings) {
+        for (String[] str : settings) {
+            switch (str[0]) {
+                case "width":
+                    topologyWidth.setText(str[1]);
+                    break;
+                case "height":
+                    topologyHeight.setText(str[1]);
+                    break;
+                case "adhocRouting":
+                    adhocRouting.setSelectedItem(str[1]);
+                    break;
+                case "llType":
+                    llType.setText(str[1]);
+                    break;
+                case "macType":
+                    macType.setText(str[1]);
+                    break;
+                case "ifqType":
+                    ifqType.setText(str[1]);
+                    break;
+                case "ifqLen":
+                    ifqLen.setText(str[1]);
+                    break;
+                case "antType":
+                    antType.setText(str[1]);
+                    break;
+                case "channelType":
+                    channelType.setSelectedItem(str[1]);
+                    break;
+                case "propType":
+                    propagationType.setText(str[1]);
+                    break;
+                case "phyType":
+                    phyType.setText(str[1]);
+                    break;
+                case "channel":
+                    channel.setText(str[1]);
+                    break;
+                case "addressType":
+                    addressingType.setSelectedItem(str[1]);
+                    break;
+                case "energyModel":
+                    energyModel.setText(str[1]);
+                    break;
+                case "initialEnergy":
+                    initialEnergy.setText(str[1]);
+                    break;
+                case "rxPower":
+                    rxPower.setText(str[1]);
+                    break;
+                case "txPower":
+                    txPower.setText(str[1]);
+                    break;
+                case "idlePower":
+                    idlePower.setText(str[1]);
+                    break;
+                case "sleepPower":
+                    sleepPower.setText(str[1]);
+                    break;
+                case "sleepTime":
+                    sleepTime.setText(str[1]);
+                    break;
+                case "wiredRouting":
+                    if (str[1].equals("ON")) {
+                        wiredRouting.setSelected(true);
+                    }
+                    break;
+                case "mobileIP":
+                    if (str[1].equals("ON")) {
+                        mobileIP.setSelected(true);
+                    }
+                    break;
+                case "agentTrace":
+                    if (str[1].equals("ON")) {
+                        agentTrace.setSelected(true);
+                    }
+                    break;
+                case "routerTrace":
+                    if (str[1].equals("ON")) {
+                        routerTrace.setSelected(true);
+                    }
+                    break;
+                case "macTrace":
+                    if (str[1].equals("ON")) {
+                        macTrace.setSelected(true);
+                    }
+                    break;
+                case "phyTrace":
+                    if (str[1].equals("ON")) {
+                        phyTrace.setSelected(true);
+                    }
+                    break;
+                case "movementTrace":
+                    if (str[1].equals("ON")) {
+                        movementTrace.setSelected(true);
+                    }
+                    break;
+                case "eotTrace":
+                    if (str[1].equals("ON")) {
+                        eotTrace.setSelected(true);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     /**
@@ -505,118 +615,118 @@ public class SimulationWirelessSettingsWindow extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public JComboBox getAddressingType() {
-	return addressingType;
+        return addressingType;
     }
 
     public JComboBox getAdhocRouting() {
-	return adhocRouting;
+        return adhocRouting;
     }
 
     public JCheckBox getAgentTrace() {
-	return agentTrace;
+        return agentTrace;
     }
 
     public JTextField getAntType() {
-	return antType;
+        return antType;
     }
 
     public JComboBox getChannelType() {
-	return channelType;
+        return channelType;
     }
 
     public JTextField getChannel() {
-	return channel;
+        return channel;
     }
 
     public JTextField getEnergyModel() {
-	return energyModel;
+        return energyModel;
     }
 
     public JCheckBox getEotTrace() {
-	return eotTrace;
+        return eotTrace;
     }
 
     public JTextField getIdlePower() {
-	return idlePower;
+        return idlePower;
     }
 
     public JTextField getIfqLen() {
-	return ifqLen;
+        return ifqLen;
     }
 
     public JTextField getIfqType() {
-	return ifqType;
+        return ifqType;
     }
 
     public JTextField getInitialEnergy() {
-	return initialEnergy;
+        return initialEnergy;
     }
 
     public JCheckBox getMobileIP() {
-	return mobileIP;
+        return mobileIP;
     }
 
     public JCheckBox getPhyTrace() {
-	return phyTrace;
+        return phyTrace;
     }
 
     public JCheckBox getMovementTrace() {
-	return movementTrace;
+        return movementTrace;
     }
 
     public JTextField getLlType() {
-	return llType;
+        return llType;
     }
 
     public JCheckBox getMacTrace() {
-	return macTrace;
+        return macTrace;
     }
 
     public JTextField getMacType() {
-	return macType;
+        return macType;
     }
 
     public JTextField getPhyType() {
-	return phyType;
+        return phyType;
     }
 
     public JTextField getPropagationType() {
-	return propagationType;
+        return propagationType;
     }
 
     public JCheckBox getRouterTrace() {
-	return routerTrace;
+        return routerTrace;
     }
 
     public JTextField getRxPower() {
-	return rxPower;
+        return rxPower;
     }
 
     public JTextField getSleepPower() {
-	return sleepPower;
+        return sleepPower;
     }
 
     public JTextField getSleepTime() {
-	return sleepTime;
+        return sleepTime;
     }
 
     public String getTopologyInstance() {
-	if (topologyWidth.getText().equals("") || topologyHeight.getText().equals("")) {
-	    return "";
-	} else {
-	    return topologyWidth.getText() + " " + topologyHeight.getText();
-	}
+        if (topologyWidth.getText().equals("") || topologyHeight.getText().equals("")) {
+            return "";
+        } else {
+            return topologyWidth.getText() + " " + topologyHeight.getText();
+        }
     }
 
     public JCheckBox getToraDebug() {
-	return toraDebug;
+        return toraDebug;
     }
 
     public JTextField getTxPower() {
-	return txPower;
+        return txPower;
     }
 
     public JCheckBox getWiredRouting() {
-	return wiredRouting;
+        return wiredRouting;
     }
 }

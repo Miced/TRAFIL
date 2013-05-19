@@ -3560,6 +3560,7 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
                         }
                     }
                 }
+                wirelessWindow.loadSettings(TclFileLoader.getWirelessSettings());
                 simProperties.setOutputFileField(TclFileLoader.getScriptFileName());
                 simProperties.setSimEndField(TclFileLoader.getScriptFinishTime());
                 statusBar.setText("<html><font color=#0033FF>Opened Tcl file!</font></html>");

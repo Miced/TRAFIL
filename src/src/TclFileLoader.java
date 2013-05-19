@@ -35,6 +35,7 @@ public class TclFileLoader {
     private Collection<TclDesignWirelessNode> wirelessNodeList = new ArrayList<>();
     private Collection<TclDesignLink> linkList = new ArrayList<>();
     private ArrayList<String[]> connectedAgentsList = new ArrayList<>();
+    private ArrayList<String[]> wirelessSettings = new ArrayList<>();
     private String scriptFileName = null;
     private String scriptFinishTime = null;
 
@@ -51,10 +52,13 @@ public class TclFileLoader {
         Pattern assignAgentPattern = Pattern.compile("attach-agent \\$(n[0-9]+) \\$(.+)");
         Pattern applicationsPattern = Pattern.compile("set (.+?) \\[new Application/(.+?)\\]");
         Pattern applicationSettingsPattern = Pattern.compile("\\$(.+?) set (.+?)_ (.+)");
-        Pattern assignApplicationPattern = Pattern.compile("\\$(.+?) attach-agent \\$(.+)");
+        Pattern assignApplicationPattern = Pattern.compile("\\$(.+?) attach-agent \\$\\b([a-zA-Z0-9]+)\\b");
         Pattern nodeSchedulesPattern = Pattern.compile("\\$ns at (.+?) \"\\$(.+?) (.+?)\"");
         Pattern simulationFinishPattern = Pattern.compile("\\$ns at (.+?) \"finish\"");
         Pattern agentConnectionPattern = Pattern.compile("\\$ns connect \\$(.+?) \\$(.+)");
+        Pattern topographyPattern = Pattern.compile("\\$topo load_flatgrid ([0-9]+) ([0-9]+)");
+        Pattern nodeConfigPattern = Pattern.compile("\\$ns node-config");
+        Pattern nodeConfigParametersPattern = Pattern.compile(" -(.+?) (.+) ");
 
         System.out.println("Reading file...");
         try {
@@ -241,6 +245,27 @@ public class TclFileLoader {
                     connectedAgentsList.add(new String[]{sendingNode, receivingNode});
                     System.out.println("Connecting agent " + m.group(1) + " to agent " + m.group(2));
                 }
+
+                /* DETECTING TOPOGRAPHY */
+                m = topographyPattern.matcher(data);
+                if (m.find()) {
+                    wirelessSettings.add(new String[]{"width", m.group(1)});
+                    wirelessSettings.add(new String[]{"height", m.group(2)});
+                }
+
+                m = nodeConfigPattern.matcher(data);
+                if (m.find()) {
+                    m = nodeConfigParametersPattern.matcher(data);
+                    while (m.find()) {
+                        System.out.println("Parameter: " + m.group(1) + " Value: " + m.group(2));
+                        wirelessSettings.add(new String[]{m.group(1), m.group(2)});
+                        if ((data = br.readLine()) != null) {
+                            m = nodeConfigParametersPattern.matcher(data);
+                        } else {
+                            break;
+                        }
+                    }
+                }
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TclFileLoader.class.getName()).log(Level.SEVERE, null, ex);
@@ -280,5 +305,9 @@ public class TclFileLoader {
 
     public ArrayList<String[]> getConnectedAgentsList() {
         return connectedAgentsList;
+    }
+
+    public ArrayList<String[]> getWirelessSettings() {
+        return wirelessSettings;
     }
 }

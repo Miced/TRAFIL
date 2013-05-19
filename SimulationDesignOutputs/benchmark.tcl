@@ -17,16 +17,14 @@ proc finish {} {
 # set up topography object
 set topo       [new Topography]
 
-$topo load_flatgrid 500 500
-create-god 3
-
+$topo load_flatgrid 500 500 
 # configure node
 
-        $ns node-config -adhocRouting DSDV \
+        $ns_ node-config -adhocRouting DSDV \
 			 -llType LL \
 			 -macType Mac/802_11 \
 			 -ifqType Queue/DropTail/PriQueue \
-			 -ifqLen  \
+			 -ifqLen 50 \
 			 -antType Antenna/OmniAntenna \
 			 -propType Propagation/TwoRayGround \
 			 -phyType Phy/WirelessPhy \
@@ -34,43 +32,40 @@ create-god 3
 			 -topoInstance $topo \
 			 -addressType flat \
 			 -energyModel EnergyModel \
+			 -rxPower 133 \
 			 -wiredRouting OFF \
 			 -mobileIP OFF \
-			 -agentTrace ON \
-			 -routerTrace ON \
-			 -macTrace OFF \
+			 -agentTrace OFF \
+			 -routerTrace OFF \
+			 -macTrace ON \
 			 -phyTrace OFF \
 			 -movementTrace OFF \
-			 -eotTrace OFF
+			 -eotTrace ON 
 
 #Create nodes
-set n0 [$ns node] #{TRAFIL} xpos=146.0 ypos=146.0 wired
-set n1 [$ns node] #{TRAFIL} xpos=479.0 ypos=479.0 wired
-set n2 [$ns node] #{TRAFIL} xpos=459.0 ypos=459.0 wired
-set n3 [$ns node] #{TRAFIL} xpos=102.0 ypos=102.0 wired
-set n4 [$ns node] #{TRAFIL} xpos=90.0 ypos=90.0 wireless
+set n0 [$ns node] #{TRAFIL} xpos=76.0 ypos=54.0 wired
+set n1 [$ns node] #{TRAFIL} xpos=479.0 ypos=80.0 wired
+set n2 [$ns node] #{TRAFIL} xpos=616.0 ypos=277.0 wired
+set n3 [$ns node] #{TRAFIL} xpos=202.0 ypos=333.0 wired
+set n4 [$ns node] #{TRAFIL} xpos=115.0 ypos=159.0 wireless
 $n4 random-motion 0
-set n5 [$ns node] #{TRAFIL} xpos=436.0 ypos=436.0 wireless
+set n5 [$ns node] #{TRAFIL} xpos=676.0 ypos=87.0 wireless
 $n5 random-motion 0
-set n6 [$ns node] #{TRAFIL} xpos=739.0 ypos=739.0 wireless
-$n6 random-motion 0
 
 #Create links between the nodes
 $ns duplex-link $n0 $n1 1Mb 10ms DropTail #{TRAFIL} link
+$ns duplex-link $n1 $n2 1Mb 10ms DropTail #{TRAFIL} link
 $ns duplex-link $n2 $n3 1Mb 10ms DropTail #{TRAFIL} link
-$ns duplex-link $n2 $n1 1Mb 10ms DropTail #{TRAFIL} link
 
-#Create agent tcp7 and attach them to node n0
-set tcp7 [new Agent/TCP]
-$ns attach-agent $n0 $tcp7
+#Create agent tcp6 and attach them to node n0
+set tcp6 [new Agent/TCP]
+$ns attach-agent $n0 $tcp6
 
-#Create traffic sources and attach them to agent tcp7
+#Create traffic sources and attach them to agent tcp6
 set cbr0 [new Application/Traffic/CBR]
 $cbr0 set packetSize_ 500
-$cbr0 set rate_ 0.5
-$cbr0 set random_ 1
-$cbr0 set packetSize_ 500
-$cbr0 attach-agent $tcp7
+$cbr0 set interval_ 0.50
+$cbr0 attach-agent $tcp6
 
 #Schedule events for the cbr0 source
 $ns at 0.5 "$cbr0 start"
@@ -88,20 +83,20 @@ $ns attach-agent $n2 $null2
 set null3 [new Agent/Null]
 $ns attach-agent $n3 $null3
 
-#Create agent null4 and attach them to node n4
-set null4 [new Agent/Null]
-$ns attach-agent $n4 $null4
+#Create agent udp7 and attach them to node n4
+set udp7 [new Agent/UDP]
+$ns attach-agent $n4 $udp7
 
+#Create traffic sources and attach them to agent udp7
+set ftp6 [new Application/FTP]
+$ftp6 set maxpkts_ 50
 #Create agent null5 and attach them to node n5
 set null5 [new Agent/Null]
 $ns attach-agent $n5 $null5
 
-#Create agent null6 and attach them to node n6
-set null6 [new Agent/Null]
-$ns attach-agent $n6 $null6
-
 #Connect the traffic source with the traffic sink
-$ns connect $tcp7 $null3
+$ns connect $tcp6 $null3
+$ns connect $udp7 $null
 
 #Call the finish procedure after  seconds of simulation time
 $ns at 4.0 "finish"
