@@ -40,6 +40,7 @@ public class NodePropertiesWindow extends javax.swing.JFrame {
         initComponents();
 
         this.node = node;
+        System.out.println(node.getName());
         nodeNameField.setText(node.getName());
         switch (agentType) {
             case "TCP":

@@ -319,17 +319,17 @@ public class TclDesignerPanel extends JPanel {
             }
 
             outputContent += "# configure node\n"
-                    + "\n"
-                    + "        $ns_ node-config -adhocRouting " + wirelessSettings.getAdhocRouting().getSelectedItem().toString() + " \\\n"
+                    + "        $ns node-config -adhocRouting " + wirelessSettings.getAdhocRouting().getSelectedItem().toString() + " \\\n"
                     + "			 -llType " + wirelessSettings.getLlType().getText() + " \\\n"
                     + "			 -macType " + wirelessSettings.getMacType().getText() + " \\\n"
                     + "			 -ifqType " + wirelessSettings.getIfqType().getText() + " \\\n"
-                    + "			 -ifqLen " + wirelessSettings.getIfqLen().getText() + " \\\n"
                     + "			 -antType " + wirelessSettings.getAntType().getText() + " \\\n"
                     + "			 -propType " + wirelessSettings.getPropagationType().getText() + " \\\n"
                     + "			 -phyType " + wirelessSettings.getPhyType().getText() + " \\\n"
-                    + "			 -channelType " + wirelessSettings.getChannelType().getSelectedItem().toString() + " \\\n"
-                    + "			 -topoInstance $topo \\\n";
+                    + "			 -channelType " + wirelessSettings.getChannelType().getSelectedItem().toString() + " \\\n";
+            if (!wirelessSettings.getIfqLen().getText().equals("")) {
+                outputContent += "			 -ifqLen " + wirelessSettings.getIfqLen().getText() + " \\\n";
+            }
             if (!wirelessSettings.getChannel().getText().equals("")) {
                 outputContent += "			 -channel " + wirelessSettings.getChannel().getText() + " \\\n";
             }
@@ -393,12 +393,12 @@ public class TclDesignerPanel extends JPanel {
                 outputContent += "			 -movementTrace OFF \\\n";
             }
             if (wirelessSettings.getEotTrace().isSelected()) {
-                outputContent += "			 -eotTrace ON \n";
+                outputContent += "			 -eotTrace ON \\\n";
             } else {
-                outputContent += "			 -eotTrace OFF \n";
+                outputContent += "			 -eotTrace OFF \\\n";
             }
 
-            outputContent += "\n";
+            outputContent += "			 -topoInstance $topo \n";
         }
 
         // Add nodes according to TclDesignerPanel's nodelist, if they exist
@@ -509,10 +509,6 @@ public class TclDesignerPanel extends JPanel {
                     if (!node.getProperties().getPacketNumberBox().getText().equals("")) {
                         outputContent += "$" + app + " set packetSize_ " + node.getProperties().getPacketNumberBox().getText() + "\n";
                     }
-                    outputContent += "$" + app + " attach-agent $" + agent + "\n\n";
-                    outputContent += "#Schedule events for the " + app + " source\n";
-                    outputContent += "$ns at " + node.getProperties().getAppStartTime().getText() + " \"$" + app + " start\"\n";
-                    outputContent += "$ns at " + node.getProperties().getAppStopTime().getText() + " \"$" + app + " stop\"\n\n";
                     break;
                 case "FTP":
                     outputContent += "set " + app + " [new Application/FTP]\n";
@@ -598,6 +594,11 @@ public class TclDesignerPanel extends JPanel {
                 default:
                     break;
             }
+
+            outputContent += "$" + app + " attach-agent $" + agent + "\n\n";
+            outputContent += "#Schedule events for the " + app + " source\n";
+            outputContent += "$ns at " + node.getProperties().getAppStartTime().getText() + " \"$" + app + " start\"\n";
+            outputContent += "$ns at " + node.getProperties().getAppStopTime().getText() + " \"$" + app + " stop\"\n\n";
         }
 
         return outputContent;
@@ -618,6 +619,18 @@ public class TclDesignerPanel extends JPanel {
             wirelessNodeList.remove((TclDesignWirelessNode) node);
         }
         repaint();
+    }
+
+    public void resetPanel() {
+        wiredNodeList.clear();
+        wirelessNodeList.clear();
+        linkList.clear();
+        linkPaintFlag = false;
+        nodeID = 0;
+        repaint();
+
+        connectedAgentsModel.setRowCount(0);
+        linkListModel.setRowCount(0);
     }
 
     class RightClickMenu extends JPopupMenu {

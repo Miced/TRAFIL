@@ -58,7 +58,7 @@ public class TclFileLoader {
         Pattern agentConnectionPattern = Pattern.compile("\\$ns connect \\$(.+?) \\$(.+)");
         Pattern topographyPattern = Pattern.compile("\\$topo load_flatgrid ([0-9]+) ([0-9]+)");
         Pattern nodeConfigPattern = Pattern.compile("\\$ns node-config");
-        Pattern nodeConfigParametersPattern = Pattern.compile(" -(.+?) (.+) ");
+        Pattern nodeConfigParametersPattern = Pattern.compile(" -(.+?) \\b([a-zA-Z0-9/\\$]+)\\b");
 
         System.out.println("Reading file...");
         try {

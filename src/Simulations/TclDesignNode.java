@@ -31,8 +31,8 @@ public abstract class TclDesignNode {
     private boolean rowExists = false;
 
     public TclDesignNode() {
-	this.properties = new NodePropertiesWindow(this);
-	properties.setNewAgent();
+        this.properties = new NodePropertiesWindow(this);
+        properties.setNewAgent();
     }
 
     /**
@@ -46,25 +46,25 @@ public abstract class TclDesignNode {
      * node tree.
      */
     public ArrayList addAdjacentNodes(ArrayList<TclDesignNode> nodesToAdd, ArrayList<TclDesignNode> exploredNodesTree) {
-	exploredNodesTree.add(this);
+        exploredNodesTree.add(this);
 
-	for (TclDesignNode adjacent : adjacentNodes) {
-	    if (!exploredNodesTree.contains(adjacent)) {
-		exploredNodesTree = adjacent.addAdjacentNodes(nodesToAdd, exploredNodesTree);
-	    }
-	}
+        for (TclDesignNode adjacent : adjacentNodes) {
+            if (!exploredNodesTree.contains(adjacent)) {
+                exploredNodesTree = adjacent.addAdjacentNodes(nodesToAdd, exploredNodesTree);
+            }
+        }
 
-	for (TclDesignNode treeNode : nodesToAdd) {
-	    if (!adjacentNodes.contains(treeNode) && treeNode != this) {
-		adjacentNodes.add(treeNode);
-	    }
-	}
+        for (TclDesignNode treeNode : nodesToAdd) {
+            if (!adjacentNodes.contains(treeNode) && treeNode != this) {
+                adjacentNodes.add(treeNode);
+            }
+        }
 
-	if (rowExists == true) {
-	    updateAdjacentNodes();
-	}
+        if (rowExists == true) {
+            updateAdjacentNodes();
+        }
 
-	return exploredNodesTree;
+        return exploredNodesTree;
     }
 
     /**
@@ -72,113 +72,114 @@ public abstract class TclDesignNode {
      */
     public void updateAdjacentNodes() {
 
-	DefaultTableModel model = connectedAgentsWindow.getModel();
-	int index = -1;
-	for (int row = model.getRowCount() - 1; row >= 0; row--) {
-	    if (name.equals(model.getValueAt(row, 0))) {
-		index = row;
-		break;
-	    }
-	}
+        DefaultTableModel model = connectedAgentsWindow.getModel();
+        int index = -1;
+        for (int row = model.getRowCount() - 1; row >= 0; row--) {
+            if (name.equals(model.getValueAt(row, 0))) {
+                index = row;
+                break;
+            }
+        }
 
-	ArrayList<String> adjacentNodeNames = new ArrayList<>();
-	adjacentNodeNames.add("");
-	for (TclDesignNode adjacentNode : adjacentNodes) {
-	    if (adjacentNode.getAttachedAgent().contains("null")) {
-		adjacentNodeNames.add(adjacentNode.getName());
-	    }
-	    // TODO: clean any existing selections if agent's not null.
-	}
-	JComboBox comboBox = new JComboBox(adjacentNodeNames.toArray());
-	dce = new DefaultCellEditor(comboBox);
-	connectedAgentsWindow.getAttachedNodeEditors().add(index, dce);
+        ArrayList<String> adjacentNodeNames = new ArrayList<>();
+        adjacentNodeNames.add("");
+        for (TclDesignNode adjacentNode : adjacentNodes) {
+            if (adjacentNode.getAttachedAgent().contains("null")) {
+                adjacentNodeNames.add(adjacentNode.getName());
+            }
+            // TODO: clean any existing selections if agent's not null.
+        }
+        JComboBox comboBox = new JComboBox(adjacentNodeNames.toArray());
+        dce = new DefaultCellEditor(comboBox);
+        connectedAgentsWindow.getAttachedNodeEditors().add(index, dce);
     }
 
     public void addToConnectedAgents() {
-	removeFromConnectedAgents();
-	JComboBox comboBox;
-	if (rowExists == false) {
-	    connectedAgentsModel.addRow(new Object[]{name, attachedAgent, null, null});
-	    rowExists = true;
-	    if (adjacentNodes.isEmpty()) {
-		comboBox = new JComboBox(new String[]{null});
-		dce = new DefaultCellEditor(comboBox);
-		connectedAgentsWindow.getAttachedNodeEditors().add(dce);
-	    }
-	}
-	updateAdjacentNodes();
+        removeFromConnectedAgents();
+        JComboBox comboBox;
+        if (rowExists == false) {
+            connectedAgentsModel.addRow(new Object[]{name, attachedAgent, null, null});
+            rowExists = true;
+            if (adjacentNodes.isEmpty()) {
+                comboBox = new JComboBox(new String[]{null});
+                dce = new DefaultCellEditor(comboBox);
+                connectedAgentsWindow.getAttachedNodeEditors().add(dce);
+            }
+        }
+        updateAdjacentNodes();
     }
 
     public void removeFromConnectedAgents() {
-	DefaultTableModel model = connectedAgentsWindow.getModel();
-	for (int row = model.getRowCount() - 1; row >= 0; row--) {
-	    if (name.equals(model.getValueAt(row, 0))) {
-		model.removeRow(row);
-		connectedAgentsWindow.getAttachedNodeEditors().remove(row);
-		rowExists = false;
-		break;
-	    }
-	}
+        DefaultTableModel model = connectedAgentsWindow.getModel();
+        for (int row = model.getRowCount() - 1; row >= 0; row--) {
+            if (name.equals(model.getValueAt(row, 0))) {
+                model.removeRow(row);
+                connectedAgentsWindow.getAttachedNodeEditors().remove(row);
+                rowExists = false;
+                break;
+            }
+        }
     }
 
     public ArrayList<TclDesignNode> getAdjacentNodes() {
-	return adjacentNodes;
+        return adjacentNodes;
     }
 
     public void deleteNode() {
-	removeFromConnectedAgents();
-	removeFromLinkListWindow();
+        removeFromConnectedAgents();
+        removeFromLinkListWindow();
     }
 
     private void removeFromLinkListWindow() {
-	//TODO: Remove node from linklistwindow
+        //TODO: Remove node from linklistwindow
     }
 
     public void setAttachedAgent(String agent) {
-	attachedAgent = agent;
+        attachedAgent = agent;
     }
 
     public String getAttachedAgent() {
-	return attachedAgent;
+        return attachedAgent;
     }
 
     public String getAttachedApp() {
-	return attachedApp;
+        return attachedApp;
     }
 
     public void setAttachedApp(String attachedApp) {
-	this.attachedApp = attachedApp;
+        this.attachedApp = attachedApp;
     }
 
     public int getWidth() {
-	return width;
+        return width;
     }
 
     public int getHeight() {
-	return height;
+        return height;
     }
 
     public Color getBorderColor() {
-	return borderColor;
+        return borderColor;
     }
 
     public void setBorderColor(Color borderColor) {
-	this.borderColor = borderColor;
+        this.borderColor = borderColor;
     }
 
     public NodePropertiesWindow getProperties() {
-	return properties;
+        return properties;
     }
 
     public void setProperties(NodePropertiesWindow properties) {
-	this.properties = properties;
+        this.properties = properties;
     }
 
     public void setName(String name) {
-	this.name = name;
+        this.name = name;
+        this.properties.getNodeNameField().setText(name);
     }
 
     public String getName() {
-	return name;
+        return name;
     }
 }
