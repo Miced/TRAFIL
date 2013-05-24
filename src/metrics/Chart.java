@@ -30,33 +30,39 @@ public abstract class Chart {
     protected XYSeries series;
     protected static Collection<XYSeries> seriesList = new ArrayList<>();
     private ChartPanel chartPanel;
+    protected static String chartTitle;
+    protected String lineTitle;
 
     public Chart() {
-	this.st = DatabaseConnection.getSt();
+        this.st = DatabaseConnection.getSt();
     }
 
     protected XYDataset createDataset() {
-	final XYSeriesCollection dataset = new XYSeriesCollection();
-	for (XYSeries xy : seriesList) {
-	    dataset.addSeries(xy);
-	}
+        final XYSeriesCollection dataset = new XYSeriesCollection();
+        for (XYSeries xy : seriesList) {
+            dataset.addSeries(xy);
+        }
 
-	System.out.println("Number of charts: " + seriesList.size());
+        System.out.println("Number of charts: " + seriesList.size());
 
-	return dataset;
+        return dataset;
     }
 
     public JFreeChart getChart() {
-	return chart;
+        return chart;
     }
 
     public ChartPanel getGraph() {
-	chartPanel = new ChartPanel(chart);
-	chartPanel.setPreferredSize(new java.awt.Dimension(693, 256));
-	return chartPanel;
+        chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new java.awt.Dimension(693, 256));
+        return chartPanel;
     }
 
     public static void resetGraph() {
-	seriesList.removeAll(seriesList);
+        seriesList.removeAll(seriesList);
+    }
+
+    public static void setChartTitle(String chartTitle) {
+        Chart.chartTitle = chartTitle;
     }
 }

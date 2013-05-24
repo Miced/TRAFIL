@@ -420,6 +420,10 @@ public class TRAFIL extends javax.swing.JFrame {
         createChart = new javax.swing.JButton();
         loadMoreTracesButton = new javax.swing.JButton();
         addMoreGraphsButton = new javax.swing.JButton();
+        jLabel114 = new javax.swing.JLabel();
+        chartTitle = new javax.swing.JTextField();
+        jLabel115 = new javax.swing.JLabel();
+        lineTitle = new javax.swing.JTextField();
         jLabel67 = new javax.swing.JLabel();
         chartLevel = new javax.swing.JComboBox();
         samplingRateSelector = new javax.swing.JComboBox();
@@ -2266,12 +2270,22 @@ public class TRAFIL extends javax.swing.JFrame {
             }
         });
 
-        addMoreGraphsButton.setText("Add More Graphs");
+        addMoreGraphsButton.setText("Add More Lines");
         addMoreGraphsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addMoreGraphsButtonActionPerformed(evt);
             }
         });
+
+        jLabel114.setText("Chart title:");
+
+        chartTitle.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                chartTitleFocusLost(evt);
+            }
+        });
+
+        jLabel115.setText("Line title:");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -2284,11 +2298,27 @@ public class TRAFIL extends javax.swing.JFrame {
                 .addComponent(addMoreGraphsButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(loadMoreTracesButton))
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel115)
+                    .addComponent(jLabel114))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(chartTitle)
+                    .addComponent(lineTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel114)
+                    .addComponent(chartTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel115)
+                    .addComponent(lineTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createChart)
                     .addComponent(loadMoreTracesButton)
@@ -2314,8 +2344,8 @@ public class TRAFIL extends javax.swing.JFrame {
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addComponent(jLabel67, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chartLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(chartLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel69)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2959,7 +2989,7 @@ private void selecttracefileActionPerformed(java.awt.event.ActionEvent evt) {//G
         statusBar.setText("Loading trace file: " + sfile.toString());
         statusBar.paintImmediately(statusBar.getVisibleRect());
         if (!TraceHandler.loadSelectedTraceFile(sfile.toString())) {
-            Logger.getLogger(TRAFIL.class.getName()).severe("Error in loading " + sfile.toString());
+            Logger.getLogger(TRAFIL.class.getName()).log(Level.SEVERE, "Error in loading {0}", sfile.toString());
             //System.out.println("[" + NOW() + "] Error in loading " + sfile.toString());
             return;
         }
@@ -3138,13 +3168,13 @@ private void createChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                 statusBar.setText("Creating chart between nodes " + chartStartNode.getSelectedItem() + " and " + chartEndNode.getSelectedItem());
                 statusBar.paintImmediately(statusBar.getVisibleRect());
                 if (throughputChart.isSelected()) {
-                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputChart.getText());
+                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputChart.getText(), lineTitle.getText());
                 } else if (delayJitterChart.isSelected()) {
-                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), delayJitterChart.getText());
+                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), delayJitterChart.getText(), lineTitle.getText());
                 } else if (endToEndDelayChart.isSelected()) {
-                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), endToEndDelayChart.getText());
+                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), endToEndDelayChart.getText(), lineTitle.getText());
                 } else if (throughputBitsChart.isSelected()) {
-                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputBitsChart.getText());
+                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputBitsChart.getText(), lineTitle.getText());
                 } else {
                     JOptionPane.showMessageDialog(null, "You have not selected a chart type.");
                     statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
@@ -3155,13 +3185,13 @@ private void createChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                 statusBar.setText("Creating chart for node " + nodeChartStartNode.getSelectedItem());
                 statusBar.paintImmediately(statusBar.getVisibleRect());
                 if (throughputChart.isSelected()) {
-                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputChart.getText());
+                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputChart.getText(), lineTitle.getText());
                 } else if (delayJitterChart.isSelected()) {
-                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), delayJitterChart.getText());
+                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), delayJitterChart.getText(), lineTitle.getText());
                 } else if (endToEndDelayChart.isSelected()) {
-                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), endToEndDelayChart.getText());
+                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), endToEndDelayChart.getText(), lineTitle.getText());
                 } else if (throughputBitsChart.isSelected()) {
-                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputBitsChart.getText());
+                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputBitsChart.getText(), lineTitle.getText());
                 } else {
                     JOptionPane.showMessageDialog(null, "You have not selected a chart type.");
                     statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
@@ -3657,13 +3687,13 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
                 statusBar.setText("Creating chart between nodes " + chartStartNode.getSelectedItem() + " and " + chartEndNode.getSelectedItem());
                 statusBar.paintImmediately(statusBar.getVisibleRect());
                 if (throughputChart.isSelected()) {
-                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputChart.getText());
+                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputChart.getText(), lineTitle.getText());
                 } else if (delayJitterChart.isSelected()) {
-                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), delayJitterChart.getText());
+                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), delayJitterChart.getText(), lineTitle.getText());
                 } else if (endToEndDelayChart.isSelected()) {
-                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), endToEndDelayChart.getText());
+                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), endToEndDelayChart.getText(), lineTitle.getText());
                 } else if (throughputBitsChart.isSelected()) {
-                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputBitsChart.getText());
+                    graph.createNodeToNodeChart((Integer) chartStartNode.getSelectedItem(), (Integer) chartEndNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputBitsChart.getText(), lineTitle.getText());
                 } else {
                     JOptionPane.showMessageDialog(null, "You have not selected a chart type.");
                     statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
@@ -3674,13 +3704,13 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
                 statusBar.setText("Creating chart for node " + nodeChartStartNode.getSelectedItem());
                 statusBar.paintImmediately(statusBar.getVisibleRect());
                 if (throughputChart.isSelected()) {
-                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputChart.getText());
+                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputChart.getText(), lineTitle.getText());
                 } else if (delayJitterChart.isSelected()) {
-                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), delayJitterChart.getText());
+                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), delayJitterChart.getText(), lineTitle.getText());
                 } else if (endToEndDelayChart.isSelected()) {
-                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), endToEndDelayChart.getText());
+                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), endToEndDelayChart.getText(), lineTitle.getText());
                 } else if (throughputBitsChart.isSelected()) {
-                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputBitsChart.getText());
+                    graph.createNodeSpecificChart((Integer) nodeChartStartNode.getSelectedItem(), (String) chartLevel.getSelectedItem(), Integer.parseInt(samplingRateSelector.getSelectedItem().toString()), throughputBitsChart.getText(), lineTitle.getText());
                 } else {
                     JOptionPane.showMessageDialog(null, "You have not selected a chart type.");
                     statusBar.setText("<html><font color=#0033FF>Selected Trace File: " + TraceFile.getTraceFileName() + "...</font></html>");
@@ -3702,6 +3732,10 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
     private void resetTclDesignButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetTclDesignButtonActionPerformed
         tclDesigner.resetPanel();
     }//GEN-LAST:event_resetTclDesignButtonActionPerformed
+
+    private void chartTitleFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_chartTitleFocusLost
+        Chart.setChartTitle(chartTitle.getText());
+    }//GEN-LAST:event_chartTitleFocusLost
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -3735,6 +3769,7 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JPanel chartPanel;
     private javax.swing.JPanel chartParameters;
     private javax.swing.JComboBox chartStartNode;
+    private javax.swing.JTextField chartTitle;
     private javax.swing.ButtonGroup chartTypeButtonGroup;
     private javax.swing.JButton clearRawVideoPath;
     private javax.swing.JButton clearSQL;
@@ -3782,6 +3817,8 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JLabel jLabel111;
     private javax.swing.JLabel jLabel112;
     private javax.swing.JLabel jLabel113;
+    private javax.swing.JLabel jLabel114;
+    private javax.swing.JLabel jLabel115;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -3909,6 +3946,7 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
     public javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JComboBox levels;
+    private javax.swing.JTextField lineTitle;
     private javax.swing.JButton linkListButton;
     private javax.swing.JButton loadMoreTracesButton;
     public javax.swing.JLabel m2;

@@ -17034,3 +17034,107 @@ event char(1),time double,NodeID integer,TraceName varchar(20),Reason varchar(20
 [INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
 [SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
 [SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+[INFO]  :  src.TracefileHandler -:- OpenTraceFile -:- Checking table availability.
+[INFO]  :  src.TracefileHandler -:- OpenTraceFile -:- Trace Fils's Name:benchmark_tr
+[INFO]  :  src.TracefileHandler -:- OpenTraceFile -:-  Attempting to match benchmark_tr with a metafile.
+[INFO]  :  src.TracefileHandler -:- OpenTraceFile -:- Trace File does not Match any MetaFile.
+[INFO]  :  src.TracefileHandler -:- OpenTraceFile -:- Checking table availability.
+[INFO]  :  src.TracefileHandler -:- OpenTraceFile -:- Trace Fils's Name:mimo_wireless_tr
+[INFO]  :  src.TracefileHandler -:- OpenTraceFile -:-  Attempting to match mimo_wireless_tr with a metafile.
+[INFO]  :  src.TracefileHandler -:- matchMetaHandler -:- Succesfully matched trace file witholdwireless_meta.txt metafile.
+[INFO]  :  src.TracefileHandler -:- OpenTraceFile -:- Attempting to load sub metafiles for matched metafile.
+[INFO]  :  src.TracefileHandler -:- OpenTraceFile -:- Succesfully loaded sub metafiles for matched metafile.
+[INFO]  :  src.MetaDataHandler -:- createTable -:- Succesfull MySQL table Creation for trace file:mimo_wireless_tr
+event char(1),time double,NodeID integer,TraceName varchar(20),Reason varchar(20),EventIdentifier int,PacketType varchar(20),PacketSize int,TimeToSendData varchar(20),DestinationMACAddress varchar(20),SourceMACAddress varchar(20),TypeArpIp varchar(20),AODV_Type varchar(20),AODV_HopCount int,AODV_Destination int,AODV_DestinationSequenceNumber int,AODV_Lifetime double,AODV_Operation varchar(20),AODVReuest_Type varchar(20),AODVRequest_HopCount int,AODVRequest_BroadcastID int,AODVRequest_Destination int,AODVRequest_DestinationSeenceNumber int,AODVRequest_Source int,AODVRequest_SourceSequenceNumber int,AODVRequest_Request varchar(20),ARPRequestOrReply varchar(20),ARPSourceMacAddress int,ARPSourceAddress int,ARPDestinationMACAddress int,ARPDestinationAddress int,CBRSequenceNumber int,CBRNumberOfTimesPktForwarded int,CBROptimalNumberOfForwards int,NumberOfNodes int,RoutingRequestFlag int,RouteRequestSequenceNumber int,RoutingReplyFlag int,RouteReplySequenceNumber int,ReplyLength int,SourceOfSourceRouting int,DestinationOfSourceRouting int,ErrorReportFlag int,NumberOfErrors int,ReportToWhom int,LinkErrorFrom int,LinkErrorTo int,AcknowledgmentFlag char(1),HelloFlag char(1),ObjectFlag char(1),Lenghth int,SourceIpAddress int,SourcePortNumber int,DestinationIpAddress int,DestinationPortNumber int,TTLValue int,NextHopAddress int,Operation char(1),RCASource int,RCALinkDescription int,RCAMACDestination int,TCPSequenceNumber int,TCPAcknowledgmentNumber int,TCPNumberOfTimesPacketWasForwarded int,TCPOptimalNumberOfForwards int,TORAClear_Type varchar(20),TORAClear_Destination int,TORAClear_Tau double,TORAClear_Oid int,TORAQuery_Type varchar(20),TORAQuery_Destination int,TORAUpdate_Type varchar(20),TORAUpdate_Destination int,
+[INFO]  :  src.TracefileHandler -:- OpenTraceFile -:- Attempting to transfer data from the selected trace file to local database.
+[INFO]  :  src.TracefileHandler -:- transferTraceFileData -:- Starting procedure Data Infile.
+[INFO]  :  src.TracefileHandler -:- transferTraceFileData -:- Succesfully Transfered data from C:\Users\Nosfistis\Documents\NetBeansProjects\TRAFIL\Resources\Utility\tempfile.txt to Database.
+[INFO]  :  src.TracefileHandler -:- OpenTraceFile -:- Succesfully opened and inserted Trace File Content. Execution time was 3197 ms.
+[INFO]  :  metrics.GeneralSimulationInformation -:- produceMetrics -:- Produced staring time.
+[INFO]  :  metrics.GeneralSimulationInformation -:- produceMetrics -:- Produced end time.
+[INFO]  :  metrics.GeneralSimulationInformation -:- produceMetrics -:- Produced overall simulation time.
+[INFO]  :  metrics.GeneralSimulationInformation -:- produceMetrics -:- Produced number of nodes in simulation.
+[INFO]  :  metrics.GeneralSimulationInformation -:- produceMetrics -:- Produced number of sending nodes in simulation.
+[INFO]  :  metrics.GeneralSimulationInformation -:- produceMetrics -:- Produced number of  Generated Packets Information.
+[INFO]  :  metrics.GeneralSimulationInformation -:- produceMetrics -:- Produced number of  Dropped Packets Information.
+[INFO]  :  metrics.GeneralSimulationInformation -:- produceMetrics -:- Produced number of  Sent Packets Information.
+[INFO]  :  metrics.GeneralSimulationInformation -:- produceMetrics -:- Produced number of  Received Packets Information.
+[INFO]  :  metrics.GeneralSimulationInformation -:- produceMetrics -:- Produced number of  Forwarded Packets Information.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:1
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:1
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimo_wireless_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:1
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:1
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimo_wireless_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:1
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:1
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimo_wireless_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:1
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:1
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimo_wireless_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:1
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:1
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimo_wireless_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:1
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:1
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimo_wireless_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:1
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:1
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimo_wireless_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:1
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:1
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimo_wireless_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:1
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:1
+
+[INFO]  :  UI.TRAFIL -:- connectActionPerformed -:- START TIME:{0}
+[SEVERE]  :  utilities.DatabaseConnection -:- connect -:- Succesfully Connected to Database trafil as root
+[SEVERE]  :  src.TracefileHandler -:- performConnection -:- Succesfully Connected to Database {0} as {1}
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:-  Attempting to update JTable with mimo_wireless_tr.
+[INFO]  :  src.TracefileHandler -:- loadSelectedTraceFile -:- Succesfully updated JTable with Trace File from database.
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Trying to create Node information for node:1
+[INFO]  :  UI.TRAFIL -:- nodeSelectorActionPerformed -:- Success in creating Node information for node:1
