@@ -40,7 +40,6 @@ public class NodePropertiesWindow extends javax.swing.JFrame {
         initComponents();
 
         this.node = node;
-        System.out.println(node.getName());
         nodeNameField.setText(node.getName());
         switch (agentType) {
             case "TCP":
@@ -54,60 +53,63 @@ public class NodePropertiesWindow extends javax.swing.JFrame {
                 break;
         }
 
-        node.setAttachedApp(app);
-        if (appType.contains("Telnet")) {
-            appBox.setSelectedItem("Telnet");
-        } else if (appType.contains("FTP")) {
-            appBox.setSelectedItem("FTP");
-        } else if (appType.contains("Pareto")) {
-            appBox.setSelectedItem("Pareto");
-        } else if (appType.contains("Exponential")) {
-            appBox.setSelectedItem("Exponential");
-        } else if (appType.contains("Trace")) {
-            appBox.setSelectedItem("Trace");
-        } else {
-            appBox.setSelectedItem("CBR");
-        }
+        node.setAttachedAgent(agent);
+        if (app != null) {
+            node.setAttachedApp(app);
+            if (appType.contains("Telnet")) {
+                appBox.setSelectedItem("Telnet");
+            } else if (appType.contains("FTP")) {
+                appBox.setSelectedItem("FTP");
+            } else if (appType.contains("Pareto")) {
+                appBox.setSelectedItem("Pareto");
+            } else if (appType.contains("Exponential")) {
+                appBox.setSelectedItem("Exponential");
+            } else if (appType.contains("Trace")) {
+                appBox.setSelectedItem("Trace");
+            } else {
+                appBox.setSelectedItem("CBR");
+            }
 
-        for (String[] str : settings) {
-            switch (str[0]) {
-                case "packetSize":
-                    packetSize.setText(str[1]);
-                    expoPacketSize.setText(str[1]);
-                    break;
-                case "rate":
-                    sendingRate.setText(str[1]);
-                    rateRadioButton.setSelected(true);
-                    expoSendingRate.setText(str[1]);
-                    break;
-                case "interval":
-                    sendingInterval.setText(str[1]);
-                    intervalRadioButton.setSelected(true);
-                    telnetInterval.setText(str[1]);
-                    break;
-                case "random":
-                    if (str[1].equals("1")) {
-                        randomBox.setSelected(true);
-                    }
-                    break;
-                case "maxpkts":
-                    FTPpacketNumber.setText(str[1]);
-                    break;
-                case "burst_time":
-                    burstTime.setText(str[1]);
-                    break;
-                case "idle_time":
-                    idleTime.setText(str[1]);
-                    break;
-                case "shape":
-                    paretoShape.setText(str[1]);
-                    break;
-                case "start":
-                    appStartTime.setText(str[1]);
-                case "stop":
-                    appStopTime.setText(str[1]);
-                default:
-                    break;
+            for (String[] str : settings) {
+                switch (str[0]) {
+                    case "packetSize":
+                        packetSize.setText(str[1]);
+                        expoPacketSize.setText(str[1]);
+                        break;
+                    case "rate":
+                        sendingRate.setText(str[1]);
+                        rateRadioButton.setSelected(true);
+                        expoSendingRate.setText(str[1]);
+                        break;
+                    case "interval":
+                        sendingInterval.setText(str[1]);
+                        intervalRadioButton.setSelected(true);
+                        telnetInterval.setText(str[1]);
+                        break;
+                    case "random":
+                        if (str[1].equals("1")) {
+                            randomBox.setSelected(true);
+                        }
+                        break;
+                    case "maxpkts":
+                        FTPpacketNumber.setText(str[1]);
+                        break;
+                    case "burst_time":
+                        burstTime.setText(str[1]);
+                        break;
+                    case "idle_time":
+                        idleTime.setText(str[1]);
+                        break;
+                    case "shape":
+                        paretoShape.setText(str[1]);
+                        break;
+                    case "start":
+                        appStartTime.setText(str[1]);
+                    case "stop":
+                        appStopTime.setText(str[1]);
+                    default:
+                        break;
+                }
             }
         }
     }

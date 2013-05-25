@@ -28,22 +28,22 @@ public class ConnectedAgentsWindow extends javax.swing.JFrame implements TableMo
      * Creates new form ConnectedAgentsWindow
      */
     public ConnectedAgentsWindow(TclDesignerPanel tclDesigner) {
-	this.tclDesigner = tclDesigner;
-	this.attachedNodeEditors = new ArrayList<>();
-	initComponents();
-	this.setVisible(false);
+        this.tclDesigner = tclDesigner;
+        this.attachedNodeEditors = new ArrayList<>();
+        initComponents();
+        this.setVisible(false);
 
-	model = (DefaultTableModel) connectedAgentsTable.getModel();
-	model.addTableModelListener(this);
-	model.setRowCount(rowCount);
+        model = (DefaultTableModel) connectedAgentsTable.getModel();
+        model.addTableModelListener(this);
+        model.setRowCount(rowCount);
     }
 
     public DefaultTableModel getModel() {
-	return model;
+        return model;
     }
 
     public List<TableCellEditor> getAttachedNodeEditors() {
-	return attachedNodeEditors;
+        return attachedNodeEditors;
     }
 
     /**
@@ -101,12 +101,13 @@ public class ConnectedAgentsWindow extends javax.swing.JFrame implements TableMo
 
     @Override
     public void tableChanged(TableModelEvent e) {
-	int row = e.getFirstRow();
-	int column = e.getColumn();
-	if (column == 2) {
-	    String data = (String) model.getValueAt(row, column);
-	    String agent = tclDesigner.getNodeAgentByNodeName(data);
-	    model.setValueAt(agent, row, 3);
-	}
+        int row = e.getFirstRow();
+        int column = e.getColumn();
+        if (column == 2) {
+            String data = (String) model.getValueAt(row, column);
+            String agent = tclDesigner.getNodeAgentByNodeName(data);
+            System.out.println("AGENT=" + agent);
+            model.setValueAt(agent, row, 3);
+        }
     }
 }

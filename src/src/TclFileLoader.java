@@ -140,10 +140,14 @@ public class TclFileLoader {
 
                 m = assignAgentPattern.matcher(data);
                 if (m.find()) {
-                    for (String[] agent : unassignedAgents) {
-                        if (agent[0].equals(m.group(2))) {
-                            agentsList.add(new String[]{m.group(1), m.group(2), agent[1]});
-                            unassignedAgents.remove(agent);
+                    for (String[] agentDetails : unassignedAgents) {
+                        if (agentDetails[0].equals(m.group(2))) {
+                            String[] agent = new String[]{m.group(1), m.group(2), agentDetails[1]};
+                            agentsList.add(agent);
+                            unassignedAgents.remove(agentDetails);
+                            if (agentDetails[1].equalsIgnoreCase("Null")) {
+                                setNodeProperties(agent, null, null, null);
+                            }
                             break;
                         }
                     }
@@ -168,7 +172,6 @@ public class TclFileLoader {
                     System.out.println("Saving settings of application " + m.group(1) + " on agent " + m.group(2));
 
                     String[] agent = null;
-                    TclDesignNode node;
                     for (String[] temp : agentsList) {
                         if (m.group(2).equals(temp[1])) {
                             agent = temp;
@@ -194,24 +197,7 @@ public class TclFileLoader {
                     } while (m.find());
 
                     if (agent != null) {
-                        boolean found = false;
-                        for (TclDesignWiredNode wnode : wiredNodeList) {
-                            if (wnode.getName().equals(agent[0])) {
-                                node = wnode;
-                                setNodeProperties(node, agent, appName, appType, settings);
-                                found = true;
-                                break;
-                            }
-                        }
-                        if (!found) {
-                            for (TclDesignWirelessNode wlnode : wirelessNodeList) {
-                                if (wlnode.getName().equals(agent[0])) {
-                                    node = wlnode;
-                                    setNodeProperties(node, agent, appName, appType, settings);
-                                    break;
-                                }
-                            }
-                        }
+                        setNodeProperties(agent, appName, appType, settings);
                     }
                 }
 
@@ -243,7 +229,7 @@ public class TclFileLoader {
                     }
 
                     connectedAgentsList.add(new String[]{sendingNode, receivingNode});
-                    System.out.println("Connecting agent " + m.group(1) + " to agent " + m.group(2));
+                    System.out.println("Connecting agent " + m.group(1) + " of " + sendingNode + " to agent " + m.group(2) + " of " + receivingNode);
                 }
 
                 /* DETECTING TOPOGRAPHY */
@@ -278,9 +264,28 @@ public class TclFileLoader {
         return true;
     }
 
-    private void setNodeProperties(TclDesignNode node, String[] agent, String appName, String appType, ArrayList<String[]> settings) {
-        NodePropertiesWindow properties = new NodePropertiesWindow(node, agent[1], agent[2], appName, appType, settings);
-        node.setProperties(properties);
+    private void setNodeProperties(String[] agent, String appName, String appType, ArrayList<String[]> settings) {
+        TclDesignNode node;
+        boolean found = false;
+        for (TclDesignWiredNode wnode : wiredNodeList) {
+            if (wnode.getName().equals(agent[0])) {
+                node = wnode;
+                NodePropertiesWindow properties = new NodePropertiesWindow(node, agent[1], agent[2], appName, appType, settings);
+                node.setProperties(properties);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            for (TclDesignWirelessNode wlnode : wirelessNodeList) {
+                if (wlnode.getName().equals(agent[0])) {
+                    node = wlnode;
+                    NodePropertiesWindow properties = new NodePropertiesWindow(node, agent[1], agent[2], appName, appType, settings);
+                    node.setProperties(properties);
+                    break;
+                }
+            }
+        }
     }
 
     public Collection<TclDesignWiredNode> getWiredNodeList() {

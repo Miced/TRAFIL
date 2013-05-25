@@ -102,7 +102,7 @@ $ns attach-agent $n5 $null8
 
 #Connect the traffic source with the traffic sink
 $ns connect $tcp4 $null1
-$ns connect $udp7 $null9
+$ns connect $udp7 $null8
 
 #Call the finish procedure after  seconds of simulation time
 $ns at 4.0 "finish"

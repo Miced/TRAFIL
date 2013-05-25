@@ -3611,6 +3611,7 @@ private void enableNodetoNodeActionPerformed(java.awt.event.ActionEvent evt) {//
                 tclDesigner.setLinkList(TclFileLoader.getLinkList());
                 DefaultTableModel connectedAgentsModel = TclDesignerPanel.getConnectedAgentsModel();
                 for (String[] str : TclFileLoader.getConnectedAgentsList()) {
+                    System.out.println("Sending: " + str[0] + " Receiving: " + str[1]);
                     for (int row = 0; row < connectedAgentsModel.getRowCount(); row++) {
                         if (connectedAgentsModel.getValueAt(row, 0).equals(str[0])) {
                             connectedAgentsModel.setValueAt(str[1], row, 2);

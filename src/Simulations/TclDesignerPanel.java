@@ -280,6 +280,11 @@ public class TclDesignerPanel extends JPanel {
                 return node.getAttachedAgent();
             }
         }
+        for (TclDesignWirelessNode node : wirelessNodeList) {
+            if (node.getName().equals(name)) {
+                return node.getAttachedAgent();
+            }
+        }
         return null;
     }
 
