@@ -6,7 +6,6 @@ package Simulations;
 
 import UI.LinkListWindow;
 import UI.ConnectedAgentsWindow;
-import UI.SimulationPropertiesWindow;
 import UI.SimulationWirelessSettingsWindow;
 import UI.TRAFIL;
 import static UI.TRAFIL.statusBar;
@@ -54,6 +53,36 @@ public class TclDesignerPanel extends JPanel {
 
         /* Adding the mouseListeners that react to the Design Panel. */
         addMouseListener(new MouseAdapter() {
+
+            public void mouseReleased(MouseEvent e) {
+                /* If node already exists, popup properties, or show right click menu. */
+                if (!trafil.getNewLinkButton().isSelected()) {
+                    for (TclDesignWiredNode wnode : wiredNodeList) {
+                        if (wnode.getRectangle().contains(e.getPoint())) {
+                            if (e.isPopupTrigger()) {
+                                RightClickMenu menu = new RightClickMenu((TclDesignNode) wnode);
+                                menu.show(e.getComponent(), e.getX(), e.getY());
+                            } else if (e.getClickCount() == 2) {
+                                wnode.getProperties().setVisible(true);
+                            }
+                            return;
+                        }
+                    }
+
+                    for (TclDesignWirelessNode wlnode : wirelessNodeList) {
+                        if (wlnode.getCircle().contains(e.getPoint())) {
+                            if (e.isPopupTrigger()) {
+                                RightClickMenu menu = new RightClickMenu((TclDesignNode) wlnode);
+                                menu.show(e.getComponent(), e.getX(), e.getY());
+                            } else if (e.getClickCount() == 2) {
+                                wlnode.getProperties().setVisible(true);
+                            }
+                            return;
+                        }
+                    }
+                }
+            }
+
             @Override
             public void mousePressed(MouseEvent e) {
 
@@ -412,11 +441,13 @@ public class TclDesignerPanel extends JPanel {
         }
 
         for (TclDesignWiredNode wnode : wiredNodeList) {
-            outputContent += "set " + wnode.getProperties().getNodeNameField().getText() + " [$ns node] #{TRAFIL} xpos=" + wnode.getRectangle().getX() + " ypos=" + wnode.getRectangle().getY() + " wired\n";
+            outputContent += "#{TRAFIL} node " + wnode.getProperties().getNodeNameField().getText() + "xpos=" + wnode.getRectangle().getX() + " ypos=" + wnode.getRectangle().getY() + " wired\n";
+            outputContent += "set " + wnode.getProperties().getNodeNameField().getText() + " [$ns node]";
         }
 
         for (TclDesignWirelessNode wlnode : wirelessNodeList) {
-            outputContent += "set " + wlnode.getProperties().getNodeNameField().getText() + " [$ns node] #{TRAFIL} xpos=" + wlnode.getCircle().getX() + " ypos=" + wlnode.getCircle().getY() + " wireless\n";
+            outputContent += "#{TRAFIL} node " + wlnode.getProperties().getNodeNameField().getText() + " xpos=" + wlnode.getCircle().getX() + " ypos=" + wlnode.getCircle().getY() + " wireless\n";
+            outputContent += "set " + wlnode.getProperties().getNodeNameField().getText() + " [$ns node]";
             outputContent += "$" + wlnode.getProperties().getNodeNameField().getText() + " random-motion 0\n";
         }
         outputContent += "\n";
@@ -434,7 +465,7 @@ public class TclDesignerPanel extends JPanel {
             String queue = model.getValueAt(i, 1).toString();
             String delay = model.getValueAt(i, 3).toString();
 
-            outputContent += "$ns " + type + " $" + startingNode + " $" + endingNode + " " + bandwidth + " " + delay + " " + queue + " #{TRAFIL} link\n";
+            outputContent += "$ns " + type + " $" + startingNode + " $" + endingNode + " " + bandwidth + " " + delay + " " + queue + "\n";
         }
         outputContent += "\n";
 
@@ -476,7 +507,6 @@ public class TclDesignerPanel extends JPanel {
                         + "$ns attach-agent $" + name + " $" + agent + "\n\n";
                 break;
         }
-
 
         if (!node.getProperties().getAgentBox().getSelectedItem().toString().equals("Null")) {
             // Create traffic sources and attach them to agent

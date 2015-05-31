@@ -46,8 +46,8 @@ public class TclFileLoader {
         ArrayList<String[]> agentsList = new ArrayList<>();
 
         Pattern tracefilenamePattern = Pattern.compile("\\[open (.*?).tr w\\]");
-        Pattern nodesPattern = Pattern.compile("\\[\\$ns node\\]");
-        Pattern linksPattern = Pattern.compile("\\$ns (.+?) \\$(n[0-9]+) \\$(n[0-9]+) (.+?) (.+?) (.+?) #\\{TRAFIL\\} link");
+        Pattern nodesPattern = Pattern.compile("#\\{TRAFIL\\} node n([0-9]+) xpos=([0-9]+.[0-9]+) ypos=([0-9]+.[0-9]+) ([a-zA-Z0-9]+)");
+        Pattern linksPattern = Pattern.compile("\\$ns (.+?) \\$(n[0-9]+) \\$(n[0-9]+) (.+?) (.+?) (.+)");
         Pattern agentsPattern = Pattern.compile("set (.+?) \\[new Agent/(.+?)\\]");
         Pattern assignAgentPattern = Pattern.compile("attach-agent \\$(n[0-9]+) \\$(.+)");
         Pattern applicationsPattern = Pattern.compile("set (.+?) \\[new Application/(.+?)\\]");
@@ -75,22 +75,14 @@ public class TclFileLoader {
                 /* DETECTING NODES */
                 m = nodesPattern.matcher(data);
                 if (m.find()) {
-                    if (data.substring(data.lastIndexOf(" ") + 1).equals("wired")) {
-                        TclDesignWiredNode wnode = new TclDesignWiredNode(0);
-                        String[] split = data.split(" ");
-                        wnode.setName(split[1]);
-                        int xpos = Integer.parseInt(data.substring(data.indexOf("xpos=") + "xpos=".length(), data.indexOf(".", data.indexOf("xpos="))));
-                        int ypos = Integer.parseInt(data.substring(data.indexOf("ypos=") + "ypos=".length(), data.indexOf(".", data.indexOf("ypos="))));
-                        wnode.setRectangle(new Rectangle2D.Double(xpos, ypos, wnode.getWidth(), wnode.getHeight()));
+                    if ("wired".equals(m.group(4))) {
+                        TclDesignWiredNode wnode = new TclDesignWiredNode(Integer.parseInt(m.group(1)));
+                        wnode.setRectangle(new Rectangle2D.Double(Float.parseFloat(m.group(2)), Float.parseFloat(m.group(3)), wnode.getWidth(), wnode.getHeight()));
                         wiredNodeList.add(wnode);
                         System.out.println("Wired Node: " + wnode.getName());
                     } else {
-                        TclDesignWirelessNode wlnode = new TclDesignWirelessNode(0);
-                        String[] split = data.split(" ");
-                        wlnode.setName(split[1]);
-                        int xpos = Integer.parseInt(data.substring(data.indexOf("xpos=") + "xpos=".length(), data.indexOf(".", data.indexOf("xpos="))));
-                        int ypos = Integer.parseInt(data.substring(data.indexOf("ypos=") + "ypos=".length(), data.indexOf(".", data.indexOf("ypos="))));
-                        wlnode.setCircle(new Ellipse2D.Double(xpos, ypos, wlnode.getWidth(), wlnode.getHeight()));
+                        TclDesignWirelessNode wlnode = new TclDesignWirelessNode(Integer.parseInt(m.group(1)));
+                        wlnode.setCircle(new Ellipse2D.Double(Float.parseFloat(m.group(2)), Float.parseFloat(m.group(3)), wlnode.getWidth(), wlnode.getHeight()));
                         wirelessNodeList.add(wlnode);
                         System.out.println("Wireless Node: " + wlnode.getName());
                     }

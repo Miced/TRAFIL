@@ -2756,10 +2756,10 @@ private void connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 
                 TableHan.getModel3().addTableModelListener(tmh);
 
-                if (System.getProperty("os.name").contains("Windows") || System.getProperty("os.name").contains("windows")) {
-                    NsTool.setVisible(false);
-                    tabbed.remove(jPanel9);
-                }
+//                if (System.getProperty("os.name").contains("Windows") || System.getProperty("os.name").contains("windows")) {
+//                    NsTool.setVisible(false);
+//                    tabbed.remove(jPanel9);
+//                }
             }
 
         } catch (SQLException e1) {
