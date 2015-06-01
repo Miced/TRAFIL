@@ -6,6 +6,7 @@ package Simulations;
 
 import static Simulations.TclDesignerPanel.connectedAgentsModel;
 import static Simulations.TclDesignerPanel.connectedAgentsWindow;
+import static Simulations.TclDesignerPanel.linkListModel;
 import UI.NodePropertiesWindow;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -131,7 +132,12 @@ public abstract class TclDesignNode {
     }
 
     private void removeFromLinkListWindow() {
-        //TODO: Remove node from linklistwindow
+        DefaultTableModel model = linkListModel;
+        for (int row = model.getRowCount() - 1; row >= 0; row--) {
+            if (name.equals(model.getValueAt(row, 4)) || name.equals(model.getValueAt(row, 5))) {
+                model.removeRow(row);
+            }
+        }
     }
 
     public void setAttachedAgent(String agent) {

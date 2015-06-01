@@ -7,3 +7,8 @@
 /nbproject/private/
 /build/
 settings.properties
+/dist/
+/NetworkSimulationOutputs/
+/SimulationDesignOutputs/
+/VideoSimulationOutputs/
+settings.properties

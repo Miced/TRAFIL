@@ -645,11 +645,7 @@ public class TclDesignerPanel extends JPanel {
         if (node instanceof TclDesignWiredNode) {
             wiredNodeList.remove((TclDesignWiredNode) node);
             TclDesignWiredNode temp = (TclDesignWiredNode) node;
-            for (TclDesignLink link : linkList) {
-                if (link.getStartingNode() == temp || link.getEndingNode() == temp) {
-                    linkList.remove(link);
-                }
-            }
+            linkList.removeIf((TclDesignLink link)->(link.getStartingNode() == temp || link.getEndingNode() == temp));
         } else {
             wirelessNodeList.remove((TclDesignWirelessNode) node);
         }
